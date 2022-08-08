@@ -1,0 +1,201 @@
+postgresql-14 (14.5-0ubuntu0.22.04.1) jammy-security; urgency=medium
+
+  * New upstream version (LP: #1984012).
+
+    + A dump/restore is not required for those running 14.X.
+
+    + Also, if you are upgrading from a version earlier than 14.4, see
+      those release notes as well please.
+
+    + Do not let extension scripts replace objects not already belonging
+      to the extension (Tom Lane).
+      (CVE-2022-2625)
+
+    + Do not let extension scripts replace objects not already belonging
+      to the extension (Tom Lane).
+
+    + Fix permissions checks in CREATE INDEX (Nathan Bossart,
+      Noah Misch).
+
+    + Details about these and many further changes can be found at:
+      https://www.postgresql.org/docs/14/release-14-5.html
+
+ -- Sergio Durigan Junior <sergio.durigan@canonical.com>  Mon, 08 Aug 2022 18:15:57 -0400
+
+postgresql-14 (14.4-0ubuntu0.22.04.1) jammy; urgency=medium
+
+  * New upstream version (LP: #1978249).
+
+    + A dump/restore is not required for those running 14.X.
+
+    + However, if you have any indexes that were created using the
+      CONCURRENTLY option under 14.X, you should re-index them after
+      updating.  See the upstream changelog linked below for further
+      information.
+
+    + Also, if you are upgrading from a version earlier than 14.3, see
+      those release notes as well please.
+
+    + Prevent possible corruption of indexes created or rebuilt with the
+      CONCURRENTLY option (Álvaro Herrera).
+
+      An optimization added in v14 caused CREATE INDEX ... CONCURRENTLY
+      and REINDEX ... CONCURRENTLY to sometimes miss indexing rows that were
+      updated during the index build. Revert that optimization. It is
+      recommended that any indexes made with the CONCURRENTLY option be
+      rebuilt after installing this update. (Alternatively, rebuild them
+      without CONCURRENTLY.)
+
+    + Details about these and many further changes can be found at:
+      https://www.postgresql.org/docs/14/release-14-4.html
+
+ -- Sergio Durigan Junior <sergio.durigan@canonical.com>  Fri, 17 Jun 2022 12:00:44 -0400
+
+postgresql-14 (14.3-0ubuntu0.22.04.1) jammy-security; urgency=medium
+
+  * New upstream version (LP: #1973627).
+
+    + A dump/restore is not required for those running 14.X.
+
+    + However, if you have any GiST indexes on columns of type ltree (supplied
+      by the contrib/ltree extension), you should re-index them after updating.
+      See the upstream changelog linked below for further information.
+
+    + Also, if you are upgrading from a version earlier than 14.2, see
+      those release notes as well please.
+
+    + Confine additional operations within "security restricted operation"
+      sandboxes (Sergey Shinderuk, Noah Misch).
+
+      Autovacuum, CLUSTER, CREATE INDEX, REINDEX, REFRESH MATERIALIZED VIEW,
+      and pg_amcheck activated the "security restricted operation" protection
+      mechanism too late, or even not at all in some code paths. A user having
+      permission to create non-temporary objects within a database could
+      define an object that would execute arbitrary SQL code with superuser
+      permissions the next time that autovacuum processed the object, or that
+      some superuser ran one of the affected commands against it.
+
+      The PostgreSQL Project thanks Alexander Lakhin for reporting this
+      problem.
+      (CVE-2022-1552)
+
+    + Details about these and many further changes can be found at:
+      https://www.postgresql.org/docs/14/release-14-3.html
+
+  * d/p/llvm14-support.patch: drop patch applied upstream.
+
+ -- Athos Ribeiro <athos.ribeiro@canonical.com>  Mon, 16 May 2022 16:17:01 -0300
+
+postgresql-14 (14.2-1ubuntu1) jammy; urgency=medium
+
+  * d/p/llvm14-support.patch: fix FTBFS with llvm-14 (LP: #1966319)
+
+ -- Andreas Hasenack <andreas@canonical.com>  Fri, 25 Mar 2022 11:34:41 -0300
+
+postgresql-14 (14.2-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Christoph Berg <myon@debian.org>  Wed, 09 Feb 2022 10:39:43 +0100
+
+postgresql-14 (14.1-5) unstable; urgency=medium
+
+  * Provide postgresql-14-jit-llvm (= ${llvm:Version}) so extensions can
+    depend on a matching llvm version.
+
+ -- Christoph Berg <myon@debian.org>  Mon, 03 Jan 2022 16:08:18 +0100
+
+postgresql-14 (14.1-4) unstable; urgency=medium
+
+  [ Christoph Berg ]
+  * Disable LLVM JIT on s390x for now. (See #1002029)
+
+  [ Christian Ehrhardt ]
+  * postgresql-common/server/postgresql.mk: avoid gcc 11 ICE on armhf and
+    armel.
+
+ -- Christoph Berg <myon@debian.org>  Mon, 20 Dec 2021 18:21:21 +0100
+
+postgresql-14 (14.1-3) unstable; urgency=medium
+
+  * Use system default clang/llvm version. (Closes: #1000915)
+  * Use centralized debian/rules logic in postgresql-common.
+
+ -- Christoph Berg <myon@debian.org>  Fri, 03 Dec 2021 09:56:49 +0100
+
+postgresql-14 (14.1-2) unstable; urgency=medium
+
+  * Enable outline-atomics on arm64 (affects Ubuntu focal only).
+
+ -- Christoph Berg <myon@debian.org>  Tue, 16 Nov 2021 11:56:37 +0100
+
+postgresql-14 (14.1-1) unstable; urgency=medium
+
+  * New upstream release.
+
+    + Make the server and libpq reject extraneous data after an SSL or GSS
+      encryption handshake (Tom Lane)
+
+      A man-in-the-middle with the ability to inject data into the TCP
+      connection could stuff some cleartext data into the start of a
+      supposedly encryption-protected database session.
+
+      This could be abused to send faked SQL commands to the server, although
+      that would only work if the server did not demand any authentication
+      data.  (However, a server relying on SSL certificate authentication
+      might well not do so.) (CVE-2021-23214)
+
+      This could probably be abused to inject faked responses to the client's
+      first few queries, although other details of libpq's behavior make that
+      harder than it sounds.  A different line of attack is to exfiltrate the
+      client's password, or other sensitive data that might be sent early in
+      the session.  That has been shown to be possible with a server
+      vulnerable to CVE-2021-23214. (CVE-2021-23222)
+
+      The PostgreSQL Project thanks Jacob Champion for reporting these
+      problems.
+
+  * libpq-dev: Depend on libssl-dev, `pkg-config --exists libpq` requires it.
+
+ -- Christoph Berg <myon@debian.org>  Fri, 05 Nov 2021 12:05:46 +0100
+
+postgresql-14 (14.0-1) unstable; urgency=medium
+
+  * First PG14 release.
+  * Depend on postgresql-common 229 for scram-sha-256 authentication by
+    default.
+
+ -- Christoph Berg <myon@debian.org>  Tue, 28 Sep 2021 13:56:00 +0200
+
+postgresql-14 (14~rc1-1) experimental; urgency=medium
+
+  * First PG14 release candidate.
+  * Enable spinlocks on riscv64.
+  * Fix awk to be mawk, spotted by Yangfl. (Closes: #987786)
+  * configure.ac: Remove check for autoconf 2.69.
+  * Spanish debconf translation by Jonathan Bustillos, thanks!
+    (Closes: #986775)
+  * Flatten debian/*.lintian-overrides symlinks.
+
+ -- Christoph Berg <myon@debian.org>  Thu, 23 Sep 2021 12:39:42 +0200
+
+postgresql-14 (14~beta3-1) experimental; urgency=medium
+
+  * New beta version.
+  * libpq5.symbols: Add PQsendFlushRequest.
+
+ -- Christoph Berg <myon@debian.org>  Tue, 10 Aug 2021 13:11:12 +0200
+
+postgresql-14 (14~beta2-1) experimental; urgency=medium
+
+  * New beta version.
+  * libpq5.symbols: Add PQmblenBounded, PQsetTraceFlags, remove PQtraceSetFlags.
+  * debian/tests/installcheck: Use --make-testtablespace-dir.
+
+ -- Christoph Berg <myon@debian.org>  Wed, 23 Jun 2021 11:03:06 +0200
+
+postgresql-14 (14~beta1-1) experimental; urgency=medium
+
+  * New major upstream version 14; packaging based on postgresql-13.
+
+ -- Christoph Berg <myon@debian.org>  Tue, 18 May 2021 13:40:56 +0200
