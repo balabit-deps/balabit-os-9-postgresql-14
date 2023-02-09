@@ -2,12 +2,12 @@
 .\"     Title: CREATE TABLE
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
-.\"      Date: 2022
-.\"    Manual: PostgreSQL 14.5 Documentation
-.\"    Source: PostgreSQL 14.5
+.\"      Date: 2023
+.\"    Manual: PostgreSQL 14.7 Documentation
+.\"    Source: PostgreSQL 14.7
 .\"  Language: English
 .\"
-.TH "CREATE TABLE" "7" "2022" "PostgreSQL 14.5" "PostgreSQL 14.5 Documentation"
+.TH "CREATE TABLE" "7" "2023" "PostgreSQL 14.7" "PostgreSQL 14.7 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -927,7 +927,9 @@ The fillfactor for a table is a percentage between 10 and 100\&. 100 (complete p
 \fBINSERT\fR
 operations pack table pages only to the indicated percentage; the remaining space on each page is reserved for updating rows on that page\&. This gives
 \fBUPDATE\fR
-a chance to place the updated copy of a row on the same page as the original, which is more efficient than placing it on a different page\&. For a table whose entries are never updated, complete packing is the best choice, but in heavily updated tables smaller fillfactors are appropriate\&. This parameter cannot be set for TOAST tables\&.
+a chance to place the updated copy of a row on the same page as the original, which is more efficient than placing it on a different page, and makes
+heap\-only tuple updates
+more likely\&. For a table whose entries are never updated, complete packing is the best choice, but in heavily updated tables smaller fillfactors are appropriate\&. This parameter cannot be set for TOAST tables\&.
 .RE
 .PP
 toast_tuple_target (integer)

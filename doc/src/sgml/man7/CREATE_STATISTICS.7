@@ -2,12 +2,12 @@
 .\"     Title: CREATE STATISTICS
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
-.\"      Date: 2022
-.\"    Manual: PostgreSQL 14.5 Documentation
-.\"    Source: PostgreSQL 14.5
+.\"      Date: 2023
+.\"    Manual: PostgreSQL 14.7 Documentation
+.\"    Source: PostgreSQL 14.7
 .\"  Language: English
 .\"
-.TH "CREATE STATISTICS" "7" "2022" "PostgreSQL 14.5" "PostgreSQL 14.5 Documentation"
+.TH "CREATE STATISTICS" "7" "2023" "PostgreSQL 14.7" "PostgreSQL 14.7 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -88,7 +88,9 @@ An expression to be covered by the computed statistics\&. This may be used to bu
 .PP
 \fItable_name\fR
 .RS 4
-The name (optionally schema\-qualified) of the table containing the column(s) the statistics are computed on\&.
+The name (optionally schema\-qualified) of the table containing the column(s) the statistics are computed on; see
+\fBANALYZE\fR(7)
+for an explanation of the handling of inheritance and partitions\&.
 .RE
 .SH "NOTES"
 .PP

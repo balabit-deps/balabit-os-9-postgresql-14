@@ -2,12 +2,12 @@
 .\"     Title: COMMENT
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
-.\"      Date: 2022
-.\"    Manual: PostgreSQL 14.5 Documentation
-.\"    Source: PostgreSQL 14.5
+.\"      Date: 2023
+.\"    Manual: PostgreSQL 14.7 Documentation
+.\"    Source: PostgreSQL 14.7
 .\"  Language: English
 .\"
-.TH "COMMENT" "7" "2022" "PostgreSQL 14.5" "PostgreSQL 14.5 Documentation"
+.TH "COMMENT" "7" "2023" "PostgreSQL 14.7" "PostgreSQL 14.7 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -77,7 +77,7 @@ COMMENT ON
   TRIGGER \fItrigger_name\fR ON \fItable_name\fR |
   TYPE \fIobject_name\fR |
   VIEW \fIobject_name\fR
-} IS \*(Aq\fItext\fR\*(Aq
+} IS { \fIstring_literal\fR | NULL }
 
 where \fIaggregate_signature\fR is:
 
@@ -222,9 +222,14 @@ The name of the data type of the transform\&.
 The name of the language of the transform\&.
 .RE
 .PP
-\fItext\fR
+\fIstring_literal\fR
 .RS 4
-The new comment, written as a string literal; or
+The new comment contents, written as a string literal\&.
+.RE
+.PP
+NULL
+.RS 4
+Write
 NULL
 to drop the comment\&.
 .RE

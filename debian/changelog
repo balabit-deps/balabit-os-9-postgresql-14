@@ -1,3 +1,43 @@
+postgresql-14 (14.7-0ubuntu0.22.04.1) jammy-security; urgency=medium
+
+  * New upstream version (LP: #2006406).
+
+    + A dump/restore is not required for those running 14.X.
+
+    + Also, if you are upgrading from a version earlier than 14.4, see
+      those release notes as well please.
+
+    + libpq can leak memory contents after GSSAPI transport encryption
+      initiation fails (Jacob Champion).
+      (CVE-2022-41862)
+
+    + Fix calculation of which GENERATED columns need to be updated in
+      child tables during an UPDATE on a partitioned table or inheritance
+      tree (Amit Langote, Tom Lane).
+
+    + Details about these and many further changes can be found at:
+      https://www.postgresql.org/docs/14/release-14-7.html
+
+ -- Sergio Durigan Junior <sergio.durigan@canonical.com>  Thu, 09 Feb 2023 15:18:50 -0500
+
+postgresql-14 (14.6-0ubuntu0.22.04.1) jammy; urgency=medium
+
+  * New upstream version (LP: #1996770).
+
+    + A dump/restore is not required for those running 14.X.
+
+    + Also, if you are upgrading from a version earlier than 14.4, see
+      those release notes as well please.
+
+    + Disallow rules named _RETURN that are not ON SELECT rules (Tom Lane).
+
+    + Fix use-after-free hazard in string comparisons. (Tom Lane)
+
+    + Details about these and many further changes can be found at:
+      https://www.postgresql.org/docs/14/release-14-6.html
+
+ -- Athos Ribeiro <athos.ribeiro@canonical.com>  Thu, 17 Nov 2022 17:11:29 -0300
+
 postgresql-14 (14.5-0ubuntu0.22.04.1) jammy-security; urgency=medium
 
   * New upstream version (LP: #1984012).

@@ -2,12 +2,12 @@
 .\"     Title: CREATE ROLE
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
-.\"      Date: 2022
-.\"    Manual: PostgreSQL 14.5 Documentation
-.\"    Source: PostgreSQL 14.5
+.\"      Date: 2023
+.\"    Manual: PostgreSQL 14.7 Documentation
+.\"    Source: PostgreSQL 14.7
 .\"  Language: English
 .\"
-.TH "CREATE ROLE" "7" "2022" "PostgreSQL 14.5" "PostgreSQL 14.5 Documentation"
+.TH "CREATE ROLE" "7" "2023" "PostgreSQL 14.7" "PostgreSQL 14.7 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -103,10 +103,9 @@ CREATEROLE
 .br
 NOCREATEROLE
 .RS 4
-These clauses determine whether a role will be permitted to create new roles (that is, execute
-\fBCREATE ROLE\fR)\&. A role with
-CREATEROLE
-privilege can also alter and drop other roles\&. If not specified,
+These clauses determine whether a role will be permitted to create, alter, drop, comment on, change the security label for, and grant or revoke membership in other roles\&. See
+role creation
+for more details about what capabilities are conferred by this privilege\&. If not specified,
 NOCREATEROLE
 is the default\&.
 .RE

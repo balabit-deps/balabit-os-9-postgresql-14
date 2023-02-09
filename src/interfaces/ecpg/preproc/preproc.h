@@ -452,7 +452,7 @@ extern int base_yydebug;
     REASSIGN = 653,                /* REASSIGN  */
     RECHECK = 654,                 /* RECHECK  */
     RECURSIVE = 655,               /* RECURSIVE  */
-    REF = 656,                     /* REF  */
+    REF_P = 656,                   /* REF_P  */
     REFERENCES = 657,              /* REFERENCES  */
     REFERENCING = 658,             /* REFERENCING  */
     REFRESH = 659,                 /* REFRESH  */

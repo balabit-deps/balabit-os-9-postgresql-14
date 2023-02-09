@@ -642,11 +642,11 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    83,    83,    85,    86,    87,    90,    91,    93,    96,
-      99,   101,   102,   103,   104,   105,   106,   107,   108,   109,
-     110,   111,   112,   113,   114,   115,   116,   117,   118,   119,
-     121,   122,   126,   127,   132,   136,   142,   143,   144,   145,
-     147,   148,   149,   153,   154,   157,   158,   160
+       0,    83,    83,    88,    89,    90,    93,    94,    96,    99,
+     102,   104,   105,   106,   107,   108,   109,   110,   111,   112,
+     113,   114,   115,   116,   117,   118,   119,   120,   121,   122,
+     124,   125,   129,   130,   135,   139,   145,   146,   147,   148,
+     150,   151,   152,   156,   157,   160,   161,   163
 };
 #endif
 
@@ -1331,295 +1331,298 @@ yyreduce:
     {
   case 2: /* result: expr  */
 #line 83 "exprparse.y"
-                                        { expr_parse_result = (yyvsp[0].expr); }
-#line 1336 "exprparse.c"
+                                        {
+								expr_parse_result = (yyvsp[0].expr);
+								(void) yynerrs; /* suppress compiler warning */
+							}
+#line 1339 "exprparse.c"
     break;
 
   case 3: /* elist: %empty  */
-#line 85 "exprparse.y"
+#line 88 "exprparse.y"
                                                 { (yyval.elist) = NULL; }
-#line 1342 "exprparse.c"
+#line 1345 "exprparse.c"
     break;
 
   case 4: /* elist: expr  */
-#line 86 "exprparse.y"
+#line 89 "exprparse.y"
                                                 { (yyval.elist) = make_elist((yyvsp[0].expr), NULL); }
-#line 1348 "exprparse.c"
+#line 1351 "exprparse.c"
     break;
 
   case 5: /* elist: elist ',' expr  */
-#line 87 "exprparse.y"
+#line 90 "exprparse.y"
                                         { (yyval.elist) = make_elist((yyvsp[0].expr), (yyvsp[-2].elist)); }
-#line 1354 "exprparse.c"
+#line 1357 "exprparse.c"
     break;
 
   case 6: /* expr: '(' expr ')'  */
-#line 90 "exprparse.y"
+#line 93 "exprparse.y"
                                         { (yyval.expr) = (yyvsp[-1].expr); }
-#line 1360 "exprparse.c"
+#line 1363 "exprparse.c"
     break;
 
   case 7: /* expr: '+' expr  */
-#line 91 "exprparse.y"
+#line 94 "exprparse.y"
                                 { (yyval.expr) = (yyvsp[0].expr); }
-#line 1366 "exprparse.c"
+#line 1369 "exprparse.c"
     break;
 
   case 8: /* expr: '-' expr  */
-#line 93 "exprparse.y"
+#line 96 "exprparse.y"
                                 { (yyval.expr) = make_op(yyscanner, "-",
 										   make_integer_constant(0), (yyvsp[0].expr)); }
-#line 1373 "exprparse.c"
+#line 1376 "exprparse.c"
     break;
 
   case 9: /* expr: '-' MAXINT_PLUS_ONE_CONST  */
-#line 97 "exprparse.y"
+#line 100 "exprparse.y"
                                                         { (yyval.expr) = make_integer_constant(PG_INT64_MIN); }
-#line 1379 "exprparse.c"
+#line 1382 "exprparse.c"
     break;
 
   case 10: /* expr: '~' expr  */
-#line 99 "exprparse.y"
+#line 102 "exprparse.y"
                                                 { (yyval.expr) = make_op(yyscanner, "#",
 										   make_integer_constant(~INT64CONST(0)), (yyvsp[0].expr)); }
-#line 1386 "exprparse.c"
+#line 1389 "exprparse.c"
     break;
 
   case 11: /* expr: NOT_OP expr  */
-#line 101 "exprparse.y"
+#line 104 "exprparse.y"
                                         { (yyval.expr) = make_uop(yyscanner, "!not", (yyvsp[0].expr)); }
-#line 1392 "exprparse.c"
+#line 1395 "exprparse.c"
     break;
 
   case 12: /* expr: expr '+' expr  */
-#line 102 "exprparse.y"
+#line 105 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "+", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1398 "exprparse.c"
+#line 1401 "exprparse.c"
     break;
 
   case 13: /* expr: expr '-' expr  */
-#line 103 "exprparse.y"
+#line 106 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "-", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1404 "exprparse.c"
+#line 1407 "exprparse.c"
     break;
 
   case 14: /* expr: expr '*' expr  */
-#line 104 "exprparse.y"
+#line 107 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "*", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1410 "exprparse.c"
+#line 1413 "exprparse.c"
     break;
 
   case 15: /* expr: expr '/' expr  */
-#line 105 "exprparse.y"
+#line 108 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "/", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1416 "exprparse.c"
+#line 1419 "exprparse.c"
     break;
 
   case 16: /* expr: expr '%' expr  */
-#line 106 "exprparse.y"
+#line 109 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "mod", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1422 "exprparse.c"
+#line 1425 "exprparse.c"
     break;
 
   case 17: /* expr: expr '<' expr  */
-#line 107 "exprparse.y"
+#line 110 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "<", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1428 "exprparse.c"
+#line 1431 "exprparse.c"
     break;
 
   case 18: /* expr: expr LE_OP expr  */
-#line 108 "exprparse.y"
+#line 111 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "<=", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1434 "exprparse.c"
+#line 1437 "exprparse.c"
     break;
 
   case 19: /* expr: expr '>' expr  */
-#line 109 "exprparse.y"
+#line 112 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "<", (yyvsp[0].expr), (yyvsp[-2].expr)); }
-#line 1440 "exprparse.c"
+#line 1443 "exprparse.c"
     break;
 
   case 20: /* expr: expr GE_OP expr  */
-#line 110 "exprparse.y"
+#line 113 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "<=", (yyvsp[0].expr), (yyvsp[-2].expr)); }
-#line 1446 "exprparse.c"
+#line 1449 "exprparse.c"
     break;
 
   case 21: /* expr: expr '=' expr  */
-#line 111 "exprparse.y"
+#line 114 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "=", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1452 "exprparse.c"
+#line 1455 "exprparse.c"
     break;
 
   case 22: /* expr: expr NE_OP expr  */
-#line 112 "exprparse.y"
+#line 115 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "<>", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1458 "exprparse.c"
+#line 1461 "exprparse.c"
     break;
 
   case 23: /* expr: expr '&' expr  */
-#line 113 "exprparse.y"
+#line 116 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "&", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1464 "exprparse.c"
+#line 1467 "exprparse.c"
     break;
 
   case 24: /* expr: expr '|' expr  */
-#line 114 "exprparse.y"
+#line 117 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "|", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1470 "exprparse.c"
+#line 1473 "exprparse.c"
     break;
 
   case 25: /* expr: expr '#' expr  */
-#line 115 "exprparse.y"
+#line 118 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "#", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1476 "exprparse.c"
+#line 1479 "exprparse.c"
     break;
 
   case 26: /* expr: expr LS_OP expr  */
-#line 116 "exprparse.y"
+#line 119 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "<<", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1482 "exprparse.c"
+#line 1485 "exprparse.c"
     break;
 
   case 27: /* expr: expr RS_OP expr  */
-#line 117 "exprparse.y"
+#line 120 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, ">>", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1488 "exprparse.c"
+#line 1491 "exprparse.c"
     break;
 
   case 28: /* expr: expr AND_OP expr  */
-#line 118 "exprparse.y"
+#line 121 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "!and", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1494 "exprparse.c"
+#line 1497 "exprparse.c"
     break;
 
   case 29: /* expr: expr OR_OP expr  */
-#line 119 "exprparse.y"
+#line 122 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "!or", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1500 "exprparse.c"
+#line 1503 "exprparse.c"
     break;
 
   case 30: /* expr: expr ISNULL_OP  */
-#line 121 "exprparse.y"
+#line 124 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "!is", (yyvsp[-1].expr), make_null_constant()); }
-#line 1506 "exprparse.c"
+#line 1509 "exprparse.c"
     break;
 
   case 31: /* expr: expr NOTNULL_OP  */
-#line 122 "exprparse.y"
+#line 125 "exprparse.y"
                                         {
 								(yyval.expr) = make_uop(yyscanner, "!not",
 											  make_op(yyscanner, "!is", (yyvsp[-1].expr), make_null_constant()));
 							}
-#line 1515 "exprparse.c"
+#line 1518 "exprparse.c"
     break;
 
   case 32: /* expr: expr IS_OP NULL_CONST  */
-#line 126 "exprparse.y"
+#line 129 "exprparse.y"
                                 { (yyval.expr) = make_op(yyscanner, "!is", (yyvsp[-2].expr), make_null_constant()); }
-#line 1521 "exprparse.c"
+#line 1524 "exprparse.c"
     break;
 
   case 33: /* expr: expr IS_OP NOT_OP NULL_CONST  */
-#line 128 "exprparse.y"
+#line 131 "exprparse.y"
                                                         {
 								(yyval.expr) = make_uop(yyscanner, "!not",
 											  make_op(yyscanner, "!is", (yyvsp[-3].expr), make_null_constant()));
 							}
-#line 1530 "exprparse.c"
+#line 1533 "exprparse.c"
     break;
 
   case 34: /* expr: expr IS_OP BOOLEAN_CONST  */
-#line 133 "exprparse.y"
+#line 136 "exprparse.y"
                                                         {
 								(yyval.expr) = make_op(yyscanner, "!is", (yyvsp[-2].expr), make_boolean_constant((yyvsp[0].bval)));
 							}
-#line 1538 "exprparse.c"
+#line 1541 "exprparse.c"
     break;
 
   case 35: /* expr: expr IS_OP NOT_OP BOOLEAN_CONST  */
-#line 137 "exprparse.y"
+#line 140 "exprparse.y"
                                                         {
 								(yyval.expr) = make_uop(yyscanner, "!not",
 											  make_op(yyscanner, "!is", (yyvsp[-3].expr), make_boolean_constant((yyvsp[0].bval))));
 							}
-#line 1547 "exprparse.c"
+#line 1550 "exprparse.c"
     break;
 
   case 36: /* expr: NULL_CONST  */
-#line 142 "exprparse.y"
+#line 145 "exprparse.y"
                                         { (yyval.expr) = make_null_constant(); }
-#line 1553 "exprparse.c"
+#line 1556 "exprparse.c"
     break;
 
   case 37: /* expr: BOOLEAN_CONST  */
-#line 143 "exprparse.y"
+#line 146 "exprparse.y"
                                         { (yyval.expr) = make_boolean_constant((yyvsp[0].bval)); }
-#line 1559 "exprparse.c"
+#line 1562 "exprparse.c"
     break;
 
   case 38: /* expr: INTEGER_CONST  */
-#line 144 "exprparse.y"
+#line 147 "exprparse.y"
                                         { (yyval.expr) = make_integer_constant((yyvsp[0].ival)); }
-#line 1565 "exprparse.c"
+#line 1568 "exprparse.c"
     break;
 
   case 39: /* expr: DOUBLE_CONST  */
-#line 145 "exprparse.y"
+#line 148 "exprparse.y"
                                         { (yyval.expr) = make_double_constant((yyvsp[0].dval)); }
-#line 1571 "exprparse.c"
+#line 1574 "exprparse.c"
     break;
 
   case 40: /* expr: VARIABLE  */
-#line 147 "exprparse.y"
+#line 150 "exprparse.y"
                                                 { (yyval.expr) = make_variable((yyvsp[0].str)); }
-#line 1577 "exprparse.c"
+#line 1580 "exprparse.c"
     break;
 
   case 41: /* expr: function '(' elist ')'  */
-#line 148 "exprparse.y"
+#line 151 "exprparse.y"
                                  { (yyval.expr) = make_func(yyscanner, (yyvsp[-3].ival), (yyvsp[-1].elist)); }
-#line 1583 "exprparse.c"
+#line 1586 "exprparse.c"
     break;
 
   case 42: /* expr: case_control  */
-#line 149 "exprparse.y"
+#line 152 "exprparse.y"
                                         { (yyval.expr) = (yyvsp[0].expr); }
-#line 1589 "exprparse.c"
+#line 1592 "exprparse.c"
     break;
 
   case 43: /* when_then_list: when_then_list WHEN_KW expr THEN_KW expr  */
-#line 153 "exprparse.y"
+#line 156 "exprparse.y"
                                                    { (yyval.elist) = make_elist((yyvsp[0].expr), make_elist((yyvsp[-2].expr), (yyvsp[-4].elist))); }
-#line 1595 "exprparse.c"
+#line 1598 "exprparse.c"
     break;
 
   case 44: /* when_then_list: WHEN_KW expr THEN_KW expr  */
-#line 154 "exprparse.y"
+#line 157 "exprparse.y"
                                     { (yyval.elist) = make_elist((yyvsp[0].expr), make_elist((yyvsp[-2].expr), NULL)); }
-#line 1601 "exprparse.c"
+#line 1604 "exprparse.c"
     break;
 
   case 45: /* case_control: CASE_KW when_then_list END_KW  */
-#line 157 "exprparse.y"
+#line 160 "exprparse.y"
                                         { (yyval.expr) = make_case(yyscanner, (yyvsp[-1].elist), make_null_constant()); }
-#line 1607 "exprparse.c"
+#line 1610 "exprparse.c"
     break;
 
   case 46: /* case_control: CASE_KW when_then_list ELSE_KW expr END_KW  */
-#line 158 "exprparse.y"
+#line 161 "exprparse.y"
                                                      { (yyval.expr) = make_case(yyscanner, (yyvsp[-3].elist), (yyvsp[-1].expr)); }
-#line 1613 "exprparse.c"
+#line 1616 "exprparse.c"
     break;
 
   case 47: /* function: FUNCTION  */
-#line 160 "exprparse.y"
+#line 163 "exprparse.y"
                                         { (yyval.ival) = find_func(yyscanner, (yyvsp[0].str)); pg_free((yyvsp[0].str)); }
-#line 1619 "exprparse.c"
+#line 1622 "exprparse.c"
     break;
 
 
-#line 1623 "exprparse.c"
+#line 1626 "exprparse.c"
 
       default: break;
     }
@@ -1813,7 +1816,7 @@ yyreturn:
   return yyresult;
 }
 
-#line 163 "exprparse.y"
+#line 166 "exprparse.y"
 
 
 static PgBenchExpr *

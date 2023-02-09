@@ -2,12 +2,12 @@
 .\"     Title: SELECT
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
-.\"      Date: 2022
-.\"    Manual: PostgreSQL 14.5 Documentation
-.\"    Source: PostgreSQL 14.5
+.\"      Date: 2023
+.\"    Manual: PostgreSQL 14.7 Documentation
+.\"    Source: PostgreSQL 14.7
 .\"  Language: English
 .\"
-.TH "SELECT" "7" "2022" "PostgreSQL 14.5" "PostgreSQL 14.5 Documentation"
+.TH "SELECT" "7" "2023" "PostgreSQL 14.7" "PostgreSQL 14.7 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -59,7 +59,9 @@ where \fIfrom_item\fR can be one of:
     [ LATERAL ] \fIfunction_name\fR ( [ \fIargument\fR [, \&.\&.\&.] ] ) AS ( \fIcolumn_definition\fR [, \&.\&.\&.] )
     [ LATERAL ] ROWS FROM( \fIfunction_name\fR ( [ \fIargument\fR [, \&.\&.\&.] ] ) [ AS ( \fIcolumn_definition\fR [, \&.\&.\&.] ) ] [, \&.\&.\&.] )
                 [ WITH ORDINALITY ] [ [ AS ] \fIalias\fR [ ( \fIcolumn_alias\fR [, \&.\&.\&.] ) ] ]
-    \fIfrom_item\fR [ NATURAL ] \fIjoin_type\fR \fIfrom_item\fR [ ON \fIjoin_condition\fR | USING ( \fIjoin_column\fR [, \&.\&.\&.] ) [ AS \fIjoin_using_alias\fR ] ]
+    \fIfrom_item\fR \fIjoin_type\fR \fIfrom_item\fR { ON \fIjoin_condition\fR | USING ( \fIjoin_column\fR [, \&.\&.\&.] ) [ AS \fIjoin_using_alias\fR ] }
+    \fIfrom_item\fR NATURAL \fIjoin_type\fR \fIfrom_item\fR
+    \fIfrom_item\fR CROSS JOIN \fIfrom_item\fR
 
 and \fIgrouping_element\fR can be one of:
 
@@ -689,26 +691,14 @@ RIGHT [ OUTER ] JOIN
 FULL [ OUTER ] JOIN
 .RE
 .sp
-.RS 4
-.ie n \{\
-\h'-04'\(bu\h'+03'\c
-.\}
-.el \{\
-.sp -1
-.IP \(bu 2.3
-.\}
-CROSS JOIN
-.RE
-.sp
 For the
 INNER
 and
 OUTER
 join types, a join condition must be specified, namely exactly one of
-NATURAL,
-ON \fIjoin_condition\fR, or
-USING (\fIjoin_column\fR [, \&.\&.\&.])\&. See below for the meaning\&. For
-CROSS JOIN, none of these clauses can appear\&.
+ON \fIjoin_condition\fR,
+USING (\fIjoin_column\fR [, \&.\&.\&.]), or
+NATURAL\&. See below for the meaning\&.
 .sp
 A
 JOIN
@@ -721,16 +711,9 @@ item\&. Use parentheses if necessary to determine the order of nesting\&. In the
 JOINs nest left\-to\-right\&. In any case
 JOIN
 binds more tightly than the commas separating
-FROM\-list items\&.
-.sp
-CROSS JOIN
-and
-INNER JOIN
-produce a simple Cartesian product, the same result as you get from listing the two tables at the top level of
-FROM, but restricted by the join condition (if any)\&.
-CROSS JOIN
-is equivalent to
-INNER JOIN ON (TRUE), that is, no rows are removed by qualification\&. These join types are just a notational convenience, since they do nothing you couldn\*(Aqt do with plain
+FROM\-list items\&. All the
+JOIN
+options are just a notational convenience, since they do nothing you couldn\*(Aqt do with plain
 FROM
 and
 WHERE\&.
@@ -789,6 +772,14 @@ list that mentions all columns in the two tables that have matching names\&. If 
 NATURAL
 is equivalent to
 ON TRUE\&.
+.RE
+.PP
+CROSS JOIN
+.RS 4
+CROSS JOIN
+is equivalent to
+INNER JOIN ON (TRUE), that is, no rows are removed by qualification\&. They produce a simple Cartesian product, the same result as you get from listing the two tables at the top level of
+FROM, but restricted by the join condition (if any)\&.
 .RE
 .PP
 LATERAL
@@ -2072,8 +2063,7 @@ distributors:
 .\}
 .nf
 SELECT f\&.title, f\&.did, d\&.name, f\&.date_prod, f\&.kind
-    FROM distributors d, films f
-    WHERE f\&.did = d\&.did
+    FROM distributors d JOIN films f USING (did);
 
        title       | did |     name     | date_prod  |   kind
 \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-
