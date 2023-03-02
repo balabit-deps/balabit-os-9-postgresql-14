@@ -1538,7 +1538,7 @@ check_declared_list(const char *name)
 
  QUOTE
 
- RANGE READ REAL REASSIGN RECHECK RECURSIVE REF REFERENCES REFERENCING
+ RANGE READ REAL REASSIGN RECHECK RECURSIVE REF_P REFERENCES REFERENCING
  REFRESH REINDEX RELATIVE_P RELEASE RENAME REPEATABLE REPLACE REPLICA
  RESET RESTART RESTRICT RETURN RETURNING RETURNS REVOKE RIGHT ROLE ROLLBACK ROLLUP
  ROUTINE ROUTINES ROW ROWS RULE
@@ -12453,7 +12453,7 @@ mmerror(PARSE_ERROR, ET_WARNING, "unsupported feature will be passed to server")
 
 
  xml_passing_mech:
- BY REF
+ BY REF_P
  { 
  $$ = mm_strdup("by ref");
 }
@@ -14223,7 +14223,7 @@ mmerror(PARSE_ERROR, ET_WARNING, "unsupported feature will be passed to server")
  { 
  $$ = mm_strdup("recursive");
 }
-|  REF
+|  REF_P
  { 
  $$ = mm_strdup("ref");
 }
@@ -16351,7 +16351,7 @@ mmerror(PARSE_ERROR, ET_WARNING, "unsupported feature will be passed to server")
  { 
  $$ = mm_strdup("recursive");
 }
-|  REF
+|  REF_P
  { 
  $$ = mm_strdup("ref");
 }
@@ -17373,9 +17373,10 @@ type_declaration: S_TYPEDEF
 		$$ = mm_strdup("");
 	};
 
-var_declaration: storage_declaration
-		var_type
+var_declaration:
+		storage_declaration var_type
 		{
+			actual_type[struct_level].type_storage = $1;
 			actual_type[struct_level].type_enum = $2.type_enum;
 			actual_type[struct_level].type_str = $2.type_str;
 			actual_type[struct_level].type_dimension = $2.type_dimension;
@@ -17390,6 +17391,7 @@ var_declaration: storage_declaration
 		}
 		| var_type
 		{
+			actual_type[struct_level].type_storage = EMPTY;
 			actual_type[struct_level].type_enum = $1.type_enum;
 			actual_type[struct_level].type_str = $1.type_str;
 			actual_type[struct_level].type_dimension = $1.type_dimension;
@@ -17770,7 +17772,7 @@ variable_list: variable
 		| variable_list ',' variable
 		{
 			if (actual_type[struct_level].type_enum == ECPGt_varchar || actual_type[struct_level].type_enum == ECPGt_bytea)
-				$$ = cat_str(3, $1, mm_strdup(";"), $3);
+				$$ = cat_str(4, $1, mm_strdup(";"), mm_strdup(actual_type[struct_level].type_storage), $3);
 			else
 				$$ = cat_str(3, $1, mm_strdup(","), $3);
 		}

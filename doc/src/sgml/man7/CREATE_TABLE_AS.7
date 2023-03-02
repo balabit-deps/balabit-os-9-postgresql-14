@@ -2,12 +2,12 @@
 .\"     Title: CREATE TABLE AS
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
-.\"      Date: 2022
-.\"    Manual: PostgreSQL 14.5 Documentation
-.\"    Source: PostgreSQL 14.5
+.\"      Date: 2023
+.\"    Manual: PostgreSQL 14.7 Documentation
+.\"    Source: PostgreSQL 14.7
 .\"  Language: English
 .\"
-.TH "CREATE TABLE AS" "7" "2022" "PostgreSQL 14.5" "PostgreSQL 14.5 Documentation"
+.TH "CREATE TABLE AS" "7" "2023" "PostgreSQL 14.7" "PostgreSQL 14.7 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -84,9 +84,7 @@ for details\&.
 .PP
 IF NOT EXISTS
 .RS 4
-Do not throw an error if a relation with the same name already exists\&. A notice is issued in this case\&. Refer to
-CREATE TABLE (\fBCREATE_TABLE\fR(7))
-for details\&.
+Do not throw an error if a relation with the same name already exists; simply issue a notice and leave the table unmodified\&.
 .RE
 .PP
 \fItable_name\fR

@@ -2,12 +2,12 @@
 .\"     Title: SECURITY LABEL
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
-.\"      Date: 2022
-.\"    Manual: PostgreSQL 14.5 Documentation
-.\"    Source: PostgreSQL 14.5
+.\"      Date: 2023
+.\"    Manual: PostgreSQL 14.7 Documentation
+.\"    Source: PostgreSQL 14.7
 .\"  Language: English
 .\"
-.TH "SECURITY LABEL" "7" "2022" "PostgreSQL 14.5" "PostgreSQL 14.5 Documentation"
+.TH "SECURITY LABEL" "7" "2023" "PostgreSQL 14.7" "PostgreSQL 14.7 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -55,7 +55,7 @@ SECURITY LABEL [ FOR \fIprovider\fR ] ON
   TABLESPACE \fIobject_name\fR |
   TYPE \fIobject_name\fR |
   VIEW \fIobject_name\fR
-} IS \*(Aq\fIlabel\fR\*(Aq
+} IS { \fIstring_literal\fR | NULL }
 
 where \fIaggregate_signature\fR is:
 
@@ -152,15 +152,20 @@ PROCEDURAL
 This is a noise word\&.
 .RE
 .PP
-\fIlabel\fR
+\fIstring_literal\fR
 .RS 4
-The new security label, written as a string literal; or
+The new setting of the security label, written as a string literal\&.
+.RE
+.PP
+NULL
+.RS 4
+Write
 NULL
 to drop the security label\&.
 .RE
 .SH "EXAMPLES"
 .PP
-The following example shows how the security label of a table might be changed\&.
+The following example shows how the security label of a table could be set or changed:
 .sp
 .if n \{\
 .RS 4
@@ -171,6 +176,19 @@ SECURITY LABEL FOR selinux ON TABLE mytable IS \*(Aqsystem_u:object_r:sepgsql_ta
 .if n \{\
 .RE
 .\}
+.sp
+To remove the label:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+SECURITY LABEL FOR selinux ON TABLE mytable IS NULL;
+.fi
+.if n \{\
+.RE
+.\}
+.sp
 .SH "COMPATIBILITY"
 .PP
 There is no

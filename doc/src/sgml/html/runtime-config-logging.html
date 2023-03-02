@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>20.8. Error Reporting and Logging</title><link rel="stylesheet" type="text/css" href="stylesheet.css" /><link rev="made" href="pgsql-docs@lists.postgresql.org" /><meta name="generator" content="DocBook XSL Stylesheets Vsnapshot" /><link rel="prev" href="runtime-config-query.html" title="20.7. Query Planning" /><link rel="next" href="runtime-config-statistics.html" title="20.9. Run-time Statistics" /></head><body id="docContent" class="container-fluid col-10"><div xmlns="http://www.w3.org/TR/xhtml1/transitional" class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="5" align="center">20.8. Error Reporting and Logging</th></tr><tr><td width="10%" align="left"><a accesskey="p" href="runtime-config-query.html" title="20.7. Query Planning">Prev</a> </td><td width="10%" align="left"><a accesskey="u" href="runtime-config.html" title="Chapter 20. Server Configuration">Up</a></td><th width="60%" align="center">Chapter 20. Server Configuration</th><td width="10%" align="right"><a accesskey="h" href="index.html" title="PostgreSQL 14.5 Documentation">Home</a></td><td width="10%" align="right"> <a accesskey="n" href="runtime-config-statistics.html" title="20.9. Run-time Statistics">Next</a></td></tr></table><hr></hr></div><div class="sect1" id="RUNTIME-CONFIG-LOGGING"><div class="titlepage"><div><div><h2 class="title" style="clear: both">20.8. Error Reporting and Logging</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="sect2"><a href="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHERE">20.8.1. Where to Log</a></span></dt><dt><span class="sect2"><a href="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHEN">20.8.2. When to Log</a></span></dt><dt><span class="sect2"><a href="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT">20.8.3. What to Log</a></span></dt><dt><span class="sect2"><a href="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-CSVLOG">20.8.4. Using CSV-Format Log Output</a></span></dt><dt><span class="sect2"><a href="runtime-config-logging.html#id-1.6.7.11.7">20.8.5. Process Title</a></span></dt></dl></div><a id="id-1.6.7.11.2" class="indexterm"></a><div class="sect2" id="RUNTIME-CONFIG-LOGGING-WHERE"><div class="titlepage"><div><div><h3 class="title">20.8.1. Where to Log</h3></div></div></div><a id="id-1.6.7.11.3.2" class="indexterm"></a><a id="id-1.6.7.11.3.3" class="indexterm"></a><div class="variablelist"><dl class="variablelist"><dt id="GUC-LOG-DESTINATION"><span class="term"><code class="varname">log_destination</code> (<code class="type">string</code>)
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>20.8. Error Reporting and Logging</title><link rel="stylesheet" type="text/css" href="stylesheet.css" /><link rev="made" href="pgsql-docs@lists.postgresql.org" /><meta name="generator" content="DocBook XSL Stylesheets Vsnapshot" /><link rel="prev" href="runtime-config-query.html" title="20.7. Query Planning" /><link rel="next" href="runtime-config-statistics.html" title="20.9. Run-time Statistics" /></head><body id="docContent" class="container-fluid col-10"><div xmlns="http://www.w3.org/TR/xhtml1/transitional" class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="5" align="center">20.8. Error Reporting and Logging</th></tr><tr><td width="10%" align="left"><a accesskey="p" href="runtime-config-query.html" title="20.7. Query Planning">Prev</a> </td><td width="10%" align="left"><a accesskey="u" href="runtime-config.html" title="Chapter 20. Server Configuration">Up</a></td><th width="60%" align="center">Chapter 20. Server Configuration</th><td width="10%" align="right"><a accesskey="h" href="index.html" title="PostgreSQL 14.7 Documentation">Home</a></td><td width="10%" align="right"> <a accesskey="n" href="runtime-config-statistics.html" title="20.9. Run-time Statistics">Next</a></td></tr></table><hr></hr></div><div class="sect1" id="RUNTIME-CONFIG-LOGGING"><div class="titlepage"><div><div><h2 class="title" style="clear: both">20.8. Error Reporting and Logging</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="sect2"><a href="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHERE">20.8.1. Where to Log</a></span></dt><dt><span class="sect2"><a href="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHEN">20.8.2. When to Log</a></span></dt><dt><span class="sect2"><a href="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT">20.8.3. What to Log</a></span></dt><dt><span class="sect2"><a href="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-CSVLOG">20.8.4. Using CSV-Format Log Output</a></span></dt><dt><span class="sect2"><a href="runtime-config-logging.html#id-1.6.7.11.7">20.8.5. Process Title</a></span></dt></dl></div><a id="id-1.6.7.11.2" class="indexterm"></a><div class="sect2" id="RUNTIME-CONFIG-LOGGING-WHERE"><div class="titlepage"><div><div><h3 class="title">20.8.1. Where to Log</h3></div></div></div><a id="id-1.6.7.11.3.2" class="indexterm"></a><a id="id-1.6.7.11.3.3" class="indexterm"></a><div class="variablelist"><dl class="variablelist"><dt id="GUC-LOG-DESTINATION"><span class="term"><code class="varname">log_destination</code> (<code class="type">string</code>)
       <a id="id-1.6.7.11.3.4.1.1.3" class="indexterm"></a>
       </span></dt><dd><p>
         <span class="productname">PostgreSQL</span> supports several methods
@@ -420,8 +420,11 @@ local0.*    /var/log/postgresql
          outside a transaction block.</td><td><code class="literal">NOTICE</code></td><td><code class="literal">WARNING</code></td></tr><tr><td><code class="literal">ERROR</code></td><td>Reports an error that caused the current command to
          abort.</td><td><code class="literal">WARNING</code></td><td><code class="literal">ERROR</code></td></tr><tr><td><code class="literal">LOG</code></td><td>Reports information of interest to administrators, e.g.,
          checkpoint activity.</td><td><code class="literal">INFO</code></td><td><code class="literal">INFORMATION</code></td></tr><tr><td><code class="literal">FATAL</code></td><td>Reports an error that caused the current session to
-         abort.</td><td><code class="literal">ERR</code></td><td><code class="literal">ERROR</code></td></tr><tr><td><code class="literal">PANIC</code></td><td>Reports an error that caused all database sessions to abort.</td><td><code class="literal">CRIT</code></td><td><code class="literal">ERROR</code></td></tr></tbody></table></div></div><br class="table-break" /></div><div class="sect2" id="RUNTIME-CONFIG-LOGGING-WHAT"><div class="titlepage"><div><div><h3 class="title">20.8.3. What to Log</h3></div></div></div><div class="variablelist"><dl class="variablelist"><dt id="GUC-APPLICATION-NAME"><span class="term"><code class="varname">application_name</code> (<code class="type">string</code>)
-      <a id="id-1.6.7.11.5.2.1.1.3" class="indexterm"></a>
+         abort.</td><td><code class="literal">ERR</code></td><td><code class="literal">ERROR</code></td></tr><tr><td><code class="literal">PANIC</code></td><td>Reports an error that caused all database sessions to abort.</td><td><code class="literal">CRIT</code></td><td><code class="literal">ERROR</code></td></tr></tbody></table></div></div><br class="table-break" /></div><div class="sect2" id="RUNTIME-CONFIG-LOGGING-WHAT"><div class="titlepage"><div><div><h3 class="title">20.8.3. What to Log</h3></div></div></div><div class="note"><h3 class="title">Note</h3><p>
+       What you choose to log can have security implications;  see
+       <a class="xref" href="logfile-maintenance.html" title="25.3. Log File Maintenance">Section 25.3</a>.
+      </p></div><div class="variablelist"><dl class="variablelist"><dt id="GUC-APPLICATION-NAME"><span class="term"><code class="varname">application_name</code> (<code class="type">string</code>)
+      <a id="id-1.6.7.11.5.3.1.1.3" class="indexterm"></a>
       </span></dt><dd><p>
         The <code class="varname">application_name</code> can be any string of less than
         <code class="symbol">NAMEDATALEN</code> characters (64 characters in a standard build).
@@ -433,11 +436,11 @@ local0.*    /var/log/postgresql
         <code class="varname">application_name</code> value. Other characters will be
         replaced with question marks (<code class="literal">?</code>).
        </p></dd><dt><span class="term"><code class="varname">debug_print_parse</code> (<code class="type">boolean</code>)
-      <a id="id-1.6.7.11.5.2.2.1.3" class="indexterm"></a>
+      <a id="id-1.6.7.11.5.3.2.1.3" class="indexterm"></a>
       <br /></span><span class="term"><code class="varname">debug_print_rewritten</code> (<code class="type">boolean</code>)
-      <a id="id-1.6.7.11.5.2.2.2.3" class="indexterm"></a>
+      <a id="id-1.6.7.11.5.3.2.2.3" class="indexterm"></a>
       <br /></span><span class="term"><code class="varname">debug_print_plan</code> (<code class="type">boolean</code>)
-      <a id="id-1.6.7.11.5.2.2.3.3" class="indexterm"></a>
+      <a id="id-1.6.7.11.5.3.2.3.3" class="indexterm"></a>
       </span></dt><dd><p>
         These parameters enable various debugging output to be emitted.
         When set, they print the resulting parse tree, the query rewriter
@@ -449,7 +452,7 @@ local0.*    /var/log/postgresql
         <a class="xref" href="runtime-config-logging.html#GUC-LOG-MIN-MESSAGES">log_min_messages</a>.
         These parameters are off by default.
        </p></dd><dt><span class="term"><code class="varname">debug_pretty_print</code> (<code class="type">boolean</code>)
-      <a id="id-1.6.7.11.5.2.3.1.3" class="indexterm"></a>
+      <a id="id-1.6.7.11.5.3.3.1.3" class="indexterm"></a>
       </span></dt><dd><p>
         When set, <code class="varname">debug_pretty_print</code> indents the messages
         produced by <code class="varname">debug_print_parse</code>,
@@ -458,7 +461,7 @@ local0.*    /var/log/postgresql
         but much longer output than the <span class="quote">“<span class="quote">compact</span>”</span> format used when
         it is off.  It is on by default.
        </p></dd><dt id="GUC-LOG-AUTOVACUUM-MIN-DURATION"><span class="term"><code class="varname">log_autovacuum_min_duration</code> (<code class="type">integer</code>)
-      <a id="id-1.6.7.11.5.2.4.1.3" class="indexterm"></a>
+      <a id="id-1.6.7.11.5.3.4.1.3" class="indexterm"></a>
       </span></dt><dd><p>
         Causes each action executed by autovacuum to be logged if it ran for at
         least the specified amount of time.  Setting this to zero logs
@@ -476,7 +479,7 @@ local0.*    /var/log/postgresql
         but the setting can be overridden for individual tables by
         changing table storage parameters.
        </p></dd><dt id="GUC-LOG-CHECKPOINTS"><span class="term"><code class="varname">log_checkpoints</code> (<code class="type">boolean</code>)
-      <a id="id-1.6.7.11.5.2.5.1.3" class="indexterm"></a>
+      <a id="id-1.6.7.11.5.3.5.1.3" class="indexterm"></a>
       </span></dt><dd><p>
         Causes checkpoints and restartpoints to be logged in the server log.
         Some statistics are included in the log messages, including the number
@@ -484,7 +487,7 @@ local0.*    /var/log/postgresql
         This parameter can only be set in the <code class="filename">postgresql.conf</code>
         file or on the server command line. The default is off.
        </p></dd><dt id="GUC-LOG-CONNECTIONS"><span class="term"><code class="varname">log_connections</code> (<code class="type">boolean</code>)
-      <a id="id-1.6.7.11.5.2.6.1.3" class="indexterm"></a>
+      <a id="id-1.6.7.11.5.3.6.1.3" class="indexterm"></a>
       </span></dt><dd><p>
         Causes each attempted connection to the server to be logged,
         as well as successful completion of both client authentication (if
@@ -498,7 +501,7 @@ local0.*    /var/log/postgresql
          duplicate <span class="quote">“<span class="quote">connection received</span>”</span> messages do not
          necessarily indicate a problem.
         </p></div></dd><dt id="GUC-LOG-DISCONNECTIONS"><span class="term"><code class="varname">log_disconnections</code> (<code class="type">boolean</code>)
-      <a id="id-1.6.7.11.5.2.7.1.3" class="indexterm"></a>
+      <a id="id-1.6.7.11.5.3.7.1.3" class="indexterm"></a>
       </span></dt><dd><p>
         Causes session terminations to be logged.  The log output
         provides information similar to <code class="varname">log_connections</code>,
@@ -507,7 +510,7 @@ local0.*    /var/log/postgresql
         and it cannot be changed at all within a session.
         The default is <code class="literal">off</code>.
        </p></dd><dt id="GUC-LOG-DURATION"><span class="term"><code class="varname">log_duration</code> (<code class="type">boolean</code>)
-      <a id="id-1.6.7.11.5.2.8.1.3" class="indexterm"></a>
+      <a id="id-1.6.7.11.5.3.8.1.3" class="indexterm"></a>
       </span></dt><dd><p>
         Causes the duration of every completed statement to be logged.
         The default is <code class="literal">off</code>.
@@ -526,7 +529,7 @@ local0.*    /var/log/postgresql
          statements exceeding the threshold.  This behavior can be useful for
          gathering statistics in high-load installations.
         </p></div></dd><dt id="GUC-LOG-ERROR-VERBOSITY"><span class="term"><code class="varname">log_error_verbosity</code> (<code class="type">enum</code>)
-      <a id="id-1.6.7.11.5.2.9.1.3" class="indexterm"></a>
+      <a id="id-1.6.7.11.5.3.9.1.3" class="indexterm"></a>
       </span></dt><dd><p>
         Controls the amount of detail written in the server log for each
         message that is logged.  Valid values are <code class="literal">TERSE</code>,
@@ -539,7 +542,7 @@ local0.*    /var/log/postgresql
         and line number that generated the error.
         Only superusers can change this setting.
        </p></dd><dt id="GUC-LOG-HOSTNAME"><span class="term"><code class="varname">log_hostname</code> (<code class="type">boolean</code>)
-      <a id="id-1.6.7.11.5.2.10.1.3" class="indexterm"></a>
+      <a id="id-1.6.7.11.5.3.10.1.3" class="indexterm"></a>
       </span></dt><dd><p>
         By default, connection log messages only show the IP address of the
         connecting host. Turning this parameter on causes logging of the
@@ -548,7 +551,7 @@ local0.*    /var/log/postgresql
         This parameter can only be set in the <code class="filename">postgresql.conf</code>
         file or on the server command line.
        </p></dd><dt id="GUC-LOG-LINE-PREFIX"><span class="term"><code class="varname">log_line_prefix</code> (<code class="type">string</code>)
-      <a id="id-1.6.7.11.5.2.11.1.3" class="indexterm"></a>
+      <a id="id-1.6.7.11.5.3.11.1.3" class="indexterm"></a>
       </span></dt><dd><p>
          This is a <code class="function">printf</code>-style string that is output at the
          beginning of each log line.
@@ -618,7 +621,7 @@ log_line_prefix = '%m [%p] %q%u@%d/%a '
          identifier can be calculated, including invalid statements for
          which an identifier cannot be calculated.
         </p></div></dd><dt id="GUC-LOG-LOCK-WAITS"><span class="term"><code class="varname">log_lock_waits</code> (<code class="type">boolean</code>)
-      <a id="id-1.6.7.11.5.2.12.1.3" class="indexterm"></a>
+      <a id="id-1.6.7.11.5.3.12.1.3" class="indexterm"></a>
       </span></dt><dd><p>
         Controls whether a log message is produced when a session waits
         longer than <a class="xref" href="runtime-config-locks.html#GUC-DEADLOCK-TIMEOUT">deadlock_timeout</a> to acquire a
@@ -626,7 +629,7 @@ log_line_prefix = '%m [%p] %q%u@%d/%a '
         poor performance.  The default is <code class="literal">off</code>.
         Only superusers can change this setting.
        </p></dd><dt id="GUC-LOG-RECOVERY-CONFLICT-WAITS"><span class="term"><code class="varname">log_recovery_conflict_waits</code> (<code class="type">boolean</code>)
-      <a id="id-1.6.7.11.5.2.13.1.3" class="indexterm"></a>
+      <a id="id-1.6.7.11.5.3.13.1.3" class="indexterm"></a>
       </span></dt><dd><p>
         Controls whether a log message is produced when the startup process
         waits longer than <code class="varname">deadlock_timeout</code>
@@ -637,7 +640,7 @@ log_line_prefix = '%m [%p] %q%u@%d/%a '
         in the <code class="filename">postgresql.conf</code> file or on the server
         command line.
        </p></dd><dt id="GUC-LOG-PARAMETER-MAX-LENGTH"><span class="term"><code class="varname">log_parameter_max_length</code> (<code class="type">integer</code>)
-      <a id="id-1.6.7.11.5.2.14.1.3" class="indexterm"></a>
+      <a id="id-1.6.7.11.5.3.14.1.3" class="indexterm"></a>
       </span></dt><dd><p>
         If greater than zero, each bind parameter value logged with a
         non-error statement-logging message is trimmed to this many bytes.
@@ -653,7 +656,7 @@ log_line_prefix = '%m [%p] %q%u@%d/%a '
         values of this setting add some overhead, particularly if parameters
         are sent in binary form, since then conversion to text is required.
        </p></dd><dt id="GUC-LOG-PARAMETER-MAX-LENGTH-ON-ERROR"><span class="term"><code class="varname">log_parameter_max_length_on_error</code> (<code class="type">integer</code>)
-      <a id="id-1.6.7.11.5.2.15.1.3" class="indexterm"></a>
+      <a id="id-1.6.7.11.5.3.15.1.3" class="indexterm"></a>
       </span></dt><dd><p>
         If greater than zero, each bind parameter value reported in error
         messages is trimmed to this many bytes.
@@ -670,7 +673,7 @@ log_line_prefix = '%m [%p] %q%u@%d/%a '
         they are sent as text, since the former case requires data
         conversion while the latter only requires copying the string.
        </p></dd><dt id="GUC-LOG-STATEMENT"><span class="term"><code class="varname">log_statement</code> (<code class="type">enum</code>)
-      <a id="id-1.6.7.11.5.2.16.1.3" class="indexterm"></a>
+      <a id="id-1.6.7.11.5.3.16.1.3" class="indexterm"></a>
       </span></dt><dd><p>
         Controls which SQL statements are logged. Valid values are
         <code class="literal">none</code> (off), <code class="literal">ddl</code>, <code class="literal">mod</code>, and
@@ -699,15 +702,18 @@ log_line_prefix = '%m [%p] %q%u@%d/%a '
          fail before the Execute phase (i.e., during parse analysis or
          planning).  Set <code class="varname">log_min_error_statement</code> to
          <code class="literal">ERROR</code> (or lower) to log such statements.
+        </p><p>
+         Logged statements might reveal sensitive data and even contain
+         plaintext passwords.
         </p></div></dd><dt id="GUC-LOG-REPLICATION-COMMANDS"><span class="term"><code class="varname">log_replication_commands</code> (<code class="type">boolean</code>)
-      <a id="id-1.6.7.11.5.2.17.1.3" class="indexterm"></a>
+      <a id="id-1.6.7.11.5.3.17.1.3" class="indexterm"></a>
       </span></dt><dd><p>
         Causes each replication command to be logged in the server log.
         See <a class="xref" href="protocol-replication.html" title="53.4. Streaming Replication Protocol">Section 53.4</a> for more information about
         replication command. The default value is <code class="literal">off</code>.
         Only superusers can change this setting.
        </p></dd><dt id="GUC-LOG-TEMP-FILES"><span class="term"><code class="varname">log_temp_files</code> (<code class="type">integer</code>)
-      <a id="id-1.6.7.11.5.2.18.1.3" class="indexterm"></a>
+      <a id="id-1.6.7.11.5.3.18.1.3" class="indexterm"></a>
       </span></dt><dd><p>
         Controls logging of temporary file names and sizes.
         Temporary files can be
@@ -721,7 +727,7 @@ log_line_prefix = '%m [%p] %q%u@%d/%a '
         The default setting is -1, which disables such logging.
         Only superusers can change this setting.
        </p></dd><dt id="GUC-LOG-TIMEZONE"><span class="term"><code class="varname">log_timezone</code> (<code class="type">string</code>)
-      <a id="id-1.6.7.11.5.2.19.1.3" class="indexterm"></a>
+      <a id="id-1.6.7.11.5.3.19.1.3" class="indexterm"></a>
       </span></dt><dd><p>
         Sets the time zone used for timestamps written in the server log.
         Unlike <a class="xref" href="runtime-config-client.html#GUC-TIMEZONE">TimeZone</a>, this value is cluster-wide,
@@ -865,4 +871,4 @@ COPY postgres_log FROM '/full/path/to/logfile.csv' WITH csv;
         defaults to <code class="literal">off</code> on Windows due to that platform's larger
         overhead for updating the process title.
         Only superusers can change this setting.
-       </p></dd></dl></div></div></div><div xmlns="http://www.w3.org/TR/xhtml1/transitional" class="navfooter"><hr></hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="runtime-config-query.html" title="20.7. Query Planning">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="runtime-config.html" title="Chapter 20. Server Configuration">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="runtime-config-statistics.html" title="20.9. Run-time Statistics">Next</a></td></tr><tr><td width="40%" align="left" valign="top">20.7. Query Planning </td><td width="20%" align="center"><a accesskey="h" href="index.html" title="PostgreSQL 14.5 Documentation">Home</a></td><td width="40%" align="right" valign="top"> 20.9. Run-time Statistics</td></tr></table></div></body></html>
+       </p></dd></dl></div></div></div><div xmlns="http://www.w3.org/TR/xhtml1/transitional" class="navfooter"><hr></hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="runtime-config-query.html" title="20.7. Query Planning">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="runtime-config.html" title="Chapter 20. Server Configuration">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="runtime-config-statistics.html" title="20.9. Run-time Statistics">Next</a></td></tr><tr><td width="40%" align="left" valign="top">20.7. Query Planning </td><td width="20%" align="center"><a accesskey="h" href="index.html" title="PostgreSQL 14.7 Documentation">Home</a></td><td width="40%" align="right" valign="top"> 20.9. Run-time Statistics</td></tr></table></div></body></html>

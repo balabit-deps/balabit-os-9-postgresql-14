@@ -80,6 +80,7 @@
 
 #include "postgres.h"
 
+#include <float.h>
 #include <math.h>
 
 #include "fmgr.h"
@@ -100,6 +101,8 @@
 
 static float seg_atof(const char *value);
 
+static int sig_digits(const char *value);
+
 static char strbuf[25] = {
 	'0', '0', '0', '0', '0',
 	'0', '0', '0', '0', '0',
@@ -109,7 +112,7 @@ static char strbuf[25] = {
 };
 
 
-#line 113 "segparse.c"
+#line 116 "segparse.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -162,7 +165,7 @@ extern int seg_yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 41 "segparse.y"
+#line 44 "segparse.y"
 
 	struct BND {
 		float val;
@@ -171,7 +174,7 @@ union YYSTYPE
 	} bnd;
 	char * text;
 
-#line 175 "segparse.c"
+#line 178 "segparse.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -580,7 +583,7 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    61,    61,    73,    91,   101,   111,   119,   128,   139
+       0,    64,    64,    76,    94,   104,   114,   122,   131,   142
 };
 #endif
 
@@ -1157,22 +1160,22 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* range: boundary PLUMIN deviation  */
-#line 62 "segparse.y"
+#line 65 "segparse.y"
         {
 		result->lower = (yyvsp[-2].bnd).val - (yyvsp[0].bnd).val;
 		result->upper = (yyvsp[-2].bnd).val + (yyvsp[0].bnd).val;
 		sprintf(strbuf, "%g", result->lower);
-		result->l_sigd = Max(Min(6, significant_digits(strbuf)), Max((yyvsp[-2].bnd).sigd, (yyvsp[0].bnd).sigd));
+		result->l_sigd = Max(sig_digits(strbuf), Max((yyvsp[-2].bnd).sigd, (yyvsp[0].bnd).sigd));
 		sprintf(strbuf, "%g", result->upper);
-		result->u_sigd = Max(Min(6, significant_digits(strbuf)), Max((yyvsp[-2].bnd).sigd, (yyvsp[0].bnd).sigd));
+		result->u_sigd = Max(sig_digits(strbuf), Max((yyvsp[-2].bnd).sigd, (yyvsp[0].bnd).sigd));
 		result->l_ext = '\0';
 		result->u_ext = '\0';
 	}
-#line 1172 "segparse.c"
+#line 1175 "segparse.c"
     break;
 
   case 3: /* range: boundary RANGE boundary  */
-#line 74 "segparse.y"
+#line 77 "segparse.y"
         {
 		result->lower = (yyvsp[-2].bnd).val;
 		result->upper = (yyvsp[0].bnd).val;
@@ -1189,11 +1192,11 @@ yyreduce:
 		result->l_ext = ( (yyvsp[-2].bnd).ext ? (yyvsp[-2].bnd).ext : '\0' );
 		result->u_ext = ( (yyvsp[0].bnd).ext ? (yyvsp[0].bnd).ext : '\0' );
 	}
-#line 1193 "segparse.c"
+#line 1196 "segparse.c"
     break;
 
   case 4: /* range: boundary RANGE  */
-#line 92 "segparse.y"
+#line 95 "segparse.y"
         {
 		result->lower = (yyvsp[-1].bnd).val;
 		result->upper = HUGE_VAL;
@@ -1202,11 +1205,11 @@ yyreduce:
 		result->l_ext = ( (yyvsp[-1].bnd).ext ? (yyvsp[-1].bnd).ext : '\0' );
 		result->u_ext = '-';
 	}
-#line 1206 "segparse.c"
+#line 1209 "segparse.c"
     break;
 
   case 5: /* range: RANGE boundary  */
-#line 102 "segparse.y"
+#line 105 "segparse.y"
         {
 		result->lower = -HUGE_VAL;
 		result->upper = (yyvsp[0].bnd).val;
@@ -1215,60 +1218,60 @@ yyreduce:
 		result->l_ext = '-';
 		result->u_ext = ( (yyvsp[0].bnd).ext ? (yyvsp[0].bnd).ext : '\0' );
 	}
-#line 1219 "segparse.c"
+#line 1222 "segparse.c"
     break;
 
   case 6: /* range: boundary  */
-#line 112 "segparse.y"
+#line 115 "segparse.y"
         {
 		result->lower = result->upper = (yyvsp[0].bnd).val;
 		result->l_sigd = result->u_sigd = (yyvsp[0].bnd).sigd;
 		result->l_ext = result->u_ext = ( (yyvsp[0].bnd).ext ? (yyvsp[0].bnd).ext : '\0' );
 	}
-#line 1229 "segparse.c"
+#line 1232 "segparse.c"
     break;
 
   case 7: /* boundary: SEGFLOAT  */
-#line 120 "segparse.y"
+#line 123 "segparse.y"
         {
 		/* temp variable avoids a gcc 3.3.x bug on Sparc64 */
 		float val = seg_atof((yyvsp[0].text));
 
 		(yyval.bnd).ext = '\0';
-		(yyval.bnd).sigd = significant_digits((yyvsp[0].text));
+		(yyval.bnd).sigd = sig_digits((yyvsp[0].text));
 		(yyval.bnd).val = val;
 	}
-#line 1242 "segparse.c"
+#line 1245 "segparse.c"
     break;
 
   case 8: /* boundary: EXTENSION SEGFLOAT  */
-#line 129 "segparse.y"
+#line 132 "segparse.y"
         {
 		/* temp variable avoids a gcc 3.3.x bug on Sparc64 */
 		float val = seg_atof((yyvsp[0].text));
 
 		(yyval.bnd).ext = (yyvsp[-1].text)[0];
-		(yyval.bnd).sigd = significant_digits((yyvsp[0].text));
+		(yyval.bnd).sigd = sig_digits((yyvsp[0].text));
 		(yyval.bnd).val = val;
 	}
-#line 1255 "segparse.c"
+#line 1258 "segparse.c"
     break;
 
   case 9: /* deviation: SEGFLOAT  */
-#line 140 "segparse.y"
+#line 143 "segparse.y"
         {
 		/* temp variable avoids a gcc 3.3.x bug on Sparc64 */
 		float val = seg_atof((yyvsp[0].text));
 
 		(yyval.bnd).ext = '\0';
-		(yyval.bnd).sigd = significant_digits((yyvsp[0].text));
+		(yyval.bnd).sigd = sig_digits((yyvsp[0].text));
 		(yyval.bnd).val = val;
 	}
-#line 1268 "segparse.c"
+#line 1271 "segparse.c"
     break;
 
 
-#line 1272 "segparse.c"
+#line 1275 "segparse.c"
 
       default: break;
     }
@@ -1462,7 +1465,7 @@ yyreturn:
   return yyresult;
 }
 
-#line 150 "segparse.y"
+#line 153 "segparse.y"
 
 
 
@@ -1473,6 +1476,15 @@ seg_atof(const char *value)
 
 	datum = DirectFunctionCall1(float4in, CStringGetDatum(value));
 	return DatumGetFloat4(datum);
+}
+
+static int
+sig_digits(const char *value)
+{
+	int			n = significant_digits(value);
+
+	/* Clamp, to ensure value will fit in sigd fields */
+	return Min(n, FLT_DIG);
 }
 
 

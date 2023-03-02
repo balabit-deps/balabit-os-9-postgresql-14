@@ -2,12 +2,12 @@
 .\"     Title: SET
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
-.\"      Date: 2022
-.\"    Manual: PostgreSQL 14.5 Documentation
-.\"    Source: PostgreSQL 14.5
+.\"      Date: 2023
+.\"    Manual: PostgreSQL 14.7 Documentation
+.\"    Source: PostgreSQL 14.7
 .\"  Language: English
 .\"
-.TH "SET" "7" "2022" "PostgreSQL 14.5" "PostgreSQL 14.5 Documentation"
+.TH "SET" "7" "2023" "PostgreSQL 14.7" "PostgreSQL 14.7 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -33,7 +33,7 @@ SET \- change a run\-time parameter
 .sp
 .nf
 SET [ SESSION | LOCAL ] \fIconfiguration_parameter\fR { TO | = } { \fIvalue\fR | \*(Aq\fIvalue\fR\*(Aq | DEFAULT }
-SET [ SESSION | LOCAL ] TIME ZONE { \fItimezone\fR | LOCAL | DEFAULT }
+SET [ SESSION | LOCAL ] TIME ZONE { \fIvalue\fR | \*(Aq\fIvalue\fR\*(Aq | LOCAL | DEFAULT }
 .fi
 .SH "DESCRIPTION"
 .PP
@@ -185,9 +185,9 @@ SELECT setseed(\fIvalue\fR);
 .PP
 TIME ZONE
 .RS 4
-SET TIME ZONE \fIvalue\fR
+SET TIME ZONE \*(Aq\fIvalue\fR\*(Aq
 is an alias for
-SET timezone TO \fIvalue\fR\&. The syntax
+SET timezone TO \*(Aq\fIvalue\fR\*(Aq\&. The syntax
 SET TIME ZONE
 allows special syntax for the time zone specification\&. Here are examples of valid values:
 .PP
@@ -225,7 +225,8 @@ SET TIME ZONE \-7,
 would report
 <\-07>+07\&.
 .sp
-See
+Time zone abbreviations are not supported by
+\fBSET\fR; see
 Section\ \&8.5.3
 for more information about time zones\&.
 .RE

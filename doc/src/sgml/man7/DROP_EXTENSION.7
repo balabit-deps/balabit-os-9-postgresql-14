@@ -2,12 +2,12 @@
 .\"     Title: DROP EXTENSION
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
-.\"      Date: 2022
-.\"    Manual: PostgreSQL 14.5 Documentation
-.\"    Source: PostgreSQL 14.5
+.\"      Date: 2023
+.\"    Manual: PostgreSQL 14.7 Documentation
+.\"    Source: PostgreSQL 14.7
 .\"  Language: English
 .\"
-.TH "DROP EXTENSION" "7" "2022" "PostgreSQL 14.5" "PostgreSQL 14.5 Documentation"
+.TH "DROP EXTENSION" "7" "2023" "PostgreSQL 14.7" "PostgreSQL 14.7 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -37,7 +37,7 @@ DROP EXTENSION [ IF EXISTS ] \fIname\fR [, \&.\&.\&.] [ CASCADE | RESTRICT ]
 .SH "DESCRIPTION"
 .PP
 \fBDROP EXTENSION\fR
-removes extensions from the database\&. Dropping an extension causes its component objects, and other explicitly dependent routines (see
+removes extensions from the database\&. Dropping an extension causes its member objects, and other explicitly dependent routines (see
 ALTER ROUTINE (\fBALTER_ROUTINE\fR(7)), the
 DEPENDS ON EXTENSION \fIextension_name\fR
 action), to be dropped as well\&.
@@ -64,7 +64,7 @@ Section\ \&5.14)\&.
 .PP
 RESTRICT
 .RS 4
-This option prevents the specified extensions from being dropped if there exist non\-extension\-member objects that depend on any of the extensions\&. This is the default\&.
+This option prevents the specified extensions from being dropped if other objects, besides these extensions, their members, and their explicitly dependent routines, depend on them\&.\ \& This is the default\&.
 .RE
 .SH "EXAMPLES"
 .PP
