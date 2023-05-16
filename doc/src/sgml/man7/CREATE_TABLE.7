@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2023
-.\"    Manual: PostgreSQL 14.7 Documentation
-.\"    Source: PostgreSQL 14.7
+.\"    Manual: PostgreSQL 14.8 Documentation
+.\"    Source: PostgreSQL 14.8
 .\"  Language: English
 .\"
-.TH "CREATE TABLE" "7" "2023" "PostgreSQL 14.7" "PostgreSQL 14.7 Documentation"
+.TH "CREATE TABLE" "7" "2023" "PostgreSQL 14.8" "PostgreSQL 14.8 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -405,11 +405,21 @@ constraints; additional constraints with the same name and condition as in the p
 .sp
 Rows inserted into a partitioned table will be automatically routed to the correct partition\&. If no suitable partition exists, an error will occur\&.
 .sp
-Operations such as TRUNCATE which normally affect a table and all of its inheritance children will cascade to all partitions, but may also be performed on an individual partition\&. Note that dropping a partition with
-DROP TABLE
+Operations such as
+\fBTRUNCATE\fR
+which normally affect a table and all of its inheritance children will cascade to all partitions, but may also be performed on an individual partition\&.
+.sp
+Note that creating a partition using
+PARTITION OF
 requires taking an
 ACCESS EXCLUSIVE
-lock on the parent table\&.
+lock on the parent partitioned table\&. Likewise, dropping a partition with
+\fBDROP TABLE\fR
+requires taking an
+ACCESS EXCLUSIVE
+lock on the parent table\&. It is possible to use
+\fBALTER TABLE ATTACH/DETACH PARTITION\fR
+to perform these operations with a weaker lock, thus reducing interference with concurrent operations on the partitioned table\&.
 .RE
 .PP
 LIKE \fIsource_table\fR [ \fIlike_option\fR \&.\&.\&. ]

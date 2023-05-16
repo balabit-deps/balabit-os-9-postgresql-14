@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2023
-.\"    Manual: PostgreSQL 14.7 Documentation
-.\"    Source: PostgreSQL 14.7
+.\"    Manual: PostgreSQL 14.8 Documentation
+.\"    Source: PostgreSQL 14.8
 .\"  Language: English
 .\"
-.TH "PG_AMCHECK" "1" "2023" "PostgreSQL 14.7" "PostgreSQL 14.7 Documentation"
+.TH "PG_AMCHECK" "1" "2023" "PostgreSQL 14.8" "PostgreSQL 14.8 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -127,7 +127,7 @@ Patterns may be unqualified, e\&.g\&.
 myrel*, or they may be schema\-qualified, e\&.g\&.
 myschema*\&.myrel*
 or database\-qualified and schema\-qualified, e\&.g\&.
-mydb*\&.myscheam*\&.myrel*\&. A database\-qualified pattern will add matching databases to the list of databases to be checked\&.
+mydb*\&.myschema*\&.myrel*\&. A database\-qualified pattern will add matching databases to the list of databases to be checked\&.
 .RE
 .PP
 \fB\-R \fR\fB\fIpattern\fR\fR

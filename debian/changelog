@@ -1,3 +1,39 @@
+postgresql-14 (14.8-0ubuntu0.22.04.1) jammy-security; urgency=medium
+
+  * New upstream version (LP: #2019214).
+
+    + A dump/restore is not required for those running 14.X.
+
+    + Also, if you are upgrading from a version earlier than 14.4, see
+      those release notes as well please.
+
+    + Prevent CREATE SCHEMA from defeating changes in search_path
+      (Alexander Lakhin)
+
+      Within a CREATE SCHEMA command, objects in the prevailing
+      search_path, as well as those in the newly-created schema, would be
+      visible even within a called function or script that attempted to set
+      a secure search_path. This could allow any user having permission to
+      create a schema to hijack the privileges of a security definer
+      function or extension script.
+      (CVE-2023-2454)
+
+    + Enforce row-level security policies correctly after inlining a
+      set-returning function (Stephen Frost, Tom Lane)
+
+      If a set-returning SQL-language function refers to a table having
+      row-level security policies, and it can be inlined into a calling
+      query, those RLS policies would not get enforced properly in some
+      cases involving re-using a cached plan under a different role. This
+      could allow a user to see or modify rows that should have been
+      invisible.
+      (CVE-2023-2455)
+
+    + Details about these and many further changes can be found at:
+      https://www.postgresql.org/docs/14/release-14-8.html
+
+ -- Athos Ribeiro <athos.ribeiro@canonical.com>  Tue, 16 May 2023 09:37:37 -0300
+
 postgresql-14 (14.7-0ubuntu0.22.04.1) jammy-security; urgency=medium
 
   * New upstream version (LP: #2006406).
