@@ -17,7 +17,7 @@ dnl Read the Autoconf manual for details.
 dnl
 m4_pattern_forbid(^PGAC_)dnl to catch undefined macros
 
-AC_INIT([PostgreSQL], [14.7], [pgsql-bugs@lists.postgresql.org], [], [https://www.postgresql.org/])
+AC_INIT([PostgreSQL], [14.8], [pgsql-bugs@lists.postgresql.org], [], [https://www.postgresql.org/])
 
 m4_if(m4_defn([m4_PACKAGE_VERSION]), [2.69], [], [m4_fatal([Autoconf version 2.69 is required.
 Untested combinations of 'autoconf' and PostgreSQL versions are not
@@ -1316,6 +1316,8 @@ if test "$with_ssl" = openssl ; then
   # thread-safety. In 1.1.0, it's no longer required, and CRYPTO_lock()
   # function was removed.
   AC_CHECK_FUNCS([CRYPTO_lock])
+  # Function introduced in OpenSSL 1.1.1.
+  AC_CHECK_FUNCS([X509_get_signature_info])
   AC_DEFINE([USE_OPENSSL], 1, [Define to 1 to build with OpenSSL support. (--with-ssl=openssl)])
 elif test "$with_ssl" != no ; then
   AC_MSG_ERROR([--with-ssl must specify openssl])
@@ -1424,6 +1426,7 @@ AC_CHECK_HEADERS(m4_normalize([
 	sys/epoll.h
 	sys/event.h
 	sys/ipc.h
+	sys/personality.h
 	sys/prctl.h
 	sys/procctl.h
 	sys/pstat.h
@@ -1929,6 +1932,7 @@ if test "$PORTNAME" = "win32"; then
   AC_LIBOBJ(kill)
   AC_LIBOBJ(open)
   AC_LIBOBJ(system)
+  AC_LIBOBJ(win32common)
   AC_LIBOBJ(win32env)
   AC_LIBOBJ(win32error)
   AC_LIBOBJ(win32security)

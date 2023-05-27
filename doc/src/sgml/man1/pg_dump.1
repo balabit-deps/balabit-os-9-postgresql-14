@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2023
-.\"    Manual: PostgreSQL 14.7 Documentation
-.\"    Source: PostgreSQL 14.7
+.\"    Manual: PostgreSQL 14.8 Documentation
+.\"    Source: PostgreSQL 14.8
 .\"  Language: English
 .\"
-.TH "PG_DUMP" "1" "2023" "PostgreSQL 14.7" "PostgreSQL 14.7 Documentation"
+.TH "PG_DUMP" "1" "2023" "PostgreSQL 14.8" "PostgreSQL 14.8 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -692,10 +692,6 @@ When dumping data for a table partition, make the
 or
 \fBINSERT\fR
 statements target the root of the partitioning hierarchy that contains it, rather than the partition itself\&. This causes the appropriate partition to be re\-determined for each row when the data is loaded\&. This may be useful when restoring data on a server where rows do not always fall into the same partitions as they did on the original server\&. That could happen, for example, if the partitioning column is of type text and the two systems have different definitions of the collation used to sort the partitioning column\&.
-.sp
-It is best not to use parallelism when restoring from an archive made with this option, because
-pg_restore
-will not know exactly which partition(s) a given archive data item will load data into\&. This could result in inefficiency due to lock conflicts between parallel jobs, or perhaps even restore failures due to foreign key constraints being set up before all the relevant data is loaded\&.
 .RE
 .PP
 \fB\-\-lock\-wait\-timeout=\fR\fB\fItimeout\fR\fR
