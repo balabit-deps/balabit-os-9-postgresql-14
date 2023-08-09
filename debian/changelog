@@ -1,3 +1,38 @@
+postgresql-14 (14.9-0ubuntu0.22.04.1) jammy-security; urgency=medium
+
+  * New upstream version (LP: #2028426).
+
+    + A dump/restore is not required for those running 14.X.
+
+    + However, if you use BRIN indexes, it may be advisable to reindex them.
+
+    + Also, if you are upgrading from a version earlier than 14.4, see
+      those release notes as well please.
+
+    + Disallow substituting a schema or owner name into an extension script
+      if the name contains a quote, backslash, or dollar sign (Noah Misch)
+
+      This restriction guards against SQL-injection hazards for trusted
+      extensions.
+      (CVE-2023-39417)
+
+    + Fix confusion between empty (no rows) ranges and all-NULL ranges in
+      BRIN indexes, as well as incorrect merging of all-NULL summaries
+      (Tomas Vondra)
+
+      Each of these oversights could result in forgetting that a BRIN
+      index range contains any NULL values, potentially allowing
+      subsequent queries that should return NULL values to miss doing so.
+
+      This fix will not in itself correct faulty BRIN entries.
+      It's recommended to REINDEX any BRIN indexes that
+      may be used to search for nulls.
+
+    + Details about these and many further changes can be found at:
+      https://www.postgresql.org/docs/14/release-14-9.html
+
+ -- Athos Ribeiro <athos.ribeiro@canonical.com>  Wed, 09 Aug 2023 09:01:25 -0300
+
 postgresql-14 (14.8-0ubuntu0.22.04.1) jammy-security; urgency=medium
 
   * New upstream version (LP: #2019214).
