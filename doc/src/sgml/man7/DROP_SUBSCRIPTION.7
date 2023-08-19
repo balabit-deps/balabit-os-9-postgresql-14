@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2023
-.\"    Manual: PostgreSQL 14.8 Documentation
-.\"    Source: PostgreSQL 14.8
+.\"    Manual: PostgreSQL 14.9 Documentation
+.\"    Source: PostgreSQL 14.9
 .\"  Language: English
 .\"
-.TH "DROP SUBSCRIPTION" "7" "2023" "PostgreSQL 14.8" "PostgreSQL 14.8 Documentation"
+.TH "DROP SUBSCRIPTION" "7" "2023" "PostgreSQL 14.9" "PostgreSQL 14.9 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -64,7 +64,8 @@ When dropping a subscription that is associated with a replication slot on the r
 \fBDROP SUBSCRIPTION\fR
 will connect to the remote host and try to drop the replication slot (and any remaining table synchronization slots) as part of its operation\&. This is necessary so that the resources allocated for the subscription on the remote host are released\&. If this fails, either because the remote host is not reachable or because the remote replication slot cannot be dropped or does not exist or never existed, the
 \fBDROP SUBSCRIPTION\fR
-command will fail\&. To proceed in this situation, disassociate the subscription from the replication slot by executing
+command will fail\&. To proceed in this situation, first disable the subscription by executing
+ALTER SUBSCRIPTION \&.\&.\&. DISABLE, and then disassociate it from the replication slot by executing
 ALTER SUBSCRIPTION \&.\&.\&. SET (slot_name = NONE)\&. After that,
 \fBDROP SUBSCRIPTION\fR
 will no longer attempt any actions on a remote host\&. Note that if the remote replication slot still exists, it (and any related table synchronization slots) should then be dropped manually; otherwise it/they will continue to reserve WAL and might eventually cause the disk to fill up\&. See also
