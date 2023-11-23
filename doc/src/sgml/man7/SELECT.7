@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2023
-.\"    Manual: PostgreSQL 14.9 Documentation
-.\"    Source: PostgreSQL 14.9
+.\"    Manual: PostgreSQL 14.10 Documentation
+.\"    Source: PostgreSQL 14.10
 .\"  Language: English
 .\"
-.TH "SELECT" "7" "2023" "PostgreSQL 14.9" "PostgreSQL 14.9 Documentation"
+.TH "SELECT" "7" "2023" "PostgreSQL 14.10" "PostgreSQL 14.10 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -159,7 +159,9 @@ clause is present, it eliminates groups that do not satisfy the given condition\
 GROUP BY Clause
 and
 HAVING Clause
-below\&.)
+below\&.) Although query output columns are nominally computed in the next step, they can also be referenced (by name or ordinal number) in the
+GROUP BY
+clause\&.
 .RE
 .sp
 .RS 4

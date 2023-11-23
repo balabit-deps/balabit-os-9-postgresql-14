@@ -4,9 +4,11 @@ Description: Move libpgport/libpgcommon/libpgfeutils from libdir to pkglibdir
  Used by pg-checksums.
 Forwarded: No, (somewhat) Debian specific
 
---- a/src/common/Makefile
-+++ b/src/common/Makefile
-@@ -68,15 +68,15 @@ all: libpgcommon.a libpgcommon_shlib.a l
+Index: postgresql-14/src/common/Makefile
+===================================================================
+--- postgresql-14.orig/src/common/Makefile	2023-11-22 22:07:41.293981990 -0500
++++ postgresql-14/src/common/Makefile	2023-11-22 22:07:41.293981990 -0500
+@@ -122,15 +122,15 @@
  
  # libpgcommon is needed by some contrib
  install: all installdirs
@@ -27,9 +29,11 @@ Forwarded: No, (somewhat) Debian specific
  
  libpgcommon.a: $(OBJS_FRONTEND)
  	rm -f $@
---- a/src/fe_utils/Makefile
-+++ b/src/fe_utils/Makefile
-@@ -35,13 +35,13 @@ distprep: psqlscan.c
+Index: postgresql-14/src/fe_utils/Makefile
+===================================================================
+--- postgresql-14.orig/src/fe_utils/Makefile	2023-11-22 22:07:41.293981990 -0500
++++ postgresql-14/src/fe_utils/Makefile	2023-11-22 22:07:41.293981990 -0500
+@@ -48,13 +48,13 @@
  
  # libpgfeutils could be useful to contrib, so install it
  install: all installdirs
@@ -46,9 +50,11 @@ Forwarded: No, (somewhat) Debian specific
  
  clean distclean:
  	rm -f libpgfeutils.a $(OBJS) lex.backup
---- a/src/port/Makefile
-+++ b/src/port/Makefile
-@@ -54,15 +54,15 @@ all: libpgport.a libpgport_shlib.a libpg
+Index: postgresql-14/src/port/Makefile
+===================================================================
+--- postgresql-14.orig/src/port/Makefile	2023-11-22 22:07:41.293981990 -0500
++++ postgresql-14/src/port/Makefile	2023-11-22 22:07:41.293981990 -0500
+@@ -71,15 +71,15 @@
  
  # libpgport is needed by some contrib
  install: all installdirs
@@ -69,16 +75,25 @@ Forwarded: No, (somewhat) Debian specific
  
  libpgport.a: $(OBJS)
  	rm -f $@
---- a/src/Makefile.global.in
-+++ b/src/Makefile.global.in
-@@ -549,8 +549,8 @@ libpq = -L$(libpq_builddir) -lpq
- # on client link lines, since that also appears in $(LIBS).
- # libpq_pgport_shlib is the same idea, but for use in client shared libraries.
- ifdef PGXS
+Index: postgresql-14/src/Makefile.global.in
+===================================================================
+--- postgresql-14.orig/src/Makefile.global.in	2023-11-22 22:07:41.293981990 -0500
++++ postgresql-14/src/Makefile.global.in	2023-11-22 22:12:32.843940310 -0500
+@@ -593,7 +593,7 @@
+ ifeq ($(PORTNAME),darwin)
+ libpq_pgport = $(libpq)
+ else ifdef PGXS
 -libpq_pgport = -L$(libdir) -lpgcommon -lpgport $(libpq)
--libpq_pgport_shlib = -L$(libdir) -lpgcommon_shlib -lpgport_shlib $(libpq)
 +libpq_pgport = -L$(pkglibdir) -lpgcommon -lpgport $(libpq)
-+libpq_pgport_shlib = -L$(pkglibdir) -lpgcommon_shlib -lpgport_shlib $(libpq)
  else
  libpq_pgport = -L$(top_builddir)/src/common -lpgcommon -L$(top_builddir)/src/port -lpgport $(libpq)
+ endif
+@@ -604,7 +604,7 @@
+ # done if they don't, since they will have satisfied all their references
+ # from these libraries.)
+ ifdef PGXS
+-libpq_pgport_shlib = -L$(libdir) -lpgcommon_shlib -lpgport_shlib $(libpq)
++libpq_pgport_shlib = -L$(pkglibdir) -lpgcommon_shlib -lpgport_shlib $(libpq)
+ else
  libpq_pgport_shlib = -L$(top_builddir)/src/common -lpgcommon_shlib -L$(top_builddir)/src/port -lpgport_shlib $(libpq)
+ endif

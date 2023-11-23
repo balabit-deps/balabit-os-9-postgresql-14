@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2023
-.\"    Manual: PostgreSQL 14.9 Documentation
-.\"    Source: PostgreSQL 14.9
+.\"    Manual: PostgreSQL 14.10 Documentation
+.\"    Source: PostgreSQL 14.10
 .\"  Language: English
 .\"
-.TH "ALTER DEFAULT PRIVILEGES" "7" "2023" "PostgreSQL 14.9" "PostgreSQL 14.9 Documentation"
+.TH "ALTER DEFAULT PRIVILEGES" "7" "2023" "PostgreSQL 14.10" "PostgreSQL 14.10 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -123,7 +123,11 @@ GRANT\&.
 .PP
 \fItarget_role\fR
 .RS 4
-The name of an existing role of which the current role is a member\&. If
+The name of an existing role of which the current role is a member\&. Default access privileges are not inherited, so member roles must use
+\fBSET ROLE\fR
+to access these privileges, or
+\fBALTER DEFAULT PRIVILEGES\fR
+must be run for each member role\&. If
 FOR ROLE
 is omitted, the current role is assumed\&.
 .RE

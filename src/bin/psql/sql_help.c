@@ -1152,12 +1152,11 @@ static void
 sql_help_ALTER_SYSTEM(PQExpBuffer buf)
 {
 	appendPQExpBuffer(buf,
-					  "ALTER SYSTEM SET %s { TO | = } { %s | '%s' | DEFAULT }\n"
+					  "ALTER SYSTEM SET %s { TO | = } { %s [, ...] | DEFAULT }\n"
 					  "\n"
 					  "ALTER SYSTEM RESET %s\n"
 					  "ALTER SYSTEM RESET ALL",
 					  _("configuration_parameter"),
-					  _("value"),
 					  _("value"),
 					  _("configuration_parameter"));
 }

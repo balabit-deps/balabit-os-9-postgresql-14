@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2023
-.\"    Manual: PostgreSQL 14.9 Documentation
-.\"    Source: PostgreSQL 14.9
+.\"    Manual: PostgreSQL 14.10 Documentation
+.\"    Source: PostgreSQL 14.10
 .\"  Language: English
 .\"
-.TH "SPI_CURSOR_FIND" "3" "2023" "PostgreSQL 14.9" "PostgreSQL 14.9 Documentation"
+.TH "SPI_CURSOR_FIND" "3" "2023" "PostgreSQL 14.10" "PostgreSQL 14.10 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -49,3 +49,11 @@ name of the portal
 pointer to the portal with the specified name, or
 NULL
 if none was found
+.SH "NOTES"
+.PP
+Beware that this function can return a
+Portal
+object that does not have cursor\-like properties; for example it might not return tuples\&. If you simply pass the
+Portal
+pointer to other SPI functions, they can defend themselves against such cases, but caution is appropriate when directly inspecting the
+Portal\&.
