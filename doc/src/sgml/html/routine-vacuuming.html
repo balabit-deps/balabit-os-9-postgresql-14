@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>25.1. Routine Vacuuming</title><link rel="stylesheet" type="text/css" href="stylesheet.css" /><link rev="made" href="pgsql-docs@lists.postgresql.org" /><meta name="generator" content="DocBook XSL Stylesheets Vsnapshot" /><link rel="prev" href="maintenance.html" title="Chapter 25. Routine Database Maintenance Tasks" /><link rel="next" href="routine-reindex.html" title="25.2. Routine Reindexing" /></head><body id="docContent" class="container-fluid col-10"><div xmlns="http://www.w3.org/TR/xhtml1/transitional" class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="5" align="center">25.1. Routine Vacuuming</th></tr><tr><td width="10%" align="left"><a accesskey="p" href="maintenance.html" title="Chapter 25. Routine Database Maintenance Tasks">Prev</a> </td><td width="10%" align="left"><a accesskey="u" href="maintenance.html" title="Chapter 25. Routine Database Maintenance Tasks">Up</a></td><th width="60%" align="center">Chapter 25. Routine Database Maintenance Tasks</th><td width="10%" align="right"><a accesskey="h" href="index.html" title="PostgreSQL 14.9 Documentation">Home</a></td><td width="10%" align="right"> <a accesskey="n" href="routine-reindex.html" title="25.2. Routine Reindexing">Next</a></td></tr></table><hr></hr></div><div class="sect1" id="ROUTINE-VACUUMING"><div class="titlepage"><div><div><h2 class="title" style="clear: both">25.1. Routine Vacuuming</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="sect2"><a href="routine-vacuuming.html#VACUUM-BASICS">25.1.1. Vacuuming Basics</a></span></dt><dt><span class="sect2"><a href="routine-vacuuming.html#VACUUM-FOR-SPACE-RECOVERY">25.1.2. Recovering Disk Space</a></span></dt><dt><span class="sect2"><a href="routine-vacuuming.html#VACUUM-FOR-STATISTICS">25.1.3. Updating Planner Statistics</a></span></dt><dt><span class="sect2"><a href="routine-vacuuming.html#VACUUM-FOR-VISIBILITY-MAP">25.1.4. Updating the Visibility Map</a></span></dt><dt><span class="sect2"><a href="routine-vacuuming.html#VACUUM-FOR-WRAPAROUND">25.1.5. Preventing Transaction ID Wraparound Failures</a></span></dt><dt><span class="sect2"><a href="routine-vacuuming.html#AUTOVACUUM">25.1.6. The Autovacuum Daemon</a></span></dt></dl></div><a id="id-1.6.12.10.2" class="indexterm"></a><p>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>25.1. Routine Vacuuming</title><link rel="stylesheet" type="text/css" href="stylesheet.css" /><link rev="made" href="pgsql-docs@lists.postgresql.org" /><meta name="generator" content="DocBook XSL Stylesheets Vsnapshot" /><link rel="prev" href="maintenance.html" title="Chapter 25. Routine Database Maintenance Tasks" /><link rel="next" href="routine-reindex.html" title="25.2. Routine Reindexing" /></head><body id="docContent" class="container-fluid col-10"><div xmlns="http://www.w3.org/TR/xhtml1/transitional" class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="5" align="center">25.1. Routine Vacuuming</th></tr><tr><td width="10%" align="left"><a accesskey="p" href="maintenance.html" title="Chapter 25. Routine Database Maintenance Tasks">Prev</a> </td><td width="10%" align="left"><a accesskey="u" href="maintenance.html" title="Chapter 25. Routine Database Maintenance Tasks">Up</a></td><th width="60%" align="center">Chapter 25. Routine Database Maintenance Tasks</th><td width="10%" align="right"><a accesskey="h" href="index.html" title="PostgreSQL 14.10 Documentation">Home</a></td><td width="10%" align="right"> <a accesskey="n" href="routine-reindex.html" title="25.2. Routine Reindexing">Next</a></td></tr></table><hr></hr></div><div class="sect1" id="ROUTINE-VACUUMING"><div class="titlepage"><div><div><h2 class="title" style="clear: both">25.1. Routine Vacuuming</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="sect2"><a href="routine-vacuuming.html#VACUUM-BASICS">25.1.1. Vacuuming Basics</a></span></dt><dt><span class="sect2"><a href="routine-vacuuming.html#VACUUM-FOR-SPACE-RECOVERY">25.1.2. Recovering Disk Space</a></span></dt><dt><span class="sect2"><a href="routine-vacuuming.html#VACUUM-FOR-STATISTICS">25.1.3. Updating Planner Statistics</a></span></dt><dt><span class="sect2"><a href="routine-vacuuming.html#VACUUM-FOR-VISIBILITY-MAP">25.1.4. Updating the Visibility Map</a></span></dt><dt><span class="sect2"><a href="routine-vacuuming.html#VACUUM-FOR-WRAPAROUND">25.1.5. Preventing Transaction ID Wraparound Failures</a></span></dt><dt><span class="sect2"><a href="routine-vacuuming.html#AUTOVACUUM">25.1.6. The Autovacuum Daemon</a></span></dt></dl></div><a id="id-1.6.12.10.2" class="indexterm"></a><p>
    <span class="productname">PostgreSQL</span> databases require periodic
    maintenance known as <em class="firstterm">vacuuming</em>.  For many installations, it
    is sufficient to let vacuuming be performed by the <em class="firstterm">autovacuum
@@ -431,28 +431,58 @@ HINT:  To avoid a database shutdown, execute a database-wide VACUUM in that data
 </pre><p>
 
     (A manual <code class="command">VACUUM</code> should fix the problem, as suggested by the
-    hint; but note that the <code class="command">VACUUM</code> must be performed by a
-    superuser, else it will fail to process system catalogs and thus not
-    be able to advance the database's <code class="structfield">datfrozenxid</code>.)
-    If these warnings are
-    ignored, the system will shut down and refuse to start any new
-    transactions once there are fewer than three million transactions left
-    until wraparound:
+    hint; but note that the <code class="command">VACUUM</code> should be performed by a
+    superuser, else it will fail to process system catalogs, which prevent it from
+    being able to advance the database's <code class="structfield">datfrozenxid</code>.)
+    If these warnings are ignored, the system will refuse to assign new XIDs once
+    there are fewer than three million transactions left until wraparound:
 
 </p><pre class="programlisting">
 ERROR:  database is not accepting commands to avoid wraparound data loss in database "mydb"
 HINT:  Stop the postmaster and vacuum that database in single-user mode.
 </pre><p>
 
-    The three-million-transaction safety margin exists to let the
-    administrator recover without data loss, by manually executing the
-    required <code class="command">VACUUM</code> commands.  However, since the system will not
-    execute commands once it has gone into the safety shutdown mode,
-    the only way to do this is to stop the server and start the server in single-user
-    mode to execute <code class="command">VACUUM</code>.  The shutdown mode is not enforced
-    in single-user mode.  See the <a class="xref" href="app-postgres.html" title="postgres"><span class="refentrytitle"><span class="application">postgres</span></span></a> reference
-    page for details about using single-user mode.
-   </p><div class="sect3" id="VACUUM-FOR-MULTIXACT-WRAPAROUND"><div class="titlepage"><div><div><h4 class="title">25.1.5.1. Multixacts and Wraparound</h4></div></div></div><a id="id-1.6.12.10.8.17.2" class="indexterm"></a><a id="id-1.6.12.10.8.17.3" class="indexterm"></a><p>
+    In this condition any transactions already in progress can continue,
+    but only read-only transactions can be started. Operations that
+    modify database records or truncate relations will fail.
+    The <code class="command">VACUUM</code> command can still be run normally.
+    Contrary to what the hint states, it is not necessary or desirable to stop the
+    postmaster or enter single user-mode in order to restore normal operation.
+    Instead, follow these steps:
+
+    </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">Resolve old prepared transactions. You can find these by checking
+       <a class="link" href="view-pg-prepared-xacts.html" title="52.78. pg_prepared_xacts">pg_prepared_xacts</a> for rows where
+       <code class="literal">age(transactionid)</code> is large. Such transactions should be
+       committed or rolled back.</li><li class="listitem">End long-running open transactions. You can find these by checking
+       <a class="link" href="monitoring-stats.html#MONITORING-PG-STAT-ACTIVITY-VIEW" title="28.2.3. pg_stat_activity">pg_stat_activity</a> for rows where
+       <code class="literal">age(backend_xid)</code> or <code class="literal">age(backend_xmin)</code> is
+       large. Such transactions should be committed or rolled back, or the session
+       can be terminated using <code class="literal">pg_terminate_backend</code>.</li><li class="listitem">Drop any old replication slots. Use
+       <a class="link" href="monitoring-stats.html#MONITORING-PG-STAT-REPLICATION-VIEW" title="28.2.4. pg_stat_replication">pg_stat_replication</a> to
+       find slots where <code class="literal">age(xmin)</code> or <code class="literal">age(catalog_xmin)</code>
+       is large. In many cases, such slots were created for replication to servers that no
+       longer exist, or that have been down for a long time. If you drop a slot for a server
+       that still exists and might still try to connect to that slot, that replica may
+       need to be rebuilt.</li><li class="listitem">Execute <code class="command">VACUUM</code> in the target database. A database-wide
+       <code class="literal">VACUUM</code> is simplest; to reduce the time required, it as also possible
+       to issue manual <code class="command">VACUUM</code> commands on the tables where
+       <code class="structfield">relminxid</code> is oldest. Do not use <code class="literal">VACUUM FULL</code>
+       in this scenario, because it requires an XID and will therefore fail, except in super-user
+       mode, where it will instead consume an XID and thus increase the risk of transaction ID
+       wraparound. Do not use <code class="literal">VACUUM FREEZE</code> either, because it will do
+       more than the minimum amount of work required to restore normal operation.</li><li class="listitem">Once normal operation is restored, ensure that autovacuum is properly configured
+       in the target database in order to avoid future problems.</li></ol></div><p>
+   </p><div class="note"><h3 class="title">Note</h3><p>
+     In earlier versions, it was sometimes necessary to stop the postmaster and
+     <code class="command">VACUUM</code> the database in a single-user mode. In typical scenarios, this
+     is no longer necessary, and should be avoided whenever possible, since it involves taking
+     the system down. It is also riskier, since it disables transaction ID wraparound safeguards
+     that are designed to prevent data loss.  The only reason to use single-user mode in this
+     scenario is if you wish to <code class="command">TRUNCATE</code> or <code class="command">DROP</code> unneeded
+     tables to avoid needing to <code class="command">VACUUM</code> them.  The three-million-transaction
+     safety margin exists to let the administrator do this. See the
+     <a class="xref" href="app-postgres.html" title="postgres"><span class="refentrytitle"><span class="application">postgres</span></span></a> reference page for details about using single-user mode.
+    </p></div><div class="sect3" id="VACUUM-FOR-MULTIXACT-WRAPAROUND"><div class="titlepage"><div><div><h4 class="title">25.1.5.1. Multixacts and Wraparound</h4></div></div></div><a id="id-1.6.12.10.8.18.2" class="indexterm"></a><a id="id-1.6.12.10.8.18.3" class="indexterm"></a><p>
      <em class="firstterm">Multixact IDs</em> are used to support row locking by
      multiple transactions.  Since there is only limited space in a tuple
      header to store lock information, that information is encoded as
@@ -495,7 +525,24 @@ HINT:  Stop the postmaster and vacuum that database in single-user mode.
      scans will occur more often for all tables, starting with those that
      have the oldest multixact-age.  Both of these kinds of aggressive
      scans will occur even if autovacuum is nominally disabled.
-    </p></div></div><div class="sect2" id="AUTOVACUUM"><div class="titlepage"><div><div><h3 class="title">25.1.6. The Autovacuum Daemon</h3></div></div></div><a id="id-1.6.12.10.9.2" class="indexterm"></a><p>
+    </p><p>
+     Similar to the XID case, if autovacuum fails to clear old MXIDs from a table, the
+     system will begin to emit warning messages when the database's oldest MXIDs reach forty
+     million transactions from the wraparound point.  And, just as an the XID case, if these
+     warnings are ignored, the system will refuse to generate new MXIDs once there are fewer
+     than three million left until wraparound.
+    </p><p>
+     Normal operation when MXIDs are exhausted can be restored in much the same way as
+     when XIDs are exhausted. Follow the same steps in the previous section, but with the
+     following differences:
+
+    </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">Running transactions and prepared transactions can be ignored if there
+       is no chance that they might appear in a multixact.</li><li class="listitem">MXID information is not directly visible in system views such as
+       <code class="literal">pg_stat_activity</code>; however, looking for old XIDs is still a good
+       way of determining which transactions are causing MXID wraparound problems.</li><li class="listitem">XID exhaustion will block all write transactions, but MXID exhaustion will
+       only block a subset of write transactions, specifically those that involve
+       row locks that require an MXID.</li></ol></div><p>
+   </p></div></div><div class="sect2" id="AUTOVACUUM"><div class="titlepage"><div><div><h3 class="title">25.1.6. The Autovacuum Daemon</h3></div></div></div><a id="id-1.6.12.10.9.2" class="indexterm"></a><p>
     <span class="productname">PostgreSQL</span> has an optional but highly
     recommended feature called <em class="firstterm">autovacuum</em>,
     whose purpose is to automate the execution of
@@ -586,10 +633,15 @@ analyze threshold = analyze base threshold + analyze scale factor * number of tu
     is compared to the total number of tuples inserted, updated, or deleted
     since the last <code class="command">ANALYZE</code>.
    </p><p>
-    Partitioned tables are not processed by autovacuum.  Statistics
-    should be collected by running a manual <code class="command">ANALYZE</code> when it is
-    first populated, and again whenever the distribution of data in its
-    partitions changes significantly.
+    Partitioned tables do not directly store tuples and consequently
+    are not processed by autovacuum.  (Autovacuum does process table
+    partitions just like other tables.)  Unfortunately, this means that
+    autovacuum does  not run <code class="command">ANALYZE</code> on partitioned
+    tables, and this can cause suboptimal plans for queries that reference
+    partitioned table statistics.  You can work around this problem by
+    manually running <code class="command">ANALYZE</code> on partitioned tables
+    when they are first populated, and again whenever the distribution
+    of data in their partitions changes significantly.
    </p><p>
     Temporary tables cannot be accessed by autovacuum.  Therefore,
     appropriate vacuum and analyze operations should be performed via
@@ -626,4 +678,4 @@ analyze threshold = analyze base threshold + analyze scale factor * number of tu
      Regularly running commands that acquire locks conflicting with a
      <code class="literal">SHARE UPDATE EXCLUSIVE</code> lock (e.g., ANALYZE) can
      effectively prevent autovacuums from ever completing.
-    </p></div></div></div><div xmlns="http://www.w3.org/TR/xhtml1/transitional" class="navfooter"><hr></hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="maintenance.html" title="Chapter 25. Routine Database Maintenance Tasks">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="maintenance.html" title="Chapter 25. Routine Database Maintenance Tasks">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="routine-reindex.html" title="25.2. Routine Reindexing">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 25. Routine Database Maintenance Tasks </td><td width="20%" align="center"><a accesskey="h" href="index.html" title="PostgreSQL 14.9 Documentation">Home</a></td><td width="40%" align="right" valign="top"> 25.2. Routine Reindexing</td></tr></table></div></body></html>
+    </p></div></div></div><div xmlns="http://www.w3.org/TR/xhtml1/transitional" class="navfooter"><hr></hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="maintenance.html" title="Chapter 25. Routine Database Maintenance Tasks">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="maintenance.html" title="Chapter 25. Routine Database Maintenance Tasks">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="routine-reindex.html" title="25.2. Routine Reindexing">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 25. Routine Database Maintenance Tasks </td><td width="20%" align="center"><a accesskey="h" href="index.html" title="PostgreSQL 14.10 Documentation">Home</a></td><td width="40%" align="right" valign="top"> 25.2. Routine Reindexing</td></tr></table></div></body></html>

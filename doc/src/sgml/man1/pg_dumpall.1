@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2023
-.\"    Manual: PostgreSQL 14.9 Documentation
-.\"    Source: PostgreSQL 14.9
+.\"    Manual: PostgreSQL 14.10 Documentation
+.\"    Source: PostgreSQL 14.10
 .\"  Language: English
 .\"
-.TH "PG_DUMPALL" "1" "2023" "PostgreSQL 14.9" "PostgreSQL 14.9 Documentation"
+.TH "PG_DUMPALL" "1" "2023" "PostgreSQL 14.10" "PostgreSQL 14.10 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -79,9 +79,11 @@ Dump only the data, not the schema (data definitions)\&.
 .br
 \fB\-\-clean\fR
 .RS 4
-Include SQL commands to clean (drop) databases before recreating them\&.
+Emit SQL commands to
 \fBDROP\fR
-commands for roles and tablespaces are added as well\&.
+all the dumped databases, roles, and tablespaces before recreating them\&. This option is useful when the restore is to overwrite an existing cluster\&. If any of the objects do not exist in the destination cluster, ignorable error messages will be reported during restore, unless
+\fB\-\-if\-exists\fR
+is also specified\&.
 .RE
 .PP
 \fB\-E \fR\fB\fIencoding\fR\fR
@@ -233,9 +235,13 @@ Use the specified value of extra_float_digits when dumping floating\-point data,
 .PP
 \fB\-\-if\-exists\fR
 .RS 4
-Use conditional commands (i\&.e\&., add an
-IF EXISTS
-clause) to drop databases and other objects\&. This option is not valid unless
+Use
+DROP \&.\&.\&. IF EXISTS
+commands to drop objects in
+\fB\-\-clean\fR
+mode\&. This suppresses
+\(lqdoes not exist\(rq
+errors that might otherwise be reported\&. This option is not valid unless
 \fB\-\-clean\fR
 is also specified\&.
 .RE

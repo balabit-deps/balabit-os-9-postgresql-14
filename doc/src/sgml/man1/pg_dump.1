@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2023
-.\"    Manual: PostgreSQL 14.9 Documentation
-.\"    Source: PostgreSQL 14.9
+.\"    Manual: PostgreSQL 14.10 Documentation
+.\"    Source: PostgreSQL 14.10
 .\"  Language: English
 .\"
-.TH "PG_DUMP" "1" "2023" "PostgreSQL 14.9" "PostgreSQL 14.9 Documentation"
+.TH "PG_DUMP" "1" "2023" "PostgreSQL 14.10" "PostgreSQL 14.10 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -128,9 +128,11 @@ documentation\&.
 .br
 \fB\-\-clean\fR
 .RS 4
-Output commands to clean (drop) database objects prior to outputting the commands for creating them\&. (Unless
+Output commands to
+\fBDROP\fR
+all the dumped database objects prior to outputting the commands for creating them\&. This option is useful when the restore is to overwrite an existing database\&. If any of the objects do not exist in the destination database, ignorable error messages will be reported during restore, unless
 \fB\-\-if\-exists\fR
-is also specified, restore might generate some harmless error messages, if any objects were not present in the destination database\&.)
+is also specified\&.
 .sp
 This option is ignored when emitting an archive (non\-text) output file\&. For the archive formats, you can specify the option when you call
 \fBpg_restore\fR\&.
@@ -628,9 +630,13 @@ when dumping floating\-point data, instead of the maximum available precision\&.
 .PP
 \fB\-\-if\-exists\fR
 .RS 4
-Use conditional commands (i\&.e\&., add an
-IF EXISTS
-clause) when cleaning database objects\&. This option is not valid unless
+Use
+DROP \&.\&.\&. IF EXISTS
+commands to drop objects in
+\fB\-\-clean\fR
+mode\&. This suppresses
+\(lqdoes not exist\(rq
+errors that might otherwise be reported\&. This option is not valid unless
 \fB\-\-clean\fR
 is also specified\&.
 .RE

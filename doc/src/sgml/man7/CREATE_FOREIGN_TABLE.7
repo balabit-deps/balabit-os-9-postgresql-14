@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2023
-.\"    Manual: PostgreSQL 14.9 Documentation
-.\"    Source: PostgreSQL 14.9
+.\"    Manual: PostgreSQL 14.10 Documentation
+.\"    Source: PostgreSQL 14.10
 .\"  Language: English
 .\"
-.TH "CREATE FOREIGN TABLE" "7" "2023" "PostgreSQL 14.9" "PostgreSQL 14.9 Documentation"
+.TH "CREATE FOREIGN TABLE" "7" "2023" "PostgreSQL 14.10" "PostgreSQL 14.10 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -245,7 +245,7 @@ When a foreign table is used as a partition of a partitioned table, there is an 
 .PP
 Within a partitioned table containing foreign\-table partitions, an
 \fBUPDATE\fR
-that changes the partition key value can cause a row to be moved from a local partition to a foreign\-table partition, provided the foreign data wrapper supports tuple routing\&. However it is not currently possible to move a row from a foreign\-table partition to another partition\&. An
+that changes the partition key value can cause a row to be moved from a local partition to a foreign\-table partition, provided the foreign data wrapper supports tuple routing\&. However, it is not currently possible to move a row from a foreign\-table partition to another partition\&. An
 \fBUPDATE\fR
 that would require doing that will fail due to the partitioning constraint, assuming that that is properly enforced by the remote server\&.
 .PP

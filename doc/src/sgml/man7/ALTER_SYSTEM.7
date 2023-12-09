@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2023
-.\"    Manual: PostgreSQL 14.9 Documentation
-.\"    Source: PostgreSQL 14.9
+.\"    Manual: PostgreSQL 14.10 Documentation
+.\"    Source: PostgreSQL 14.10
 .\"  Language: English
 .\"
-.TH "ALTER SYSTEM" "7" "2023" "PostgreSQL 14.9" "PostgreSQL 14.9 Documentation"
+.TH "ALTER SYSTEM" "7" "2023" "PostgreSQL 14.10" "PostgreSQL 14.10 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -32,7 +32,7 @@ ALTER_SYSTEM \- change a server configuration parameter
 .SH "SYNOPSIS"
 .sp
 .nf
-ALTER SYSTEM SET \fIconfiguration_parameter\fR { TO | = } { \fIvalue\fR | \*(Aq\fIvalue\fR\*(Aq | DEFAULT }
+ALTER SYSTEM SET \fIconfiguration_parameter\fR { TO | = } { \fIvalue\fR [, \&.\&.\&.] | DEFAULT }
 
 ALTER SYSTEM RESET \fIconfiguration_parameter\fR
 ALTER SYSTEM RESET ALL
@@ -76,10 +76,12 @@ Chapter\ \&20\&.
 .PP
 \fIvalue\fR
 .RS 4
-New value of the parameter\&. Values can be specified as string constants, identifiers, numbers, or comma\-separated lists of these, as appropriate for the particular parameter\&.
+New value of the parameter\&. Values can be specified as string constants, identifiers, numbers, or comma\-separated lists of these, as appropriate for the particular parameter\&. Values that are neither numbers nor valid identifiers must be quoted\&.
 DEFAULT
 can be written to specify removing the parameter and its value from
 postgresql\&.auto\&.conf\&.
+.sp
+For some list\-accepting parameters, quoted values will produce double\-quoted output to preserve whitespace and commas; for others, double\-quotes must be used inside single\-quoted strings to get this effect\&.
 .RE
 .SH "NOTES"
 .PP

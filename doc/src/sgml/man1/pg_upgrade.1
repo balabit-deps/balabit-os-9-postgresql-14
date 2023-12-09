@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2023
-.\"    Manual: PostgreSQL 14.9 Documentation
-.\"    Source: PostgreSQL 14.9
+.\"    Manual: PostgreSQL 14.10 Documentation
+.\"    Source: PostgreSQL 14.10
 .\"  Language: English
 .\"
-.TH "PG_UPGRADE" "1" "2023" "PostgreSQL 14.9" "PostgreSQL 14.9 Documentation"
+.TH "PG_UPGRADE" "1" "2023" "PostgreSQL 14.10" "PostgreSQL 14.10 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -380,7 +380,7 @@ NET STOP postgresql\-14
 .RE
 .\}
 .sp
-Streaming replication and log\-shipping standby servers can remain running until a later step\&.
+Streaming replication and log\-shipping standby servers must be running during this shutdown so they receive all changes\&.
 .RE
 .sp
 .RS 4
@@ -396,7 +396,7 @@ Step 11, verify that the old standby servers are caught up by running
 pg_controldata
 against the old primary and standby clusters\&. Verify that the
 \(lqLatest checkpoint location\(rq
-values match in all clusters\&. (There will be a mismatch if old standby servers were shut down before the old primary or if the old standby servers are still running\&.) Also, make sure
+values match in all clusters\&. Also, make sure
 \fIwal_level\fR
 is not set to
 minimal
