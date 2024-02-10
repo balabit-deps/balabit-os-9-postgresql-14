@@ -1,0 +1,15 @@
+postgresql-14 (14.11-0ubuntu0.22.04.1) jammy; urgency=medium
+
+  A dump/restore is not required for those running 14.X.
+
+  However, one bug was fixed that could have resulted in corruption of
+  GIN indexes during concurrent updates.  If you suspect such
+  corruption, reindex affected indexes after installing this update.
+
+  Also, if you are upgrading from a version earlier than 14.10, see
+  those release notes as well please.
+
+  Details about these and many further changes can be found at:
+  https://www.postgresql.org/docs/14/release-14-11.html
+
+ -- Sergio Durigan Junior <sergio.durigan@canonical.com>  Fri, 09 Feb 2024 19:49:08 -0500

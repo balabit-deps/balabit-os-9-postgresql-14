@@ -1,3 +1,41 @@
+postgresql-14 (14.11-0ubuntu0.22.04.1) jammy-security; urgency=medium
+
+  * New upstream version (LP: #2052850).
+
+    + A dump/restore is not required for those running 14.X.
+
+    + However, one bug was fixed that could have resulted in corruption of
+      GIN indexes during concurrent updates.  If you suspect such
+      corruption, reindex affected indexes after installing this update.
+
+    + Also, if you are upgrading from a version earlier than 14.10, see
+      those release notes as well please.
+
+    + Tighten security restrictions within REFRESH MATERIALIZED
+      VIEW CONCURRENTLY (Heikki Linnakangas)
+
+      One step of a concurrent refresh command was run under weak security
+      restrictions.  If a materialized view's owner could persuade a
+      superuser or other high-privileged user to perform a concurrent
+      refresh on that view, the view's owner could control code executed
+      with the privileges of the user running REFRESH.
+      Fix things so that all user-determined code is run as the view's
+      owner, as expected.
+
+      The only known exploit for this error does not work in PostgreSQL
+      16.0 and later, so it may be that v16 is not vulnerable in practice.
+
+      The PostgreSQL Project thanks Pedro Gallegos for reporting this
+      problem.
+      (CVE-2024-0985)
+
+    + Details about these and many further changes can be found at:
+      https://www.postgresql.org/docs/14/release-14-11.html
+
+  * d/postgresql-14.NEWS: Update.
+
+ -- Sergio Durigan Junior <sergio.durigan@canonical.com>  Fri, 09 Feb 2024 19:49:08 -0500
+
 postgresql-14 (14.10-0ubuntu0.22.04.1) jammy-security; urgency=medium
 
   * New upstream version (LP: #2040469).
