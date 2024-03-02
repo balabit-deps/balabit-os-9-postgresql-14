@@ -2,12 +2,12 @@
 .\"     Title: CREATE TABLE
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
-.\"      Date: 2023
-.\"    Manual: PostgreSQL 14.10 Documentation
-.\"    Source: PostgreSQL 14.10
+.\"      Date: 2024
+.\"    Manual: PostgreSQL 14.11 Documentation
+.\"    Source: PostgreSQL 14.11
 .\"  Language: English
 .\"
-.TH "CREATE TABLE" "7" "2023" "PostgreSQL 14.10" "PostgreSQL 14.10 Documentation"
+.TH "CREATE TABLE" "7" "2024" "PostgreSQL 14.11" "PostgreSQL 14.11 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -739,7 +739,9 @@ These clauses specify a foreign key constraint, which requires that a group of o
 \fIrefcolumn\fR
 list is omitted, the primary key of the
 \fIreftable\fR
-is used\&. The referenced columns must be the columns of a non\-deferrable unique or primary key constraint in the referenced table\&. The user must have
+is used\&. Otherwise, the
+\fIrefcolumn\fR
+list must refer to the columns of a non\-deferrable unique or primary key constraint or be the columns of a non\-partial unique index\&. The user must have
 REFERENCES
 permission on the referenced table (either the whole table, or the specific referenced columns)\&. The addition of a foreign key constraint requires a
 SHARE ROW EXCLUSIVE
@@ -1661,6 +1663,11 @@ EXCLUDE
 constraint type is a
 PostgreSQL
 extension\&.
+.SS "Foreign Key Constraints"
+.PP
+It is a
+PostgreSQL
+extension that a foreign key constraint may reference columns of a unique index instead of columns of a primary key or unique constraint\&.
 .SS "NULL \(lqConstraint\(rq"
 .PP
 The
