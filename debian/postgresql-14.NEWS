@@ -1,3 +1,50 @@
+postgresql-14 (14.12-0ubuntu0.22.04.1) jammy; urgency=medium
+
+  A dump/restore is not required for those running 14.X.
+
+  However, a security vulnerability was found in the system views
+  pg_stats_ext and pg_stats_ext_exprs, potentially allowing
+  authenticated database users to see data they shouldn't. If this is of
+  concern in your installation, follow the steps below to rectify it.
+
+  These views failed to hide statistics for expressions that involve
+  columns the accessing user does not have permission to read. View
+  columns such as most_common_vals might expose security-relevant
+  data. The potential interactions here are not fully clear, so in the
+  interest of erring on the side of safety, make rows in these views
+  visible only to the owner of the associated table.
+
+  By itself, this fix will only fix the behavior in newly initdb'd
+  database clusters. If you wish to apply this change in an existing
+  cluster, you will need to do the following:
+
+    - In each database of the cluster, run the
+      /usr/share/postgresql/14/fix-CVE-2024-4317.sql script as superuser. In
+      psql this would look like:
+
+        \i /usr/share/postgresql/14/fix-CVE-2024-4317.sql
+
+      It will not hurt to run the script more than once.
+
+    - Do not forget to include the template0 and template1 databases,
+      or the vulnerability will still exist in databases you create
+      later. To fix template0, you'll need to temporarily make it accept
+      connections. Do that with:
+
+        ALTER DATABASE template0 WITH ALLOW_CONNECTIONS true;
+
+      and then after fixing template0, undo it with:
+
+        ALTER DATABASE template0 WITH ALLOW_CONNECTIONS false;
+
+  Also, if you are upgrading from a version earlier than 14.11, see
+  those release notes as well please.
+
+  Details about these and many further changes can be found at:
+  https://www.postgresql.org/docs/14/release-14-12.html
+
+ -- Sergio Durigan Junior <sergio.durigan@canonical.com>  Tue, 28 May 2024 09:51:10 -0400
+
 postgresql-14 (14.11-0ubuntu0.22.04.1) jammy; urgency=medium
 
   A dump/restore is not required for those running 14.X.

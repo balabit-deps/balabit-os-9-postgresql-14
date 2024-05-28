@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2024
-.\"    Manual: PostgreSQL 14.11 Documentation
-.\"    Source: PostgreSQL 14.11
+.\"    Manual: PostgreSQL 14.12 Documentation
+.\"    Source: PostgreSQL 14.12
 .\"  Language: English
 .\"
-.TH "CREATE TABLE" "7" "2024" "PostgreSQL 14.11" "PostgreSQL 14.11 Documentation"
+.TH "CREATE TABLE" "7" "2024" "PostgreSQL 14.12" "PostgreSQL 14.12 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -114,7 +114,7 @@ WITH ( MODULUS \fInumeric_literal\fR, REMAINDER \fInumeric_literal\fR )
 
 \fIexclude_element\fR in an EXCLUDE constraint is:
 
-{ \fIcolumn_name\fR | ( \fIexpression\fR ) } [ \fIopclass\fR ] [ ASC | DESC ] [ NULLS { FIRST | LAST } ]
+{ \fIcolumn_name\fR | ( \fIexpression\fR ) } [ COLLATE \fIcollation\fR ] [ \fIopclass\fR [ ( \fIopclass_parameter\fR = \fIvalue\fR [, \&.\&.\&. ] ) ] ] [ ASC | DESC ] [ NULLS { FIRST | LAST } ]
 .fi
 .SH "DESCRIPTION"
 .PP
@@ -707,13 +707,13 @@ UNIQUE
 constraint, although an ordinary unique constraint will be faster\&. However, exclusion constraints can specify constraints that are more general than simple equality\&. For example, you can specify a constraint that no two rows in the table contain overlapping circles (see
 Section\ \&8.8) by using the
 &&
-operator\&.
+operator\&. The operator(s) are required to be commutative\&.
 .sp
 Exclusion constraints are implemented using an index, so each specified operator must be associated with an appropriate operator class (see
 Section\ \&11.10) for the index access method
-\fIindex_method\fR\&. The operators are required to be commutative\&. Each
+\fIindex_method\fR\&. Each
 \fIexclude_element\fR
-can optionally specify an operator class and/or ordering options; these are described fully under
+defines a column of the index, so it can optionally specify a collation, an operator class, operator class parameters, and/or ordering options; these are described fully under
 CREATE INDEX (\fBCREATE_INDEX\fR(7))\&.
 .sp
 The access method must support
