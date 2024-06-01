@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2024
-.\"    Manual: PostgreSQL 14.11 Documentation
-.\"    Source: PostgreSQL 14.11
+.\"    Manual: PostgreSQL 14.12 Documentation
+.\"    Source: PostgreSQL 14.12
 .\"  Language: English
 .\"
-.TH "ECPG" "1" "2024" "PostgreSQL 14.11" "PostgreSQL 14.11 Documentation"
+.TH "ECPG" "1" "2024" "PostgreSQL 14.12" "PostgreSQL 14.12 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -76,9 +76,14 @@ INFORMIX_SE, or
 ORACLE\&.
 .RE
 .PP
-\fB\-D \fR\fB\fIsymbol\fR\fR
+\fB\-D \fR\fB\fIsymbol\fR\fR\fB[=\fR\fB\fIvalue\fR\fR\fB]\fR
 .RS 4
-Define a C preprocessor symbol\&.
+Define a preprocessor symbol, equivalently to the
+\fBEXEC SQL DEFINE\fR
+directive\&. If no
+\fIvalue\fR
+is specified, the symbol is defined with the value
+1\&.
 .RE
 .PP
 \fB\-h\fR

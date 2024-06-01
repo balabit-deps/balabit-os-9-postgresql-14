@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2024
-.\"    Manual: PostgreSQL 14.11 Documentation
-.\"    Source: PostgreSQL 14.11
+.\"    Manual: PostgreSQL 14.12 Documentation
+.\"    Source: PostgreSQL 14.12
 .\"  Language: English
 .\"
-.TH "ALTER TABLE" "7" "2024" "PostgreSQL 14.11" "PostgreSQL 14.11 Documentation"
+.TH "ALTER TABLE" "7" "2024" "PostgreSQL 14.12" "PostgreSQL 14.12 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -144,7 +144,7 @@ and \fItable_constraint_using_index\fR is:
 
 \fIexclude_element\fR in an EXCLUDE constraint is:
 
-{ \fIcolumn_name\fR | ( \fIexpression\fR ) } [ \fIopclass\fR ] [ ASC | DESC ] [ NULLS { FIRST | LAST } ]
+{ \fIcolumn_name\fR | ( \fIexpression\fR ) } [ COLLATE \fIcollation\fR ] [ \fIopclass\fR [ ( \fIopclass_parameter\fR = \fIvalue\fR [, \&.\&.\&. ] ) ] ] [ ASC | DESC ] [ NULLS { FIRST | LAST } ]
 .fi
 .SH "DESCRIPTION"
 .PP

@@ -159,7 +159,8 @@ sql_help_ALTER_DEFAULT_PRIVILEGES(PQExpBuffer buf)
 					  "    ON TYPES\n"
 					  "    TO { [ GROUP ] %s | PUBLIC } [, ...] [ WITH GRANT OPTION ]\n"
 					  "\n"
-					  "GRANT { USAGE | CREATE | ALL [ PRIVILEGES ] }\n"
+					  "GRANT { { USAGE | CREATE }\n"
+					  "    [, ...] | ALL [ PRIVILEGES ] }\n"
 					  "    ON SCHEMAS\n"
 					  "    TO { [ GROUP ] %s | PUBLIC } [, ...] [ WITH GRANT OPTION ]\n"
 					  "\n"
@@ -190,7 +191,8 @@ sql_help_ALTER_DEFAULT_PRIVILEGES(PQExpBuffer buf)
 					  "    [ CASCADE | RESTRICT ]\n"
 					  "\n"
 					  "REVOKE [ GRANT OPTION FOR ]\n"
-					  "    { USAGE | CREATE | ALL [ PRIVILEGES ] }\n"
+					  "    { { USAGE | CREATE }\n"
+					  "    [, ...] | ALL [ PRIVILEGES ] }\n"
 					  "    ON SCHEMAS\n"
 					  "    FROM { [ GROUP ] %s | PUBLIC } [, ...]\n"
 					  "    [ CASCADE | RESTRICT ]",
@@ -1277,7 +1279,7 @@ sql_help_ALTER_TABLE(PQExpBuffer buf)
 					  "\n"
 					  "%s\n"
 					  "\n"
-					  "{ %s | ( %s ) } [ %s ] [ ASC | DESC ] [ NULLS { FIRST | LAST } ]",
+					  "{ %s | ( %s ) } [ COLLATE %s ] [ %s [ ( %s = %s [, ... ] ) ] ] [ ASC | DESC ] [ NULLS { FIRST | LAST } ]",
 					  _("name"),
 					  _("action"),
 					  _("name"),
@@ -1398,7 +1400,10 @@ sql_help_ALTER_TABLE(PQExpBuffer buf)
 					  _("exclude_element in an EXCLUDE constraint is:"),
 					  _("column_name"),
 					  _("expression"),
-					  _("opclass"));
+					  _("collation"),
+					  _("opclass"),
+					  _("opclass_parameter"),
+					  _("value"));
 }
 
 static void
@@ -2826,7 +2831,7 @@ sql_help_CREATE_TABLE(PQExpBuffer buf)
 					  "\n"
 					  "%s\n"
 					  "\n"
-					  "{ %s | ( %s ) } [ %s ] [ ASC | DESC ] [ NULLS { FIRST | LAST } ]",
+					  "{ %s | ( %s ) } [ COLLATE %s ] [ %s [ ( %s = %s [, ... ] ) ] ] [ ASC | DESC ] [ NULLS { FIRST | LAST } ]",
 					  _("table_name"),
 					  _("column_name"),
 					  _("data_type"),
@@ -2916,7 +2921,10 @@ sql_help_CREATE_TABLE(PQExpBuffer buf)
 					  _("exclude_element in an EXCLUDE constraint is:"),
 					  _("column_name"),
 					  _("expression"),
-					  _("opclass"));
+					  _("collation"),
+					  _("opclass"),
+					  _("opclass_parameter"),
+					  _("value"));
 }
 
 static void
@@ -4289,7 +4297,7 @@ sql_help_SECURITY_LABEL(PQExpBuffer buf)
 					  "  DATABASE %s |\n"
 					  "  DOMAIN %s |\n"
 					  "  EVENT TRIGGER %s |\n"
-					  "  FOREIGN TABLE %s\n"
+					  "  FOREIGN TABLE %s |\n"
 					  "  FUNCTION %s [ ( [ [ %s ] [ %s ] %s [, ...] ] ) ] |\n"
 					  "  LARGE OBJECT %s |\n"
 					  "  MATERIALIZED VIEW %s |\n"
@@ -5022,7 +5030,7 @@ const struct _helpStruct QL_HELP[] = {
 		N_("define default access privileges"),
 		"sql-alterdefaultprivileges",
 		sql_help_ALTER_DEFAULT_PRIVILEGES,
-	59},
+	61},
 
 	{"ALTER DOMAIN",
 		N_("change the definition of a domain"),
