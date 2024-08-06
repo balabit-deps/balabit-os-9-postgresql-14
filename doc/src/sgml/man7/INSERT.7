@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2024
-.\"    Manual: PostgreSQL 14.12 Documentation
-.\"    Source: PostgreSQL 14.12
+.\"    Manual: PostgreSQL 14.13 Documentation
+.\"    Source: PostgreSQL 14.13
 .\"  Language: English
 .\"
-.TH "INSERT" "7" "2024" "PostgreSQL 14.12" "PostgreSQL 14.12 Documentation"
+.TH "INSERT" "7" "2024" "PostgreSQL 14.13" "PostgreSQL 14.13 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -37,7 +37,7 @@ INSERT INTO \fItable_name\fR [ AS \fIalias\fR ] [ ( \fIcolumn_name\fR [, \&.\&.\
     [ OVERRIDING { SYSTEM | USER } VALUE ]
     { DEFAULT VALUES | VALUES ( { \fIexpression\fR | DEFAULT } [, \&.\&.\&.] ) [, \&.\&.\&.] | \fIquery\fR }
     [ ON CONFLICT [ \fIconflict_target\fR ] \fIconflict_action\fR ]
-    [ RETURNING * | \fIoutput_expression\fR [ [ AS ] \fIoutput_name\fR ] [, \&.\&.\&.] ]
+    [ RETURNING { * | \fIoutput_expression\fR [ [ AS ] \fIoutput_name\fR ] } [, \&.\&.\&.] ]
 
 where \fIconflict_target\fR can be one of:
 

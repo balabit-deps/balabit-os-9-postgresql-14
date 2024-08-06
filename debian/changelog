@@ -1,3 +1,36 @@
+postgresql-14 (14.13-0ubuntu0.22.04.1) jammy-security; urgency=medium
+
+  * New upstream version (LP: #2076183).
+
+    + A dump/restore is not required for those running 14.X.
+
+    + However, if you are upgrading from a version earlier than 14.12, see
+      those release notes as well please.
+
+    + Prevent unauthorized code execution during pg_dump (Masahiko Sawada)
+
+      An attacker able to create and drop non-temporary objects could inject
+      SQL code that would be executed by a concurrent pg_dump session with the
+      privileges of the role running pg_dump (which is often a superuser).
+      The attack involves replacing a sequence or similar object with a view
+      or foreign table that will execute malicious code.  To prevent this,
+      introduce a new server parameter restrict_nonsystem_relation_kind that
+      can disable expansion of non-builtin views as well as access to foreign
+      tables, and teach pg_dump to set it when available.  Note that the
+      attack is prevented only if both pg_dump and the server it is dumping
+      from are new enough to have this fix.
+
+      The PostgreSQL Project thanks Noah Misch for reporting this problem.
+      (CVE-2024-7348)
+
+    + Details about these and many further changes can be found at:
+      https://www.postgresql.org/docs/14/release-14-13.html.
+
+  * d/postgresql-14.NEWS: Update.
+  * d/p/focal-arm64-outline-atomics: refresh patch.
+
+ -- Athos Ribeiro <athos.ribeiro@canonical.com>  Tue, 06 Aug 2024 15:14:44 -0300
+
 postgresql-14 (14.12-0ubuntu0.22.04.1) jammy-security; urgency=medium
 
   * New upstream version (LP: #2067388).

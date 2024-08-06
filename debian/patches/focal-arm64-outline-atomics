@@ -10,7 +10,7 @@ This patch can be removed once focal is EOL.
 
 --- a/configure.ac
 +++ b/configure.ac
-@@ -538,6 +538,10 @@ if test "$GCC" = yes -a "$ICC" = no; the
+@@ -557,6 +557,10 @@
    if test -n "$NOT_THE_CFLAGS"; then
      CFLAGS="$CFLAGS -Wno-stringop-truncation"
    fi
@@ -18,6 +18,6 @@ This patch can be removed once focal is EOL.
 +    PGAC_PROG_CC_CFLAGS_OPT([-moutline-atomics])
 +    PGAC_PROG_CXX_CFLAGS_OPT([-moutline-atomics])
 +  fi
- elif test "$ICC" = yes; then
-   # Intel's compiler has a bug/misoptimization in checking for
-   # division by NAN (NaN == 0), -mp1 fixes it, so add it to the CFLAGS.
+   # Suppress clang 16's strict warnings about function casts
+   NOT_THE_CFLAGS=""
+   PGAC_PROG_CC_VAR_OPT(NOT_THE_CFLAGS, [-Wcast-function-type-strict])
