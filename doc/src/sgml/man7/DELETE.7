@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2024
-.\"    Manual: PostgreSQL 14.12 Documentation
-.\"    Source: PostgreSQL 14.12
+.\"    Manual: PostgreSQL 14.13 Documentation
+.\"    Source: PostgreSQL 14.13
 .\"  Language: English
 .\"
-.TH "DELETE" "7" "2024" "PostgreSQL 14.12" "PostgreSQL 14.12 Documentation"
+.TH "DELETE" "7" "2024" "PostgreSQL 14.13" "PostgreSQL 14.13 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -36,7 +36,7 @@ DELETE \- delete rows of a table
 DELETE FROM [ ONLY ] \fItable_name\fR [ * ] [ [ AS ] \fIalias\fR ]
     [ USING \fIfrom_item\fR [, \&.\&.\&.] ]
     [ WHERE \fIcondition\fR | WHERE CURRENT OF \fIcursor_name\fR ]
-    [ RETURNING * | \fIoutput_expression\fR [ [ AS ] \fIoutput_name\fR ] [, \&.\&.\&.] ]
+    [ RETURNING { * | \fIoutput_expression\fR [ [ AS ] \fIoutput_name\fR ] } [, \&.\&.\&.] ]
 .fi
 .SH "DESCRIPTION"
 .PP

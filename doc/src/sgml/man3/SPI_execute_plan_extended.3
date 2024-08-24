@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2024
-.\"    Manual: PostgreSQL 14.12 Documentation
-.\"    Source: PostgreSQL 14.12
+.\"    Manual: PostgreSQL 14.13 Documentation
+.\"    Source: PostgreSQL 14.13
 .\"  Language: English
 .\"
-.TH "SPI_EXECUTE_PLAN_EXTENDED" "3" "2024" "PostgreSQL 14.12" "PostgreSQL 14.12 Documentation"
+.TH "SPI_EXECUTE_PLAN_EXTENDED" "3" "2024" "PostgreSQL 14.13" "PostgreSQL 14.13 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -86,7 +86,10 @@ for read\-only execution
 bool \fIallow_nonatomic\fR
 .RS 4
 true
-allows non\-atomic execution of CALL and DO statements
+allows non\-atomic execution of CALL and DO statements (but this field is ignored unless the
+SPI_OPT_NONATOMIC
+flag was passed to
+\fBSPI_connect_ext\fR)
 .RE
 .PP
 bool \fImust_return_tuples\fR

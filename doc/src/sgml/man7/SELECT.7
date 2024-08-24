@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2024
-.\"    Manual: PostgreSQL 14.12 Documentation
-.\"    Source: PostgreSQL 14.12
+.\"    Manual: PostgreSQL 14.13 Documentation
+.\"    Source: PostgreSQL 14.13
 .\"  Language: English
 .\"
-.TH "SELECT" "7" "2024" "PostgreSQL 14.12" "PostgreSQL 14.12 Documentation"
+.TH "SELECT" "7" "2024" "PostgreSQL 14.13" "PostgreSQL 14.13 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -34,7 +34,7 @@ SELECT, TABLE, WITH \- retrieve rows from a table or view
 .nf
 [ WITH [ RECURSIVE ] \fIwith_query\fR [, \&.\&.\&.] ]
 SELECT [ ALL | DISTINCT [ ON ( \fIexpression\fR [, \&.\&.\&.] ) ] ]
-    [ * | \fIexpression\fR [ [ AS ] \fIoutput_name\fR ] [, \&.\&.\&.] ]
+    [ { * | \fIexpression\fR [ [ AS ] \fIoutput_name\fR ] } [, \&.\&.\&.] ]
     [ FROM \fIfrom_item\fR [, \&.\&.\&.] ]
     [ WHERE \fIcondition\fR ]
     [ GROUP BY [ ALL | DISTINCT ] \fIgrouping_element\fR [, \&.\&.\&.] ]

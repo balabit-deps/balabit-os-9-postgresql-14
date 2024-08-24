@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2024
-.\"    Manual: PostgreSQL 14.12 Documentation
-.\"    Source: PostgreSQL 14.12
+.\"    Manual: PostgreSQL 14.13 Documentation
+.\"    Source: PostgreSQL 14.13
 .\"  Language: English
 .\"
-.TH "DROP DATABASE" "7" "2024" "PostgreSQL 14.12" "PostgreSQL 14.12 Documentation"
+.TH "DROP DATABASE" "7" "2024" "PostgreSQL 14.13" "PostgreSQL 14.13 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -65,9 +65,9 @@ FORCE
 .RS 4
 Attempt to terminate all existing connections to the target database\&. It doesn\*(Aqt terminate if prepared transactions, active logical replication slots or subscriptions are present in the target database\&.
 .sp
-This will fail if the current user has no permissions to terminate other connections\&. Required permissions are the same as with
-pg_terminate_backend, described in
-Section\ \&9.27.2\&. This will also fail if we are not able to terminate connections\&.
+This terminates background worker connections and connections that the current user has permission to terminate with
+\fBpg_terminate_backend\fR, described in
+Section\ \&9.27.2\&. If connections would remain, this command will fail\&.
 .RE
 .SH "NOTES"
 .PP

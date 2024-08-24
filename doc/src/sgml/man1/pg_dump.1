@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2024
-.\"    Manual: PostgreSQL 14.12 Documentation
-.\"    Source: PostgreSQL 14.12
+.\"    Manual: PostgreSQL 14.13 Documentation
+.\"    Source: PostgreSQL 14.13
 .\"  Language: English
 .\"
-.TH "PG_DUMP" "1" "2024" "PostgreSQL 14.12" "PostgreSQL 14.12 Documentation"
+.TH "PG_DUMP" "1" "2024" "PostgreSQL 14.13" "PostgreSQL 14.13 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -657,6 +657,23 @@ Patterns
 below), so multiple foreign servers can also be selected by writing wildcard characters in the pattern\&. When using wildcards, be careful to quote the pattern if needed to prevent the shell from expanding the wildcards; see
 Examples
 below\&. The only exception is that an empty pattern is disallowed\&.
+.if n \{\
+.sp
+.\}
+.RS 4
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBNote\fR
+.ps -1
+.br
+Using wildcards in
+\fB\-\-include\-foreign\-data\fR
+may result in access to unexpected foreign servers\&. Also, to use this option securely, make sure that the named server must have a trusted owner\&.
+.sp .5v
+.RE
 .if n \{\
 .sp
 .\}
