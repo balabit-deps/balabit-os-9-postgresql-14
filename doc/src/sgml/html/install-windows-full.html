@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>18.1. Building with Visual C++ or the Microsoft Windows SDK</title><link rel="stylesheet" type="text/css" href="stylesheet.css" /><link rev="made" href="pgsql-docs@lists.postgresql.org" /><meta name="generator" content="DocBook XSL Stylesheets Vsnapshot" /><link rel="prev" href="install-windows.html" title="Chapter 18. Installation from Source Code on Windows" /><link rel="next" href="runtime.html" title="Chapter 19. Server Setup and Operation" /></head><body id="docContent" class="container-fluid col-10"><div xmlns="http://www.w3.org/TR/xhtml1/transitional" class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="5" align="center">18.1. Building with <span xmlns="http://www.w3.org/1999/xhtml" class="productname">Visual C++</span> or the
-  <span xmlns="http://www.w3.org/1999/xhtml" class="productname">Microsoft Windows SDK</span></th></tr><tr><td width="10%" align="left"><a accesskey="p" href="install-windows.html" title="Chapter 18. Installation from Source Code on Windows">Prev</a> </td><td width="10%" align="left"><a accesskey="u" href="install-windows.html" title="Chapter 18. Installation from Source Code on Windows">Up</a></td><th width="60%" align="center">Chapter 18. Installation from Source Code on <span xmlns="http://www.w3.org/1999/xhtml" class="productname">Windows</span></th><td width="10%" align="right"><a accesskey="h" href="index.html" title="PostgreSQL 14.13 Documentation">Home</a></td><td width="10%" align="right"> <a accesskey="n" href="runtime.html" title="Chapter 19. Server Setup and Operation">Next</a></td></tr></table><hr></hr></div><div class="sect1" id="INSTALL-WINDOWS-FULL"><div class="titlepage"><div><div><h2 class="title" style="clear: both">18.1. Building with <span class="productname">Visual C++</span> or the
+  <span xmlns="http://www.w3.org/1999/xhtml" class="productname">Microsoft Windows SDK</span></th></tr><tr><td width="10%" align="left"><a accesskey="p" href="install-windows.html" title="Chapter 18. Installation from Source Code on Windows">Prev</a> </td><td width="10%" align="left"><a accesskey="u" href="install-windows.html" title="Chapter 18. Installation from Source Code on Windows">Up</a></td><th width="60%" align="center">Chapter 18. Installation from Source Code on <span xmlns="http://www.w3.org/1999/xhtml" class="productname">Windows</span></th><td width="10%" align="right"><a accesskey="h" href="index.html" title="PostgreSQL 14.15 Documentation">Home</a></td><td width="10%" align="right"> <a accesskey="n" href="runtime.html" title="Chapter 19. Server Setup and Operation">Next</a></td></tr></table><hr></hr></div><div class="sect1" id="INSTALL-WINDOWS-FULL"><div class="titlepage"><div><div><h2 class="title" style="clear: both">18.1. Building with <span class="productname">Visual C++</span> or the
   <span class="productname">Microsoft Windows SDK</span></h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="sect2"><a href="install-windows-full.html#id-1.6.5.8.8">18.1.1. Requirements</a></span></dt><dt><span class="sect2"><a href="install-windows-full.html#id-1.6.5.8.9">18.1.2. Special Considerations for 64-Bit Windows</a></span></dt><dt><span class="sect2"><a href="install-windows-full.html#id-1.6.5.8.10">18.1.3. Building</a></span></dt><dt><span class="sect2"><a href="install-windows-full.html#id-1.6.5.8.11">18.1.4. Cleaning and Installing</a></span></dt><dt><span class="sect2"><a href="install-windows-full.html#id-1.6.5.8.12">18.1.5. Running the Regression Tests</a></span></dt></dl></div><p>
   PostgreSQL can be built using the Visual C++ compiler suite from Microsoft.
   These compilers can be either from <span class="productname">Visual Studio</span>,
@@ -96,13 +96,11 @@ $ENV{MSBFLAGS}="/m";
       you don't need <span class="productname">Visual Studio</span> to build.
       Note that as of Version 8.0a the Windows SDK no longer ships with a
       complete command-line build environment.
-     </p></dd><dt><span class="term"><span class="productname">ActiveState Perl</span></span></dt><dd><p>
-      ActiveState Perl is required to run the build generation scripts. MinGW
+     </p></dd><dt><span class="term"><span class="productname">Strawberry Perl</span></span></dt><dd><p>
+      Strawberry Perl is required to run the build generation scripts. MinGW
       or Cygwin Perl will not work. It must also be present in the PATH.
       Binaries can be downloaded from
-      <a class="ulink" href="https://www.activestate.com" target="_top">https://www.activestate.com</a>
-      (Note: version 5.8.3 or later is required,
-      the free Standard Distribution is sufficient).
+      <a class="ulink" href="https://strawberryperl.com" target="_top">https://strawberryperl.com</a>.
      </p></dd></dl></div><p>
   </p><p>
    The following additional products are not required to get started,
@@ -110,9 +108,10 @@ $ENV{MSBFLAGS}="/m";
    <code class="filename">config.pl</code> file to specify which directories the libraries
    are available in.
 
-   </p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><span class="productname">ActiveState TCL</span></span></dt><dd><p>
-      Required for building <span class="application">PL/Tcl</span> (Note: version
-      8.4 is required, the free Standard Distribution is sufficient).
+   </p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><span class="productname">Magicsplat Tcl</span></span></dt><dd><p>
+      Required for building <span class="application">PL/Tcl</span>.
+      Binaries can be downloaded from
+      <a class="ulink" href="https://www.magicsplat.com/tcl-installer/index.html" target="_top">https://www.magicsplat.com/tcl-installer/index.html</a>.
      </p></dd><dt><span class="term"><span class="productname">Bison</span> and
       <span class="productname">Flex</span></span></dt><dd><p>
       <span class="productname">Bison</span> and <span class="productname">Flex</span> are
@@ -332,4 +331,4 @@ $ENV{PROVE_TESTS}='t/020*.pl t/010*.pl'
       <code class="literal">tar</code>, that would be the command found in
       <code class="varname">PATH</code>.
      </p></dd></dl></div><p>
-  </p></div></div><div xmlns="http://www.w3.org/TR/xhtml1/transitional" class="navfooter"><hr></hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="install-windows.html" title="Chapter 18. Installation from Source Code on Windows">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="install-windows.html" title="Chapter 18. Installation from Source Code on Windows">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="runtime.html" title="Chapter 19. Server Setup and Operation">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 18. Installation from Source Code on <span xmlns="http://www.w3.org/1999/xhtml" class="productname">Windows</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html" title="PostgreSQL 14.13 Documentation">Home</a></td><td width="40%" align="right" valign="top"> Chapter 19. Server Setup and Operation</td></tr></table></div></body></html>
+  </p></div></div><div xmlns="http://www.w3.org/TR/xhtml1/transitional" class="navfooter"><hr></hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="install-windows.html" title="Chapter 18. Installation from Source Code on Windows">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="install-windows.html" title="Chapter 18. Installation from Source Code on Windows">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="runtime.html" title="Chapter 19. Server Setup and Operation">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 18. Installation from Source Code on <span xmlns="http://www.w3.org/1999/xhtml" class="productname">Windows</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html" title="PostgreSQL 14.15 Documentation">Home</a></td><td width="40%" align="right" valign="top"> Chapter 19. Server Setup and Operation</td></tr></table></div></body></html>

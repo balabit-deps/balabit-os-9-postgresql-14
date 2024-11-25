@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2024
-.\"    Manual: PostgreSQL 14.13 Documentation
-.\"    Source: PostgreSQL 14.13
+.\"    Manual: PostgreSQL 14.15 Documentation
+.\"    Source: PostgreSQL 14.15
 .\"  Language: English
 .\"
-.TH "ALTER DOMAIN" "7" "2024" "PostgreSQL 14.13" "PostgreSQL 14.13 Documentation"
+.TH "ALTER DOMAIN" "7" "2024" "PostgreSQL 14.15" "PostgreSQL 14.15 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -50,6 +50,11 @@ ALTER DOMAIN \fIname\fR
     RENAME TO \fInew_name\fR
 ALTER DOMAIN \fIname\fR
     SET SCHEMA \fInew_schema\fR
+
+where \fIdomain_constraint\fR is:
+
+[ CONSTRAINT \fIconstraint_name\fR ]
+{ NOT NULL | CHECK (\fIexpression\fR) }
 .fi
 .SH "DESCRIPTION"
 .PP
@@ -72,8 +77,7 @@ when the columns using the domain contain no null values\&.
 .PP
 ADD \fIdomain_constraint\fR [ NOT VALID ]
 .RS 4
-This form adds a new constraint to a domain using the same syntax as
-\fBCREATE DOMAIN\fR\&. When a new constraint is added to a domain, all columns using that domain will be checked against the newly added constraint\&. These checks can be suppressed by adding the new constraint using the
+This form adds a new constraint to a domain\&. When a new constraint is added to a domain, all columns using that domain will be checked against the newly added constraint\&. These checks can be suppressed by adding the new constraint using the
 NOT VALID
 option; the constraint can later be made valid using
 \fBALTER DOMAIN \&.\&.\&. VALIDATE CONSTRAINT\fR\&. Newly inserted or updated rows are always checked against all constraints, even those marked

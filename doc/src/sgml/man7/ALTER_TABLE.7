@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2024
-.\"    Manual: PostgreSQL 14.13 Documentation
-.\"    Source: PostgreSQL 14.13
+.\"    Manual: PostgreSQL 14.15 Documentation
+.\"    Source: PostgreSQL 14.15
 .\"  Language: English
 .\"
-.TH "ALTER TABLE" "7" "2024" "PostgreSQL 14.13" "PostgreSQL 14.13 Documentation"
+.TH "ALTER TABLE" "7" "2024" "PostgreSQL 14.15" "PostgreSQL 14.15 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -698,18 +698,14 @@ as
 NOT NULL
 and
 CHECK
-constraints of the target table\&. Currently
+constraints of the target table, not marked
+NO INHERIT\&. Currently
 FOREIGN KEY
 constraints are not considered\&.
 UNIQUE
 and
 PRIMARY KEY
-constraints from the parent table will be created in the partition, if they don\*(Aqt already exist\&. If any of the
-CHECK
-constraints of the table being attached are marked
-NO INHERIT, the command will fail; such constraints must be recreated without the
-NO INHERIT
-clause\&.
+constraints from the parent table will be created in the partition, if they don\*(Aqt already exist\&.
 .sp
 If the new partition is a regular table, a full table scan is performed to check that existing rows in the table do not violate the partition constraint\&. It is possible to avoid this scan by adding a valid
 CHECK

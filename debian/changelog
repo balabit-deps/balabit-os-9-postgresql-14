@@ -1,3 +1,93 @@
+postgresql-14 (14.15-0ubuntu0.22.04.1) jammy-security; urgency=medium
+
+  * New upstream version (LP: #2085196).
+
+    + This release encompasses changes from upstream's 14.14 and 14.15
+      releases.  The former contains fixes for 4 CVEs (among other
+      things), and the latter was hotfix for a problem caused by one of
+      the CVE fixes from 14.14.
+
+    + A dump/restore is not required for those running 14.X.
+
+    + However, if you are upgrading from a version earlier than 14.12, see
+      those release notes as well please.
+
+    + Ensure cached plans are marked as dependent on the calling role when
+      RLS applies to a non-top-level table reference (Nathan Bossart)
+
+      If a CTE, subquery, sublink, security invoker view, or coercion
+      projection in a query references a table with row-level security
+      policies, we neglected to mark the resulting plan as potentially
+      dependent on which role is executing it.  This could lead to later query
+      executions in the same session using the wrong plan, and then returning
+      or hiding rows that should have been hidden or returned instead.
+
+      The PostgreSQL Project thanks Wolfgang Walther for reporting this
+      problem.
+      (CVE-2024-10976)
+
+    + Make libpq discard error messages
+      received during SSL or GSS protocol negotiation (Jacob Champion)
+
+      An error message received before encryption negotiation is completed
+      might have been injected by a man-in-the-middle, rather than being real
+      server output.  Reporting it opens the door to various security hazards;
+      for example, the message might spoof a query result that a careless user
+      could mistake for correct output.  The best answer seems to be to
+      discard such data and rely only on libpq's own report of the connection
+      failure.
+
+      The PostgreSQL Project thanks Jacob Champion for reporting this
+      problem.
+      (CVE-2024-10977)
+
+    + Fix unintended interactions between SET SESSION AUTHORIZATION
+      and SET ROLE (Tom Lane)
+
+      The SQL standard mandates that SET SESSION AUTHORIZATION have a
+      side-effect of doing SET ROLE NONE.  Our implementation of that was
+      flawed, creating more interaction between the two settings than
+      intended.  Notably, rolling back a transaction that had done SET SESSION
+      AUTHORIZATION would revert ROLE to NONE even if that had not been the
+      previous state, so that the effective user ID might now be different
+      from what it had been before the transaction.  Transiently setting
+      session_authorization in a function SET clause had a similar effect.  A
+      related bug was that if a parallel worker inspected
+      current_setting('role'), it saw none even when it should see something
+      else.
+
+      The PostgreSQL Project thanks Tom Lane for reporting this problem.
+      (CVE-2024-10978)
+
+    + Prevent trusted PL/Perl code from changing environment variables
+      (Andrew Dunstan, Noah Misch)
+
+      The ability to manipulate process environment variables such as PATH
+      gives an attacker opportunities to execute arbitrary code.  Therefore,
+      trustedPLs must not offer the ability to do that.  To fix plperl,
+      replace %ENV with a tied hash that rejects any modification attempt with
+      a warning.  Untrusted plperlu retains the ability to change the
+      environment.
+
+      The PostgreSQL Project thanks Coby Abrams for reporting this problem.
+      (CVE-2024-10979)
+
+    + Restore functionality of ALTER {ROLE|DATABASE} SET
+      role (Tom Lane, Noah Misch)
+
+      The fix for CVE-2024-10978 accidentally caused settings for role to
+      not be applied if they come from non-interactive sources, including
+      previous ALTER {ROLE|DATABASE} commands and the PGOPTIONS environment
+      variable.
+
+    + Details about these and many further changes can be found at:
+      https://www.postgresql.org/docs/14/release-14-14.html and
+      https://www.postgresql.org/docs/14/release-14-15.html.
+
+  * d/postgresql-14.NEWS: Update.
+
+ -- Sergio Durigan Junior <sergio.durigan@canonical.com>  Mon, 25 Nov 2024 16:05:41 -0500
+
 postgresql-14 (14.13-0ubuntu0.22.04.1) jammy-security; urgency=medium
 
   * New upstream version (LP: #2076183).
