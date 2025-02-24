@@ -2,12 +2,12 @@
 .\"     Title: pg_dumpall
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
-.\"      Date: 2024
-.\"    Manual: PostgreSQL 14.15 Documentation
-.\"    Source: PostgreSQL 14.15
+.\"      Date: 2025
+.\"    Manual: PostgreSQL 14.17 Documentation
+.\"    Source: PostgreSQL 14.17
 .\"  Language: English
 .\"
-.TH "PG_DUMPALL" "1" "2024" "PostgreSQL 14.15" "PostgreSQL 14.15 Documentation"
+.TH "PG_DUMPALL" "1" "2025" "PostgreSQL 14.17" "PostgreSQL 14.17 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -543,6 +543,19 @@ option is likely to produce additional harmless error messages about non\-existe
 .PP
 pg_dumpall
 requires all needed tablespace directories to exist before the restore; otherwise, database creation will fail for databases in non\-default locations\&.
+.PP
+It is generally recommended to use the
+\fB\-X\fR
+(\fB\-\-no\-psqlrc\fR) option when restoring a database from a
+pg_dumpall
+script to ensure a clean restore process and prevent potential conflicts with non\-default
+psql
+configurations\&. Additionally, because the
+pg_dumpall
+script may include
+psql
+meta\-commands, it may be incompatible with clients other than
+psql\&.
 .SH "EXAMPLES"
 .PP
 To dump all databases:
@@ -563,13 +576,13 @@ To restore database(s) from this file, you can use:
 .RS 4
 .\}
 .nf
-$ \fBpsql \-f db\&.out postgres\fR
+$ \fBpsql \-X \-f db\&.out \-d postgres\fR
 .fi
 .if n \{\
 .RE
 .\}
 .sp
-It is not important to which database you connect here since the script file created by
+It is not important which database you connect to here since the script file created by
 pg_dumpall
 will contain the appropriate commands to create and connect to the saved databases\&. An exception is that if you specified
 \fB\-\-clean\fR, you must connect to the

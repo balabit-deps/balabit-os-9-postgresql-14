@@ -1,3 +1,71 @@
+postgresql-14 (14.17-0ubuntu0.22.04.1) jammy-security; urgency=medium
+
+  * New upstream version (LP: #2099900).
+
+    + This release encompasses changes from upstream's 14.16 and 14.17
+      releases.  The former contains fixes for CVE-2025-1094 (among other
+      things), and the latter was a hotfix for a problem caused by the CVE
+      fix from 14.16.
+
+    + A dump/restore is not required for those running 14.X.
+
+    + However, if you are upgrading from a version earlier than 14.14, see
+      those release notes as well please.
+
+    + Harden PQescapeString and allied functions against invalidly-encoded
+      input strings (Andres Freund, Noah Misch)
+
+      Data-quoting functions supplied by libpq now fully check the encoding
+      validity of their input. If invalid characters are detected, they report
+      an error if possible. For the ones that lack an error return convention,
+      the output string is adjusted to ensure that the server will report
+      invalid encoding and no intervening processing will be fooled by bytes
+      that might happen to match single quote, backslash, etc.
+
+      The purpose of this change is to guard against SQL-injection attacks
+      that are possible if one of these functions is used to quote crafted
+      input. There is no hazard when the resulting string is sent directly to
+      a PostgreSQL server (which would check its encoding anyway), but there
+      is a risk when it is passed through psql or other client-side code.
+      Historically such code has not carefully vetted encoding, and in many
+      cases it's not clear what it should do if it did detect such a problem.
+
+      This fix is effective only if the data-quoting function, the server, and
+      any intermediate processing agree on the character encoding that's being
+      used. Applications that insert untrusted input into SQL commands should
+      take special care to ensure that that's true.
+
+      Applications and drivers that quote untrusted input without using these
+      libpq functions may be at risk of similar problems. They should first
+      confirm the data is valid in the encoding expected by the server.
+
+      The PostgreSQL Project thanks Stephen Fewer for reporting this problem.
+      (CVE-2025-1094)
+
+    + Improve behavior of libpq's quoting functions (Andres Freund, Tom Lane)
+
+      The changes made for CVE-2025-1094 had one serious oversight:
+      PQescapeLiteral() and PQescapeIdentifier() failed to honor their string
+      length parameter, instead always reading to the input string's trailing
+      null. This resulted in including unwanted text in the output, if the
+      caller intended to truncate the string via the length parameter. With
+      very bad luck it could cause a crash due to reading off the end of
+      memory.
+
+      In addition, modify all these quoting functions so that when invalid
+      encoding is detected, an invalid sequence is substituted for just the
+      first byte of the presumed character, not all of it. This reduces the
+      risk of problems if a calling application performs additional processing
+      on the quoted string.
+
+    + Details about these and many further changes can be found at:
+      https://www.postgresql.org/docs/14/release-14-16.html and
+      https://www.postgresql.org/docs/14/release-14-17.html.
+
+  * d/postgresql-14.NEWS: Update.
+
+ -- Athos Ribeiro <athos.ribeiro@canonical.com>  Mon, 24 Feb 2025 13:09:01 -0300
+
 postgresql-14 (14.15-0ubuntu0.22.04.1) jammy-security; urgency=medium
 
   * New upstream version (LP: #2085196).
