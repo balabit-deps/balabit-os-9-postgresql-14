@@ -39603,7 +39603,7 @@ mmerror(PARSE_ERROR, ET_WARNING, "unsupported feature will be passed to server")
   case 410: /* CopyStmt: COPY opt_binary qualified_name opt_column_list copy_from opt_program copy_file_name copy_delimiter opt_with copy_options where_clause  */
 #line 3459 "preproc.y"
  { 
-			if (strcmp((yyvsp[-5].str), "from") == 0 &&
+			if (strcmp((yyvsp[-6].str), "from") == 0 &&
 			   (strcmp((yyvsp[-4].str), "stdin") == 0 || strcmp((yyvsp[-4].str), "stdout") == 0))
 				mmerror(PARSE_ERROR, ET_WARNING, "COPY FROM STDIN is not implemented");
 

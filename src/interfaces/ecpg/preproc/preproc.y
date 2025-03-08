@@ -3457,7 +3457,7 @@ SHOW var_name ecpg_into
  CopyStmt:
  COPY opt_binary qualified_name opt_column_list copy_from opt_program copy_file_name copy_delimiter opt_with copy_options where_clause
  { 
-			if (strcmp($6, "from") == 0 &&
+			if (strcmp($5, "from") == 0 &&
 			   (strcmp($7, "stdin") == 0 || strcmp($7, "stdout") == 0))
 				mmerror(PARSE_ERROR, ET_WARNING, "COPY FROM STDIN is not implemented");
 

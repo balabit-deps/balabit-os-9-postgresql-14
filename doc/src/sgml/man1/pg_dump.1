@@ -2,12 +2,12 @@
 .\"     Title: pg_dump
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
-.\"      Date: 2024
-.\"    Manual: PostgreSQL 14.15 Documentation
-.\"    Source: PostgreSQL 14.15
+.\"      Date: 2025
+.\"    Manual: PostgreSQL 14.17 Documentation
+.\"    Source: PostgreSQL 14.17
 .\"  Language: English
 .\"
-.TH "PG_DUMP" "1" "2024" "PostgreSQL 14.15" "PostgreSQL 14.15 Documentation"
+.TH "PG_DUMP" "1" "2025" "PostgreSQL 14.17" "PostgreSQL 14.17 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -1084,6 +1084,14 @@ will generate
 commands that use the
 connect = false
 option, so that restoring the subscription does not make remote connections for creating a replication slot or for initial table copy\&. That way, the dump can be restored without requiring network access to the remote servers\&. It is then up to the user to reactivate the subscriptions in a suitable way\&. If the involved hosts have changed, the connection information might have to be changed\&. It might also be appropriate to truncate the target tables before initiating a new full table copy\&.
+.PP
+It is generally recommended to use the
+\fB\-X\fR
+(\fB\-\-no\-psqlrc\fR) option when restoring a database from a plain\-text
+pg_dump
+script to ensure a clean restore process and prevent potential conflicts with non\-default
+psql
+configurations\&.
 .SH "EXAMPLES"
 .PP
 To dump a database called
@@ -1107,7 +1115,7 @@ newdb:
 .RS 4
 .\}
 .nf
-$ \fBpsql \-d newdb \-f db\&.sql\fR
+$ \fBpsql \-X \-d newdb \-f db\&.sql\fR
 .fi
 .if n \{\
 .RE
