@@ -29332,7 +29332,7 @@ yyreduce:
 					n->def = (Node *) c;
 					c->contype = CONSTR_FOREIGN; /* others not supported, yet */
 					c->conname = (yyvsp[-1].str);
-					processCASbits((yyvsp[0].ival), (yylsp[0]), "ALTER CONSTRAINT statement",
+					processCASbits((yyvsp[0].ival), (yylsp[0]), "FOREIGN KEY",
 									&c->deferrable,
 									&c->initdeferred,
 									NULL, NULL, yyscanner);

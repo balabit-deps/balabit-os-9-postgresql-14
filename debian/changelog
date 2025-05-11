@@ -1,3 +1,60 @@
+postgresql-14 (14.18-0ubuntu0.22.04.1) jammy-security; urgency=medium
+
+  * New upstream version (LP: #2110377).
+
+    + A dump/restore is not required for those running 14.X.
+
+    + However, if you have any self-referential foreign key constraints on
+      partitioned tables, it may be necessary to recreate those constraints to
+      ensure that they are being enforced correctly. Follow the steps below to
+      do so.
+
+    + Also, if you have any BRIN bloom indexes, it may be advisable to reindex
+      them after updating. Follow the steps below to do so.
+
+    + Also, if you are upgrading from a version earlier than 14.14, see those
+      release notes as well please.
+
+    + Avoid one-byte buffer overread when examining invalidly-encoded strings
+      that are claimed to be in GB18030 encoding (Noah Misch, Andres Freund)
+
+      While unlikely, a SIGSEGV crash could occur if an incomplete multibyte
+      character appeared at the end of memory. This was possible both in the
+      server and in libpq-using applications. (CVE-2025-4207)
+
+    + Handle self-referential foreign keys on partitioned tables correctly
+      (Álvaro Herrera)
+
+      Creating or attaching partitions failed to make the required catalog
+      entries for a foreign-key constraint, if the table referenced by the
+      constraint was the same partitioned table. This resulted in failure to
+      enforce the constraint fully.
+
+      To fix this, you should drop and recreate any self-referential foreign
+      keys on partitioned tables, if partitions have been created or attached
+      since the constraint was created. Bear in mind that violating rows might
+      already be present, in which case recreating the constraint will fail,
+      and you'll need to fix up those rows before trying again.
+
+    + Avoid data loss when merging compressed BRIN summaries in
+      brin_bloom_union() (Tomas Vondra)
+
+      The code failed to account for decompression results not being identical
+      to the input objects, which would result in failure to add some of the
+      data to the merged summary, leading to missed rows in index searches.
+
+      This mistake was present back to v14 where BRIN bloom indexes were
+      introduced, but this code path was only rarely reached then. It's
+      substantially more likely to be hit in v17 because parallel index builds
+      now use the code.
+
+    + Details about these and many further changes can be found at:
+      https://www.postgresql.org/docs/14/release-14-18.html.
+
+  * d/postgresql-14.NEWS: Update.
+
+ -- Athos Ribeiro <athos.ribeiro@canonical.com>  Sun, 11 May 2025 06:15:54 -0300
+
 postgresql-14 (14.17-0ubuntu0.22.04.1) jammy-security; urgency=medium
 
   * New upstream version (LP: #2099900).
