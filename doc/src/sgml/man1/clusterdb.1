@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2025
-.\"    Manual: PostgreSQL 14.17 Documentation
-.\"    Source: PostgreSQL 14.17
+.\"    Manual: PostgreSQL 14.18 Documentation
+.\"    Source: PostgreSQL 14.18
 .\"  Language: English
 .\"
-.TH "CLUSTERDB" "1" "2025" "PostgreSQL 14.17" "PostgreSQL 14.17 Documentation"
+.TH "CLUSTERDB" "1" "2025" "PostgreSQL 14.18" "PostgreSQL 14.18 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -173,9 +173,9 @@ to avoid the extra connection attempt\&.
 .PP
 \fB\-\-maintenance\-db=\fR\fB\fIdbname\fR\fR
 .RS 4
-Specifies the name of the database to connect to to discover which databases should be clustered, when
+When the
 \fB\-a\fR/\fB\-\-all\fR
-is used\&. If not specified, the
+is used, connect to this database to gather the list of databases to cluster\&. If not specified, the
 postgres
 database will be used, or if that does not exist,
 template1
