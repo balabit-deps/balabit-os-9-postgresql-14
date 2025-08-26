@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2025
-.\"    Manual: PostgreSQL 14.18 Documentation
-.\"    Source: PostgreSQL 14.18
+.\"    Manual: PostgreSQL 14.19 Documentation
+.\"    Source: PostgreSQL 14.19
 .\"  Language: English
 .\"
-.TH "REINDEX" "7" "2025" "PostgreSQL 14.18" "PostgreSQL 14.18 Documentation"
+.TH "REINDEX" "7" "2025" "PostgreSQL 14.19" "PostgreSQL 14.19 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -407,11 +407,13 @@ Indexes:
 If the index marked
 INVALID
 is suffixed
-ccnew, then it corresponds to the transient index created during the concurrent operation, and the recommended recovery method is to drop it using
+_ccnew, then it corresponds to the transient index created during the concurrent operation, and the recommended recovery method is to drop it using
 DROP INDEX, then attempt
 \fBREINDEX CONCURRENTLY\fR
 again\&. If the invalid index is instead suffixed
-ccold, it corresponds to the original index which could not be dropped; the recommended recovery method is to just drop said index, since the rebuild proper has been successful\&.
+_ccold, it corresponds to the original index which could not be dropped; the recommended recovery method is to just drop said index, since the rebuild proper has been successful\&. A nonzero number may be appended to the suffix of the invalid index names to keep them unique, like
+_ccnew1,
+_ccold2, etc\&.
 .PP
 Regular index builds permit other regular index builds on the same table to occur simultaneously, but only one concurrent index build can occur on a table at a time\&. In both cases, no other types of schema modification on the table are allowed meanwhile\&. Another difference is that a regular
 \fBREINDEX TABLE\fR

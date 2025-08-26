@@ -1,3 +1,75 @@
+postgresql-14 (14.19-0ubuntu0.22.04.1) jammy; urgency=medium
+
+  A dump/restore is not required for those running 14.X.
+
+  However, if you have any BRIN numeric_minmax_multi_ops indexes, it is
+  advisable to reindex them after updating. Keep reading for further
+  information.
+
+  Also, if you are upgrading from a version earlier than 14.18, see those
+  release notes as well please.
+
+  Tighten security checks in planner estimation functions (Dean Rasheed)
+
+  The fix for CVE-2017-7484, plus followup fixes, intended to prevent
+  leaky functions from being applied to statistics data for columns that
+  the calling user does not have permission to read. Two gaps in that
+  protection have been found. One gap applies to partitioning and
+  inheritance hierarchies where RLS policies on the tables should restrict
+  access to statistics data, but did not.
+
+  The other gap applies to cases where the query accesses a table via a
+  view, and the view owner has permissions to read the underlying table
+  but the calling user does not have permissions on the view. The view
+  owner's permissions satisfied the security checks, and the leaky
+  function would get applied to the underlying table's statistics before
+  we check the calling user's permissions on the view. This has been fixed
+  by making security checks on views occur at the start of planning. That
+  might cause permissions failures to occur earlier than before.
+  (CVE-2025-8713)
+
+  Prevent pg_dump scripts from being used to attack the user running the
+  restore (Nathan Bossart)
+
+  Since dump/restore operations typically involve running SQL commands as
+  superuser, the target database installation must trust the source
+  server. However, it does not follow that the operating system user who
+  executes psql to perform the restore should have to trust the source
+  server. The risk here is that an attacker who has gained superuser-level
+  control over the source server might be able to cause it to emit text
+  that would be interpreted as psql meta-commands. That would provide
+  shell-level access to the restoring user's own account, independently of
+  access to the target database.
+
+  To provide a positive guarantee that this can't happen, extend psql with
+  a \restrict command that prevents execution of further meta-commands,
+  and teach pg_dump to issue that before any data coming from the source
+  server. (CVE-2025-8714)
+
+  Convert newlines to spaces in names included in comments in pg_dump
+  output (Noah Misch)
+
+  Object names containing newlines offered the ability to inject arbitrary
+  SQL commands into the output script. (Without the preceding fix,
+  injection of psql meta-commands would also be possible this way.)
+  CVE-2012-0868 fixed this class of problem at the time, but later work
+  reintroduced several cases. (CVE-2025-8715)
+
+  Fix incorrect distance calculation in BRIN numeric_minmax_multi_ops
+  support function (Peter Eisentraut, Tom Lane)
+
+  The results were sometimes wrong on 64-bit platforms, and wildly wrong
+  on 32-bit platforms. This did not produce obvious failures because the
+  logic is only used to choose how to merge values into ranges; at worst
+  the index would become inefficient and bloated. Nonetheless it's
+  recommended to reindex any BRIN indexes that use the
+  numeric_minmax_multi_ops operator class.
+
+  Details about these and many further changes can be found at:
+  https://www.postgresql.org/docs/14/release-14-19.html.
+
+ -- Athos Ribeiro <athos.ribeiro@canonical.com>  Mon, 25 Aug 2025 22:14:27 -0300
+
 postgresql-14 (14.18-0ubuntu0.22.04.1) jammy; urgency=medium
 
   A dump/restore is not required for those running 14.X.

@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2025
-.\"    Manual: PostgreSQL 14.18 Documentation
-.\"    Source: PostgreSQL 14.18
+.\"    Manual: PostgreSQL 14.19 Documentation
+.\"    Source: PostgreSQL 14.19
 .\"  Language: English
 .\"
-.TH "ALTER TABLE" "7" "2025" "PostgreSQL 14.18" "PostgreSQL 14.18 Documentation"
+.TH "ALTER TABLE" "7" "2025" "PostgreSQL 14.19" "PostgreSQL 14.19 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -201,7 +201,7 @@ value for the column\&. Ordinarily this is checked during the
 ALTER TABLE
 by scanning the entire table; however, if a valid
 CHECK
-constraint is found which proves no
+constraint exists (and is not dropped in the same command) which proves no
 NULL
 can exist, then the table scan is skipped\&.
 .sp

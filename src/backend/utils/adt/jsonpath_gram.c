@@ -1,4 +1,4 @@
-/* A Bison parser, made by GNU Bison 3.7.5.  */
+/* A Bison parser, made by GNU Bison 3.8.2.  */
 
 /* Bison implementation for Yacc-like parsers in C
 
@@ -16,7 +16,7 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+   along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
 /* As a special exception, you may create a larger work that contains
    part or all of the Bison parser skeleton and distribute that work
@@ -46,10 +46,10 @@
    USER NAME SPACE" below.  */
 
 /* Identify Bison output, and Bison version.  */
-#define YYBISON 30705
+#define YYBISON 30802
 
 /* Bison version string.  */
-#define YYBISON_VERSION "3.7.5"
+#define YYBISON_VERSION "3.8.2"
 
 /* Skeleton name.  */
 #define YYSKELETON_NAME "yacc.c"
@@ -252,7 +252,9 @@ typedef union YYSTYPE YYSTYPE;
 
 
 
+
 int jsonpath_yyparse (JsonPathParseResult **result);
+
 
 
 /* Symbol kind.  */
@@ -496,12 +498,18 @@ typedef int yy_state_fast_t;
 # define YY_USE(E) /* empty */
 #endif
 
-#if defined __GNUC__ && ! defined __ICC && 407 <= __GNUC__ * 100 + __GNUC_MINOR__
 /* Suppress an incorrect diagnostic about yylval being uninitialized.  */
-# define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN                            \
+#if defined __GNUC__ && ! defined __ICC && 406 <= __GNUC__ * 100 + __GNUC_MINOR__
+# if __GNUC__ * 100 + __GNUC_MINOR__ < 407
+#  define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN                           \
+    _Pragma ("GCC diagnostic push")                                     \
+    _Pragma ("GCC diagnostic ignored \"-Wuninitialized\"")
+# else
+#  define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN                           \
     _Pragma ("GCC diagnostic push")                                     \
     _Pragma ("GCC diagnostic ignored \"-Wuninitialized\"")              \
     _Pragma ("GCC diagnostic ignored \"-Wmaybe-uninitialized\"")
+# endif
 # define YY_IGNORE_MAYBE_UNINITIALIZED_END      \
     _Pragma ("GCC diagnostic pop")
 #else
@@ -719,7 +727,7 @@ static const yytype_int8 yytranslate[] =
 };
 
 #if YYDEBUG
-  /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
+/* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
        0,   129,   129,   135,   139,   140,   144,   145,   146,   150,
@@ -772,20 +780,6 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#ifdef YYPRINT
-/* YYTOKNUM[NUM] -- (External) token number corresponding to the
-   (internal) symbol number NUM (which must be that of a token).  */
-static const yytype_int16 yytoknum[] =
-{
-       0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
-     275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
-     285,   286,   287,   288,   289,   290,   291,   292,   293,   294,
-      43,    45,    42,    47,    37,   295,    40,    41,    36,    64,
-      44,    91,    93,   123,   125,    46,    63
-};
-#endif
-
 #define YYPACT_NINF (-44)
 
 #define yypact_value_is_default(Yyn) \
@@ -796,8 +790,8 @@ static const yytype_int16 yytoknum[] =
 #define yytable_value_is_error(Yyn) \
   0
 
-  /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
-     STATE-NUM.  */
+/* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
+   STATE-NUM.  */
 static const yytype_int16 yypact[] =
 {
        7,   -44,   -44,    18,    51,   -44,   -44,   -44,   -44,   -43,
@@ -817,9 +811,9 @@ static const yytype_int16 yypact[] =
      -44,    82,   -44
 };
 
-  /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
-     Performed when YYTABLE does not specify something else to do.  Zero
-     means the default is an error.  */
+/* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
+   Performed when YYTABLE does not specify something else to do.  Zero
+   means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
        8,     6,     7,     0,     0,     1,    10,    11,    12,     0,
@@ -839,7 +833,7 @@ static const yytype_int8 yydefact[] =
       68,     0,    62
 };
 
-  /* YYPGOTO[NTERM-NUM].  */
+/* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
      -44,   -44,   -44,   -44,   -44,   -44,   124,   -14,   -44,   -44,
@@ -847,7 +841,7 @@ static const yytype_int8 yypgoto[] =
      -44,   -44,   -44
 };
 
-  /* YYDEFGOTO[NTERM-NUM].  */
+/* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_uint8 yydefgoto[] =
 {
        0,     3,    21,     4,    22,    56,    23,    24,   124,    25,
@@ -855,9 +849,9 @@ static const yytype_uint8 yydefgoto[] =
       96,    97,    98
 };
 
-  /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
-     positive, shift that token.  If negative, reduce the rule whose
-     number is the opposite.  If YYTABLE_NINF, syntax error.  */
+/* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
+   positive, shift that token.  If negative, reduce the rule whose
+   number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int16 yytable[] =
 {
       27,   115,   138,    28,    34,   129,     9,    -3,    42,   116,
@@ -914,8 +908,8 @@ static const yytype_int16 yycheck[] =
       -1,    -1,    -1,    -1,    -1,    40,    41,    42,    43,    44
 };
 
-  /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
-     symbol of state STATE-NUM.  */
+/* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
+   state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
        0,    25,    26,    58,    60,     0,     4,     5,     6,     9,
@@ -935,7 +929,7 @@ static const yytype_int8 yystos[] =
       47,    72,    54
 };
 
-  /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
+/* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
        0,    57,    58,    58,    59,    59,    60,    60,    60,    61,
@@ -951,7 +945,7 @@ static const yytype_int8 yyr1[] =
       79,    79,    79,    79,    79
 };
 
-  /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
+/* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
        0,     2,     2,     0,     1,     1,     1,     1,     0,     1,
@@ -976,6 +970,7 @@ enum { YYENOMEM = -2 };
 #define YYACCEPT        goto yyacceptlab
 #define YYABORT         goto yyabortlab
 #define YYERROR         goto yyerrorlab
+#define YYNOMEM         goto yyexhaustedlab
 
 
 #define YYRECOVERING()  (!!yyerrstatus)
@@ -1016,10 +1011,7 @@ do {                                            \
     YYFPRINTF Args;                             \
 } while (0)
 
-/* This macro is provided for backward compatibility. */
-# ifndef YY_LOCATION_PRINT
-#  define YY_LOCATION_PRINT(File, Loc) ((void) 0)
-# endif
+
 
 
 # define YY_SYMBOL_PRINT(Title, Kind, Value, Location)                    \
@@ -1047,10 +1039,6 @@ yy_symbol_value_print (FILE *yyo,
   YY_USE (result);
   if (!yyvaluep)
     return;
-# ifdef YYPRINT
-  if (yykind < YYNTOKENS)
-    YYPRINT (yyo, yytoknum[yykind], *yyvaluep);
-# endif
   YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
   YY_USE (yykind);
   YY_IGNORE_MAYBE_UNINITIALIZED_END
@@ -1242,6 +1230,7 @@ YYSTYPE yylval YY_INITIAL_VALUE (= yyval_default);
   YYDPRINTF ((stderr, "Starting parse\n"));
 
   yychar = YYEMPTY; /* Cause a token to be read.  */
+
   goto yysetstate;
 
 
@@ -1267,7 +1256,7 @@ yysetstate:
 
   if (yyss + yystacksize - 1 <= yyssp)
 #if !defined yyoverflow && !defined YYSTACK_RELOCATE
-    goto yyexhaustedlab;
+    YYNOMEM;
 #else
     {
       /* Get the current used size of the three stacks, in elements.  */
@@ -1295,7 +1284,7 @@ yysetstate:
 # else /* defined YYSTACK_RELOCATE */
       /* Extend the stack our own way.  */
       if (YYMAXDEPTH <= yystacksize)
-        goto yyexhaustedlab;
+        YYNOMEM;
       yystacksize *= 2;
       if (YYMAXDEPTH < yystacksize)
         yystacksize = YYMAXDEPTH;
@@ -1306,7 +1295,7 @@ yysetstate:
           YY_CAST (union yyalloc *,
                    YYSTACK_ALLOC (YY_CAST (YYSIZE_T, YYSTACK_BYTES (yystacksize))));
         if (! yyptr)
-          goto yyexhaustedlab;
+          YYNOMEM;
         YYSTACK_RELOCATE (yyss_alloc, yyss);
         YYSTACK_RELOCATE (yyvs_alloc, yyvs);
 #  undef YYSTACK_RELOCATE
@@ -1327,6 +1316,7 @@ yysetstate:
         YYABORT;
     }
 #endif /* !defined yyoverflow && !defined YYSTACK_RELOCATE */
+
 
   if (yystate == YYFINAL)
     YYACCEPT;
@@ -1447,479 +1437,479 @@ yyreduce:
 										(*result)->lax = (yyvsp[-1].boolean);
 										(void) yynerrs;
 									}
-#line 1451 "jsonpath_gram.c"
+#line 1441 "jsonpath_gram.c"
     break;
 
   case 3: /* result: %empty  */
 #line 135 "jsonpath_gram.y"
                                                         { *result = NULL; }
-#line 1457 "jsonpath_gram.c"
+#line 1447 "jsonpath_gram.c"
     break;
 
   case 4: /* expr_or_predicate: expr  */
 #line 139 "jsonpath_gram.y"
                                                                 { (yyval.value) = (yyvsp[0].value); }
-#line 1463 "jsonpath_gram.c"
+#line 1453 "jsonpath_gram.c"
     break;
 
   case 5: /* expr_or_predicate: predicate  */
 #line 140 "jsonpath_gram.y"
                                                                 { (yyval.value) = (yyvsp[0].value); }
-#line 1469 "jsonpath_gram.c"
+#line 1459 "jsonpath_gram.c"
     break;
 
   case 6: /* mode: STRICT_P  */
 #line 144 "jsonpath_gram.y"
                                                                 { (yyval.boolean) = false; }
-#line 1475 "jsonpath_gram.c"
+#line 1465 "jsonpath_gram.c"
     break;
 
   case 7: /* mode: LAX_P  */
 #line 145 "jsonpath_gram.y"
                                                                 { (yyval.boolean) = true; }
-#line 1481 "jsonpath_gram.c"
+#line 1471 "jsonpath_gram.c"
     break;
 
   case 8: /* mode: %empty  */
 #line 146 "jsonpath_gram.y"
                                                         { (yyval.boolean) = true; }
-#line 1487 "jsonpath_gram.c"
+#line 1477 "jsonpath_gram.c"
     break;
 
   case 9: /* scalar_value: STRING_P  */
 #line 150 "jsonpath_gram.y"
                                                                 { (yyval.value) = makeItemString(&(yyvsp[0].str)); }
-#line 1493 "jsonpath_gram.c"
+#line 1483 "jsonpath_gram.c"
     break;
 
   case 10: /* scalar_value: NULL_P  */
 #line 151 "jsonpath_gram.y"
                                                                 { (yyval.value) = makeItemString(NULL); }
-#line 1499 "jsonpath_gram.c"
+#line 1489 "jsonpath_gram.c"
     break;
 
   case 11: /* scalar_value: TRUE_P  */
 #line 152 "jsonpath_gram.y"
                                                                 { (yyval.value) = makeItemBool(true); }
-#line 1505 "jsonpath_gram.c"
+#line 1495 "jsonpath_gram.c"
     break;
 
   case 12: /* scalar_value: FALSE_P  */
 #line 153 "jsonpath_gram.y"
                                                                 { (yyval.value) = makeItemBool(false); }
-#line 1511 "jsonpath_gram.c"
+#line 1501 "jsonpath_gram.c"
     break;
 
   case 13: /* scalar_value: NUMERIC_P  */
 #line 154 "jsonpath_gram.y"
                                                                 { (yyval.value) = makeItemNumeric(&(yyvsp[0].str)); }
-#line 1517 "jsonpath_gram.c"
+#line 1507 "jsonpath_gram.c"
     break;
 
   case 14: /* scalar_value: INT_P  */
 #line 155 "jsonpath_gram.y"
                                                                 { (yyval.value) = makeItemNumeric(&(yyvsp[0].str)); }
-#line 1523 "jsonpath_gram.c"
+#line 1513 "jsonpath_gram.c"
     break;
 
   case 15: /* scalar_value: VARIABLE_P  */
 #line 156 "jsonpath_gram.y"
                                                         { (yyval.value) = makeItemVariable(&(yyvsp[0].str)); }
-#line 1529 "jsonpath_gram.c"
+#line 1519 "jsonpath_gram.c"
     break;
 
   case 16: /* comp_op: EQUAL_P  */
 #line 160 "jsonpath_gram.y"
                                                                 { (yyval.optype) = jpiEqual; }
-#line 1535 "jsonpath_gram.c"
+#line 1525 "jsonpath_gram.c"
     break;
 
   case 17: /* comp_op: NOTEQUAL_P  */
 #line 161 "jsonpath_gram.y"
                                                         { (yyval.optype) = jpiNotEqual; }
-#line 1541 "jsonpath_gram.c"
+#line 1531 "jsonpath_gram.c"
     break;
 
   case 18: /* comp_op: LESS_P  */
 #line 162 "jsonpath_gram.y"
                                                                 { (yyval.optype) = jpiLess; }
-#line 1547 "jsonpath_gram.c"
+#line 1537 "jsonpath_gram.c"
     break;
 
   case 19: /* comp_op: GREATER_P  */
 #line 163 "jsonpath_gram.y"
                                                                 { (yyval.optype) = jpiGreater; }
-#line 1553 "jsonpath_gram.c"
+#line 1543 "jsonpath_gram.c"
     break;
 
   case 20: /* comp_op: LESSEQUAL_P  */
 #line 164 "jsonpath_gram.y"
                                                         { (yyval.optype) = jpiLessOrEqual; }
-#line 1559 "jsonpath_gram.c"
+#line 1549 "jsonpath_gram.c"
     break;
 
   case 21: /* comp_op: GREATEREQUAL_P  */
 #line 165 "jsonpath_gram.y"
                                                         { (yyval.optype) = jpiGreaterOrEqual; }
-#line 1565 "jsonpath_gram.c"
+#line 1555 "jsonpath_gram.c"
     break;
 
   case 22: /* delimited_predicate: '(' predicate ')'  */
 #line 169 "jsonpath_gram.y"
                                                         { (yyval.value) = (yyvsp[-1].value); }
-#line 1571 "jsonpath_gram.c"
+#line 1561 "jsonpath_gram.c"
     break;
 
   case 23: /* delimited_predicate: EXISTS_P '(' expr ')'  */
 #line 170 "jsonpath_gram.y"
                                                 { (yyval.value) = makeItemUnary(jpiExists, (yyvsp[-1].value)); }
-#line 1577 "jsonpath_gram.c"
+#line 1567 "jsonpath_gram.c"
     break;
 
   case 24: /* predicate: delimited_predicate  */
 #line 174 "jsonpath_gram.y"
                                                         { (yyval.value) = (yyvsp[0].value); }
-#line 1583 "jsonpath_gram.c"
+#line 1573 "jsonpath_gram.c"
     break;
 
   case 25: /* predicate: expr comp_op expr  */
 #line 175 "jsonpath_gram.y"
                                                         { (yyval.value) = makeItemBinary((yyvsp[-1].optype), (yyvsp[-2].value), (yyvsp[0].value)); }
-#line 1589 "jsonpath_gram.c"
+#line 1579 "jsonpath_gram.c"
     break;
 
   case 26: /* predicate: predicate AND_P predicate  */
 #line 176 "jsonpath_gram.y"
                                                 { (yyval.value) = makeItemBinary(jpiAnd, (yyvsp[-2].value), (yyvsp[0].value)); }
-#line 1595 "jsonpath_gram.c"
+#line 1585 "jsonpath_gram.c"
     break;
 
   case 27: /* predicate: predicate OR_P predicate  */
 #line 177 "jsonpath_gram.y"
                                                 { (yyval.value) = makeItemBinary(jpiOr, (yyvsp[-2].value), (yyvsp[0].value)); }
-#line 1601 "jsonpath_gram.c"
+#line 1591 "jsonpath_gram.c"
     break;
 
   case 28: /* predicate: NOT_P delimited_predicate  */
 #line 178 "jsonpath_gram.y"
                                                 { (yyval.value) = makeItemUnary(jpiNot, (yyvsp[0].value)); }
-#line 1607 "jsonpath_gram.c"
+#line 1597 "jsonpath_gram.c"
     break;
 
   case 29: /* predicate: '(' predicate ')' IS_P UNKNOWN_P  */
 #line 180 "jsonpath_gram.y"
                                                                         { (yyval.value) = makeItemUnary(jpiIsUnknown, (yyvsp[-3].value)); }
-#line 1613 "jsonpath_gram.c"
+#line 1603 "jsonpath_gram.c"
     break;
 
   case 30: /* predicate: expr STARTS_P WITH_P starts_with_initial  */
 #line 182 "jsonpath_gram.y"
                                                                         { (yyval.value) = makeItemBinary(jpiStartsWith, (yyvsp[-3].value), (yyvsp[0].value)); }
-#line 1619 "jsonpath_gram.c"
+#line 1609 "jsonpath_gram.c"
     break;
 
   case 31: /* predicate: expr LIKE_REGEX_P STRING_P  */
 #line 183 "jsonpath_gram.y"
                                         { (yyval.value) = makeItemLikeRegex((yyvsp[-2].value), &(yyvsp[0].str), NULL); }
-#line 1625 "jsonpath_gram.c"
+#line 1615 "jsonpath_gram.c"
     break;
 
   case 32: /* predicate: expr LIKE_REGEX_P STRING_P FLAG_P STRING_P  */
 #line 185 "jsonpath_gram.y"
                                                                         { (yyval.value) = makeItemLikeRegex((yyvsp[-4].value), &(yyvsp[-2].str), &(yyvsp[0].str)); }
-#line 1631 "jsonpath_gram.c"
+#line 1621 "jsonpath_gram.c"
     break;
 
   case 33: /* starts_with_initial: STRING_P  */
 #line 189 "jsonpath_gram.y"
                                                                 { (yyval.value) = makeItemString(&(yyvsp[0].str)); }
-#line 1637 "jsonpath_gram.c"
+#line 1627 "jsonpath_gram.c"
     break;
 
   case 34: /* starts_with_initial: VARIABLE_P  */
 #line 190 "jsonpath_gram.y"
                                                         { (yyval.value) = makeItemVariable(&(yyvsp[0].str)); }
-#line 1643 "jsonpath_gram.c"
+#line 1633 "jsonpath_gram.c"
     break;
 
   case 35: /* path_primary: scalar_value  */
 #line 194 "jsonpath_gram.y"
                                                         { (yyval.value) = (yyvsp[0].value); }
-#line 1649 "jsonpath_gram.c"
+#line 1639 "jsonpath_gram.c"
     break;
 
   case 36: /* path_primary: '$'  */
 #line 195 "jsonpath_gram.y"
                                                                 { (yyval.value) = makeItemType(jpiRoot); }
-#line 1655 "jsonpath_gram.c"
+#line 1645 "jsonpath_gram.c"
     break;
 
   case 37: /* path_primary: '@'  */
 #line 196 "jsonpath_gram.y"
                                                                 { (yyval.value) = makeItemType(jpiCurrent); }
-#line 1661 "jsonpath_gram.c"
+#line 1651 "jsonpath_gram.c"
     break;
 
   case 38: /* path_primary: LAST_P  */
 #line 197 "jsonpath_gram.y"
                                                                 { (yyval.value) = makeItemType(jpiLast); }
-#line 1667 "jsonpath_gram.c"
+#line 1657 "jsonpath_gram.c"
     break;
 
   case 39: /* accessor_expr: path_primary  */
 #line 201 "jsonpath_gram.y"
                                                         { (yyval.elems) = list_make1((yyvsp[0].value)); }
-#line 1673 "jsonpath_gram.c"
+#line 1663 "jsonpath_gram.c"
     break;
 
   case 40: /* accessor_expr: '(' expr ')' accessor_op  */
 #line 202 "jsonpath_gram.y"
                                                 { (yyval.elems) = list_make2((yyvsp[-2].value), (yyvsp[0].value)); }
-#line 1679 "jsonpath_gram.c"
+#line 1669 "jsonpath_gram.c"
     break;
 
   case 41: /* accessor_expr: '(' predicate ')' accessor_op  */
 #line 203 "jsonpath_gram.y"
                                         { (yyval.elems) = list_make2((yyvsp[-2].value), (yyvsp[0].value)); }
-#line 1685 "jsonpath_gram.c"
+#line 1675 "jsonpath_gram.c"
     break;
 
   case 42: /* accessor_expr: accessor_expr accessor_op  */
 #line 204 "jsonpath_gram.y"
                                                 { (yyval.elems) = lappend((yyvsp[-1].elems), (yyvsp[0].value)); }
-#line 1691 "jsonpath_gram.c"
+#line 1681 "jsonpath_gram.c"
     break;
 
   case 43: /* expr: accessor_expr  */
 #line 208 "jsonpath_gram.y"
                                                         { (yyval.value) = makeItemList((yyvsp[0].elems)); }
-#line 1697 "jsonpath_gram.c"
+#line 1687 "jsonpath_gram.c"
     break;
 
   case 44: /* expr: '(' expr ')'  */
 #line 209 "jsonpath_gram.y"
                                                         { (yyval.value) = (yyvsp[-1].value); }
-#line 1703 "jsonpath_gram.c"
+#line 1693 "jsonpath_gram.c"
     break;
 
   case 45: /* expr: '+' expr  */
 #line 210 "jsonpath_gram.y"
                                                 { (yyval.value) = makeItemUnary(jpiPlus, (yyvsp[0].value)); }
-#line 1709 "jsonpath_gram.c"
+#line 1699 "jsonpath_gram.c"
     break;
 
   case 46: /* expr: '-' expr  */
 #line 211 "jsonpath_gram.y"
                                                 { (yyval.value) = makeItemUnary(jpiMinus, (yyvsp[0].value)); }
-#line 1715 "jsonpath_gram.c"
+#line 1705 "jsonpath_gram.c"
     break;
 
   case 47: /* expr: expr '+' expr  */
 #line 212 "jsonpath_gram.y"
                                                         { (yyval.value) = makeItemBinary(jpiAdd, (yyvsp[-2].value), (yyvsp[0].value)); }
-#line 1721 "jsonpath_gram.c"
+#line 1711 "jsonpath_gram.c"
     break;
 
   case 48: /* expr: expr '-' expr  */
 #line 213 "jsonpath_gram.y"
                                                         { (yyval.value) = makeItemBinary(jpiSub, (yyvsp[-2].value), (yyvsp[0].value)); }
-#line 1727 "jsonpath_gram.c"
+#line 1717 "jsonpath_gram.c"
     break;
 
   case 49: /* expr: expr '*' expr  */
 #line 214 "jsonpath_gram.y"
                                                         { (yyval.value) = makeItemBinary(jpiMul, (yyvsp[-2].value), (yyvsp[0].value)); }
-#line 1733 "jsonpath_gram.c"
+#line 1723 "jsonpath_gram.c"
     break;
 
   case 50: /* expr: expr '/' expr  */
 #line 215 "jsonpath_gram.y"
                                                         { (yyval.value) = makeItemBinary(jpiDiv, (yyvsp[-2].value), (yyvsp[0].value)); }
-#line 1739 "jsonpath_gram.c"
+#line 1729 "jsonpath_gram.c"
     break;
 
   case 51: /* expr: expr '%' expr  */
 #line 216 "jsonpath_gram.y"
                                                         { (yyval.value) = makeItemBinary(jpiMod, (yyvsp[-2].value), (yyvsp[0].value)); }
-#line 1745 "jsonpath_gram.c"
+#line 1735 "jsonpath_gram.c"
     break;
 
   case 52: /* index_elem: expr  */
 #line 220 "jsonpath_gram.y"
                                                                 { (yyval.value) = makeItemBinary(jpiSubscript, (yyvsp[0].value), NULL); }
-#line 1751 "jsonpath_gram.c"
+#line 1741 "jsonpath_gram.c"
     break;
 
   case 53: /* index_elem: expr TO_P expr  */
 #line 221 "jsonpath_gram.y"
                                                         { (yyval.value) = makeItemBinary(jpiSubscript, (yyvsp[-2].value), (yyvsp[0].value)); }
-#line 1757 "jsonpath_gram.c"
+#line 1747 "jsonpath_gram.c"
     break;
 
   case 54: /* index_list: index_elem  */
 #line 225 "jsonpath_gram.y"
                                                                 { (yyval.indexs) = list_make1((yyvsp[0].value)); }
-#line 1763 "jsonpath_gram.c"
+#line 1753 "jsonpath_gram.c"
     break;
 
   case 55: /* index_list: index_list ',' index_elem  */
 #line 226 "jsonpath_gram.y"
                                                 { (yyval.indexs) = lappend((yyvsp[-2].indexs), (yyvsp[0].value)); }
-#line 1769 "jsonpath_gram.c"
+#line 1759 "jsonpath_gram.c"
     break;
 
   case 56: /* array_accessor: '[' '*' ']'  */
 #line 230 "jsonpath_gram.y"
                                                                 { (yyval.value) = makeItemType(jpiAnyArray); }
-#line 1775 "jsonpath_gram.c"
+#line 1765 "jsonpath_gram.c"
     break;
 
   case 57: /* array_accessor: '[' index_list ']'  */
 #line 231 "jsonpath_gram.y"
                                                 { (yyval.value) = makeIndexArray((yyvsp[-1].indexs)); }
-#line 1781 "jsonpath_gram.c"
+#line 1771 "jsonpath_gram.c"
     break;
 
   case 58: /* any_level: INT_P  */
 #line 235 "jsonpath_gram.y"
                                                                 { (yyval.integer) = pg_atoi((yyvsp[0].str).val, 4, 0); }
-#line 1787 "jsonpath_gram.c"
+#line 1777 "jsonpath_gram.c"
     break;
 
   case 59: /* any_level: LAST_P  */
 #line 236 "jsonpath_gram.y"
                                                                 { (yyval.integer) = -1; }
-#line 1793 "jsonpath_gram.c"
+#line 1783 "jsonpath_gram.c"
     break;
 
   case 60: /* any_path: ANY_P  */
 #line 240 "jsonpath_gram.y"
                                                                 { (yyval.value) = makeAny(0, -1); }
-#line 1799 "jsonpath_gram.c"
+#line 1789 "jsonpath_gram.c"
     break;
 
   case 61: /* any_path: ANY_P '{' any_level '}'  */
 #line 241 "jsonpath_gram.y"
                                                 { (yyval.value) = makeAny((yyvsp[-1].integer), (yyvsp[-1].integer)); }
-#line 1805 "jsonpath_gram.c"
+#line 1795 "jsonpath_gram.c"
     break;
 
   case 62: /* any_path: ANY_P '{' any_level TO_P any_level '}'  */
 #line 243 "jsonpath_gram.y"
                                                                         { (yyval.value) = makeAny((yyvsp[-3].integer), (yyvsp[-1].integer)); }
-#line 1811 "jsonpath_gram.c"
+#line 1801 "jsonpath_gram.c"
     break;
 
   case 63: /* accessor_op: '.' key  */
 #line 247 "jsonpath_gram.y"
                                                                 { (yyval.value) = (yyvsp[0].value); }
-#line 1817 "jsonpath_gram.c"
+#line 1807 "jsonpath_gram.c"
     break;
 
   case 64: /* accessor_op: '.' '*'  */
 #line 248 "jsonpath_gram.y"
                                                                 { (yyval.value) = makeItemType(jpiAnyKey); }
-#line 1823 "jsonpath_gram.c"
+#line 1813 "jsonpath_gram.c"
     break;
 
   case 65: /* accessor_op: array_accessor  */
 #line 249 "jsonpath_gram.y"
                                                         { (yyval.value) = (yyvsp[0].value); }
-#line 1829 "jsonpath_gram.c"
+#line 1819 "jsonpath_gram.c"
     break;
 
   case 66: /* accessor_op: '.' any_path  */
 #line 250 "jsonpath_gram.y"
                                                         { (yyval.value) = (yyvsp[0].value); }
-#line 1835 "jsonpath_gram.c"
+#line 1825 "jsonpath_gram.c"
     break;
 
   case 67: /* accessor_op: '.' method '(' ')'  */
 #line 251 "jsonpath_gram.y"
                                                 { (yyval.value) = makeItemType((yyvsp[-2].optype)); }
-#line 1841 "jsonpath_gram.c"
+#line 1831 "jsonpath_gram.c"
     break;
 
   case 68: /* accessor_op: '.' DATETIME_P '(' opt_datetime_template ')'  */
 #line 253 "jsonpath_gram.y"
                                                                         { (yyval.value) = makeItemUnary(jpiDatetime, (yyvsp[-1].value)); }
-#line 1847 "jsonpath_gram.c"
+#line 1837 "jsonpath_gram.c"
     break;
 
   case 69: /* accessor_op: '?' '(' predicate ')'  */
 #line 254 "jsonpath_gram.y"
                                                 { (yyval.value) = makeItemUnary(jpiFilter, (yyvsp[-1].value)); }
-#line 1853 "jsonpath_gram.c"
+#line 1843 "jsonpath_gram.c"
     break;
 
   case 70: /* datetime_template: STRING_P  */
 #line 258 "jsonpath_gram.y"
                                                                 { (yyval.value) = makeItemString(&(yyvsp[0].str)); }
-#line 1859 "jsonpath_gram.c"
+#line 1849 "jsonpath_gram.c"
     break;
 
   case 71: /* opt_datetime_template: datetime_template  */
 #line 262 "jsonpath_gram.y"
                                                         { (yyval.value) = (yyvsp[0].value); }
-#line 1865 "jsonpath_gram.c"
+#line 1855 "jsonpath_gram.c"
     break;
 
   case 72: /* opt_datetime_template: %empty  */
 #line 263 "jsonpath_gram.y"
                                                         { (yyval.value) = NULL; }
-#line 1871 "jsonpath_gram.c"
+#line 1861 "jsonpath_gram.c"
     break;
 
   case 73: /* key: key_name  */
 #line 267 "jsonpath_gram.y"
                                                                 { (yyval.value) = makeItemKey(&(yyvsp[0].str)); }
-#line 1877 "jsonpath_gram.c"
+#line 1867 "jsonpath_gram.c"
     break;
 
   case 98: /* method: ABS_P  */
 #line 298 "jsonpath_gram.y"
                                                                 { (yyval.optype) = jpiAbs; }
-#line 1883 "jsonpath_gram.c"
+#line 1873 "jsonpath_gram.c"
     break;
 
   case 99: /* method: SIZE_P  */
 #line 299 "jsonpath_gram.y"
                                                                 { (yyval.optype) = jpiSize; }
-#line 1889 "jsonpath_gram.c"
+#line 1879 "jsonpath_gram.c"
     break;
 
   case 100: /* method: TYPE_P  */
 #line 300 "jsonpath_gram.y"
                                                                 { (yyval.optype) = jpiType; }
-#line 1895 "jsonpath_gram.c"
+#line 1885 "jsonpath_gram.c"
     break;
 
   case 101: /* method: FLOOR_P  */
 #line 301 "jsonpath_gram.y"
                                                                 { (yyval.optype) = jpiFloor; }
-#line 1901 "jsonpath_gram.c"
+#line 1891 "jsonpath_gram.c"
     break;
 
   case 102: /* method: DOUBLE_P  */
 #line 302 "jsonpath_gram.y"
                                                                 { (yyval.optype) = jpiDouble; }
-#line 1907 "jsonpath_gram.c"
+#line 1897 "jsonpath_gram.c"
     break;
 
   case 103: /* method: CEILING_P  */
 #line 303 "jsonpath_gram.y"
                                                                 { (yyval.optype) = jpiCeiling; }
-#line 1913 "jsonpath_gram.c"
+#line 1903 "jsonpath_gram.c"
     break;
 
   case 104: /* method: KEYVALUE_P  */
 #line 304 "jsonpath_gram.y"
                                                         { (yyval.optype) = jpiKeyValue; }
-#line 1919 "jsonpath_gram.c"
+#line 1909 "jsonpath_gram.c"
     break;
 
 
-#line 1923 "jsonpath_gram.c"
+#line 1913 "jsonpath_gram.c"
 
       default: break;
     }
@@ -2001,6 +1991,7 @@ yyerrorlab:
      label yyerrorlab therefore never appears in user code.  */
   if (0)
     YYERROR;
+  ++yynerrs;
 
   /* Do not reclaim the symbols of the rule whose action triggered
      this YYERROR.  */
@@ -2061,7 +2052,7 @@ yyerrlab1:
 `-------------------------------------*/
 yyacceptlab:
   yyresult = 0;
-  goto yyreturn;
+  goto yyreturnlab;
 
 
 /*-----------------------------------.
@@ -2069,24 +2060,22 @@ yyacceptlab:
 `-----------------------------------*/
 yyabortlab:
   yyresult = 1;
-  goto yyreturn;
+  goto yyreturnlab;
 
 
-#if !defined yyoverflow
-/*-------------------------------------------------.
-| yyexhaustedlab -- memory exhaustion comes here.  |
-`-------------------------------------------------*/
+/*-----------------------------------------------------------.
+| yyexhaustedlab -- YYNOMEM (memory exhaustion) comes here.  |
+`-----------------------------------------------------------*/
 yyexhaustedlab:
   yyerror (result, YY_("memory exhausted"));
   yyresult = 2;
-  goto yyreturn;
-#endif
+  goto yyreturnlab;
 
 
-/*-------------------------------------------------------.
-| yyreturn -- parsing is finished, clean up and return.  |
-`-------------------------------------------------------*/
-yyreturn:
+/*----------------------------------------------------------.
+| yyreturnlab -- parsing is finished, clean up and return.  |
+`----------------------------------------------------------*/
+yyreturnlab:
   if (yychar != YYEMPTY)
     {
       /* Make sure we have latest lookahead translation.  See comments at
