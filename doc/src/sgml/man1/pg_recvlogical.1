@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2025
-.\"    Manual: PostgreSQL 14.18 Documentation
-.\"    Source: PostgreSQL 14.18
+.\"    Manual: PostgreSQL 14.19 Documentation
+.\"    Source: PostgreSQL 14.19
 .\"  Language: English
 .\"
-.TH "PG_RECVLOGICAL" "1" "2025" "PostgreSQL 14.18" "PostgreSQL 14.18 Documentation"
+.TH "PG_RECVLOGICAL" "1" "2025" "PostgreSQL 14.19" "PostgreSQL 14.19 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -44,6 +44,17 @@ Chapter\ \&49)\&.
 \fBpg_recvlogical\fR
 has no equivalent to the logical decoding SQL interface\*(Aqs peek and get modes\&. It sends replay confirmations for data lazily as it receives it and on clean exit\&. To examine pending data on a slot without consuming it, use
 \fBpg_logical_slot_peek_changes\fR\&.
+.PP
+When
+pg_recvlogical
+receives a
+SIGHUP
+signal, it closes the current output file and opens a new one using the filename specified by the
+\fB\-\-file\fR
+option\&. This allows us to rotate the output file by first renaming the current file and then sending a
+SIGHUP
+signal to
+pg_recvlogical\&.
 .SH "OPTIONS"
 .PP
 At least one of the following options must be specified to select an action:

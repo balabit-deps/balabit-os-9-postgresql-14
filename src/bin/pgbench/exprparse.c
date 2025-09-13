@@ -1,4 +1,4 @@
-/* A Bison parser, made by GNU Bison 3.7.5.  */
+/* A Bison parser, made by GNU Bison 3.8.2.  */
 
 /* Bison implementation for Yacc-like parsers in C
 
@@ -16,7 +16,7 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+   along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
 /* As a special exception, you may create a larger work that contains
    part or all of the Bison parser skeleton and distribute that work
@@ -46,10 +46,10 @@
    USER NAME SPACE" below.  */
 
 /* Identify Bison output, and Bison version.  */
-#define YYBISON 30705
+#define YYBISON 30802
 
 /* Bison version string.  */
-#define YYBISON_VERSION "3.7.5"
+#define YYBISON_VERSION "3.8.2"
 
 /* Skeleton name.  */
 #define YYSKELETON_NAME "yacc.c"
@@ -204,7 +204,9 @@ typedef union YYSTYPE YYSTYPE;
 
 
 
+
 int expr_yyparse (yyscan_t yyscanner);
+
 
 
 /* Symbol kind.  */
@@ -417,12 +419,18 @@ typedef int yy_state_fast_t;
 # define YY_USE(E) /* empty */
 #endif
 
-#if defined __GNUC__ && ! defined __ICC && 407 <= __GNUC__ * 100 + __GNUC_MINOR__
 /* Suppress an incorrect diagnostic about yylval being uninitialized.  */
-# define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN                            \
+#if defined __GNUC__ && ! defined __ICC && 406 <= __GNUC__ * 100 + __GNUC_MINOR__
+# if __GNUC__ * 100 + __GNUC_MINOR__ < 407
+#  define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN                           \
+    _Pragma ("GCC diagnostic push")                                     \
+    _Pragma ("GCC diagnostic ignored \"-Wuninitialized\"")
+# else
+#  define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN                           \
     _Pragma ("GCC diagnostic push")                                     \
     _Pragma ("GCC diagnostic ignored \"-Wuninitialized\"")              \
     _Pragma ("GCC diagnostic ignored \"-Wmaybe-uninitialized\"")
+# endif
 # define YY_IGNORE_MAYBE_UNINITIALIZED_END      \
     _Pragma ("GCC diagnostic pop")
 #else
@@ -639,7 +647,7 @@ static const yytype_int8 yytranslate[] =
 };
 
 #if YYDEBUG
-  /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
+/* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
        0,    83,    83,    88,    89,    90,    93,    94,    96,    99,
@@ -679,19 +687,6 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#ifdef YYPRINT
-/* YYTOKNUM[NUM] -- (External) token number corresponding to the
-   (internal) symbol number NUM (which must be that of a token).  */
-static const yytype_int16 yytoknum[] =
-{
-       0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
-     275,   276,   277,   278,   279,   280,    60,    62,    61,   124,
-      35,    38,   126,    43,    45,    42,    47,    37,   281,    44,
-      40,    41
-};
-#endif
-
 #define YYPACT_NINF (-33)
 
 #define yypact_value_is_default(Yyn) \
@@ -702,8 +697,8 @@ static const yytype_int16 yytoknum[] =
 #define yytable_value_is_error(Yyn) \
   ((Yyn) == YYTABLE_NINF)
 
-  /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
-     STATE-NUM.  */
+/* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
+   STATE-NUM.  */
 static const yytype_int16 yypact[] =
 {
       64,   -33,   -33,   -33,   -33,   -33,   -33,    64,   -19,    64,
@@ -717,9 +712,9 @@ static const yytype_int16 yypact[] =
      -33,    64,   -33,   205,    64,   -33,   205,   205
 };
 
-  /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
-     Performed when YYTABLE does not specify something else to do.  Zero
-     means the default is an error.  */
+/* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
+   Performed when YYTABLE does not specify something else to do.  Zero
+   means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
        0,    36,    38,    39,    37,    40,    47,     0,     0,     0,
@@ -733,21 +728,21 @@ static const yytype_int8 yydefact[] =
       35,     0,    41,    44,     0,    46,     5,    43
 };
 
-  /* YYPGOTO[NTERM-NUM].  */
+/* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
      -33,   -33,   -33,    -7,   -33,   -33,   -33
 };
 
-  /* YYDEFGOTO[NTERM-NUM].  */
+/* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
        0,    13,    74,    14,    19,    15,    16
 };
 
-  /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
-     positive, shift that token.  If negative, reduce the rule whose
-     number is the opposite.  If YYTABLE_NINF, syntax error.  */
+/* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
+   positive, shift that token.  If negative, reduce the rule whose
+   number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
       17,    18,    20,    21,    23,    24,    60,    81,    79,    82,
@@ -822,8 +817,8 @@ static const yytype_int8 yycheck[] =
       37
 };
 
-  /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
-     symbol of state STATE-NUM.  */
+/* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
+   state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
        0,     3,     4,     6,     7,     8,     9,    12,    19,    32,
@@ -837,7 +832,7 @@ static const yytype_int8 yystos[] =
        7,    39,    41,    45,    21,    23,    45,    45
 };
 
-  /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
+/* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
        0,    42,    43,    44,    44,    44,    45,    45,    45,    45,
@@ -847,7 +842,7 @@ static const yytype_int8 yyr1[] =
       45,    45,    45,    46,    46,    47,    47,    48
 };
 
-  /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
+/* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
        0,     2,     1,     0,     1,     3,     3,     2,     2,     2,
@@ -866,6 +861,7 @@ enum { YYENOMEM = -2 };
 #define YYACCEPT        goto yyacceptlab
 #define YYABORT         goto yyabortlab
 #define YYERROR         goto yyerrorlab
+#define YYNOMEM         goto yyexhaustedlab
 
 
 #define YYRECOVERING()  (!!yyerrstatus)
@@ -906,10 +902,7 @@ do {                                            \
     YYFPRINTF Args;                             \
 } while (0)
 
-/* This macro is provided for backward compatibility. */
-# ifndef YY_LOCATION_PRINT
-#  define YY_LOCATION_PRINT(File, Loc) ((void) 0)
-# endif
+
 
 
 # define YY_SYMBOL_PRINT(Title, Kind, Value, Location)                    \
@@ -937,10 +930,6 @@ yy_symbol_value_print (FILE *yyo,
   YY_USE (yyscanner);
   if (!yyvaluep)
     return;
-# ifdef YYPRINT
-  if (yykind < YYNTOKENS)
-    YYPRINT (yyo, yytoknum[yykind], *yyvaluep);
-# endif
   YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
   YY_USE (yykind);
   YY_IGNORE_MAYBE_UNINITIALIZED_END
@@ -1132,6 +1121,7 @@ YYSTYPE yylval YY_INITIAL_VALUE (= yyval_default);
   YYDPRINTF ((stderr, "Starting parse\n"));
 
   yychar = YYEMPTY; /* Cause a token to be read.  */
+
   goto yysetstate;
 
 
@@ -1157,7 +1147,7 @@ yysetstate:
 
   if (yyss + yystacksize - 1 <= yyssp)
 #if !defined yyoverflow && !defined YYSTACK_RELOCATE
-    goto yyexhaustedlab;
+    YYNOMEM;
 #else
     {
       /* Get the current used size of the three stacks, in elements.  */
@@ -1185,7 +1175,7 @@ yysetstate:
 # else /* defined YYSTACK_RELOCATE */
       /* Extend the stack our own way.  */
       if (YYMAXDEPTH <= yystacksize)
-        goto yyexhaustedlab;
+        YYNOMEM;
       yystacksize *= 2;
       if (YYMAXDEPTH < yystacksize)
         yystacksize = YYMAXDEPTH;
@@ -1196,7 +1186,7 @@ yysetstate:
           YY_CAST (union yyalloc *,
                    YYSTACK_ALLOC (YY_CAST (YYSIZE_T, YYSTACK_BYTES (yystacksize))));
         if (! yyptr)
-          goto yyexhaustedlab;
+          YYNOMEM;
         YYSTACK_RELOCATE (yyss_alloc, yyss);
         YYSTACK_RELOCATE (yyvs_alloc, yyvs);
 #  undef YYSTACK_RELOCATE
@@ -1217,6 +1207,7 @@ yysetstate:
         YYABORT;
     }
 #endif /* !defined yyoverflow && !defined YYSTACK_RELOCATE */
+
 
   if (yystate == YYFINAL)
     YYACCEPT;
@@ -1335,177 +1326,177 @@ yyreduce:
 								expr_parse_result = (yyvsp[0].expr);
 								(void) yynerrs; /* suppress compiler warning */
 							}
-#line 1339 "exprparse.c"
+#line 1330 "exprparse.c"
     break;
 
   case 3: /* elist: %empty  */
 #line 88 "exprparse.y"
                                                 { (yyval.elist) = NULL; }
-#line 1345 "exprparse.c"
+#line 1336 "exprparse.c"
     break;
 
   case 4: /* elist: expr  */
 #line 89 "exprparse.y"
                                                 { (yyval.elist) = make_elist((yyvsp[0].expr), NULL); }
-#line 1351 "exprparse.c"
+#line 1342 "exprparse.c"
     break;
 
   case 5: /* elist: elist ',' expr  */
 #line 90 "exprparse.y"
                                         { (yyval.elist) = make_elist((yyvsp[0].expr), (yyvsp[-2].elist)); }
-#line 1357 "exprparse.c"
+#line 1348 "exprparse.c"
     break;
 
   case 6: /* expr: '(' expr ')'  */
 #line 93 "exprparse.y"
                                         { (yyval.expr) = (yyvsp[-1].expr); }
-#line 1363 "exprparse.c"
+#line 1354 "exprparse.c"
     break;
 
   case 7: /* expr: '+' expr  */
 #line 94 "exprparse.y"
                                 { (yyval.expr) = (yyvsp[0].expr); }
-#line 1369 "exprparse.c"
+#line 1360 "exprparse.c"
     break;
 
   case 8: /* expr: '-' expr  */
 #line 96 "exprparse.y"
                                 { (yyval.expr) = make_op(yyscanner, "-",
 										   make_integer_constant(0), (yyvsp[0].expr)); }
-#line 1376 "exprparse.c"
+#line 1367 "exprparse.c"
     break;
 
   case 9: /* expr: '-' MAXINT_PLUS_ONE_CONST  */
 #line 100 "exprparse.y"
                                                         { (yyval.expr) = make_integer_constant(PG_INT64_MIN); }
-#line 1382 "exprparse.c"
+#line 1373 "exprparse.c"
     break;
 
   case 10: /* expr: '~' expr  */
 #line 102 "exprparse.y"
                                                 { (yyval.expr) = make_op(yyscanner, "#",
 										   make_integer_constant(~INT64CONST(0)), (yyvsp[0].expr)); }
-#line 1389 "exprparse.c"
+#line 1380 "exprparse.c"
     break;
 
   case 11: /* expr: NOT_OP expr  */
 #line 104 "exprparse.y"
                                         { (yyval.expr) = make_uop(yyscanner, "!not", (yyvsp[0].expr)); }
-#line 1395 "exprparse.c"
+#line 1386 "exprparse.c"
     break;
 
   case 12: /* expr: expr '+' expr  */
 #line 105 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "+", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1401 "exprparse.c"
+#line 1392 "exprparse.c"
     break;
 
   case 13: /* expr: expr '-' expr  */
 #line 106 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "-", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1407 "exprparse.c"
+#line 1398 "exprparse.c"
     break;
 
   case 14: /* expr: expr '*' expr  */
 #line 107 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "*", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1413 "exprparse.c"
+#line 1404 "exprparse.c"
     break;
 
   case 15: /* expr: expr '/' expr  */
 #line 108 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "/", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1419 "exprparse.c"
+#line 1410 "exprparse.c"
     break;
 
   case 16: /* expr: expr '%' expr  */
 #line 109 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "mod", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1425 "exprparse.c"
+#line 1416 "exprparse.c"
     break;
 
   case 17: /* expr: expr '<' expr  */
 #line 110 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "<", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1431 "exprparse.c"
+#line 1422 "exprparse.c"
     break;
 
   case 18: /* expr: expr LE_OP expr  */
 #line 111 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "<=", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1437 "exprparse.c"
+#line 1428 "exprparse.c"
     break;
 
   case 19: /* expr: expr '>' expr  */
 #line 112 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "<", (yyvsp[0].expr), (yyvsp[-2].expr)); }
-#line 1443 "exprparse.c"
+#line 1434 "exprparse.c"
     break;
 
   case 20: /* expr: expr GE_OP expr  */
 #line 113 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "<=", (yyvsp[0].expr), (yyvsp[-2].expr)); }
-#line 1449 "exprparse.c"
+#line 1440 "exprparse.c"
     break;
 
   case 21: /* expr: expr '=' expr  */
 #line 114 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "=", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1455 "exprparse.c"
+#line 1446 "exprparse.c"
     break;
 
   case 22: /* expr: expr NE_OP expr  */
 #line 115 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "<>", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1461 "exprparse.c"
+#line 1452 "exprparse.c"
     break;
 
   case 23: /* expr: expr '&' expr  */
 #line 116 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "&", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1467 "exprparse.c"
+#line 1458 "exprparse.c"
     break;
 
   case 24: /* expr: expr '|' expr  */
 #line 117 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "|", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1473 "exprparse.c"
+#line 1464 "exprparse.c"
     break;
 
   case 25: /* expr: expr '#' expr  */
 #line 118 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "#", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1479 "exprparse.c"
+#line 1470 "exprparse.c"
     break;
 
   case 26: /* expr: expr LS_OP expr  */
 #line 119 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "<<", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1485 "exprparse.c"
+#line 1476 "exprparse.c"
     break;
 
   case 27: /* expr: expr RS_OP expr  */
 #line 120 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, ">>", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1491 "exprparse.c"
+#line 1482 "exprparse.c"
     break;
 
   case 28: /* expr: expr AND_OP expr  */
 #line 121 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "!and", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1497 "exprparse.c"
+#line 1488 "exprparse.c"
     break;
 
   case 29: /* expr: expr OR_OP expr  */
 #line 122 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "!or", (yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1503 "exprparse.c"
+#line 1494 "exprparse.c"
     break;
 
   case 30: /* expr: expr ISNULL_OP  */
 #line 124 "exprparse.y"
                                         { (yyval.expr) = make_op(yyscanner, "!is", (yyvsp[-1].expr), make_null_constant()); }
-#line 1509 "exprparse.c"
+#line 1500 "exprparse.c"
     break;
 
   case 31: /* expr: expr NOTNULL_OP  */
@@ -1514,13 +1505,13 @@ yyreduce:
 								(yyval.expr) = make_uop(yyscanner, "!not",
 											  make_op(yyscanner, "!is", (yyvsp[-1].expr), make_null_constant()));
 							}
-#line 1518 "exprparse.c"
+#line 1509 "exprparse.c"
     break;
 
   case 32: /* expr: expr IS_OP NULL_CONST  */
 #line 129 "exprparse.y"
                                 { (yyval.expr) = make_op(yyscanner, "!is", (yyvsp[-2].expr), make_null_constant()); }
-#line 1524 "exprparse.c"
+#line 1515 "exprparse.c"
     break;
 
   case 33: /* expr: expr IS_OP NOT_OP NULL_CONST  */
@@ -1529,7 +1520,7 @@ yyreduce:
 								(yyval.expr) = make_uop(yyscanner, "!not",
 											  make_op(yyscanner, "!is", (yyvsp[-3].expr), make_null_constant()));
 							}
-#line 1533 "exprparse.c"
+#line 1524 "exprparse.c"
     break;
 
   case 34: /* expr: expr IS_OP BOOLEAN_CONST  */
@@ -1537,7 +1528,7 @@ yyreduce:
                                                         {
 								(yyval.expr) = make_op(yyscanner, "!is", (yyvsp[-2].expr), make_boolean_constant((yyvsp[0].bval)));
 							}
-#line 1541 "exprparse.c"
+#line 1532 "exprparse.c"
     break;
 
   case 35: /* expr: expr IS_OP NOT_OP BOOLEAN_CONST  */
@@ -1546,83 +1537,83 @@ yyreduce:
 								(yyval.expr) = make_uop(yyscanner, "!not",
 											  make_op(yyscanner, "!is", (yyvsp[-3].expr), make_boolean_constant((yyvsp[0].bval))));
 							}
-#line 1550 "exprparse.c"
+#line 1541 "exprparse.c"
     break;
 
   case 36: /* expr: NULL_CONST  */
 #line 145 "exprparse.y"
                                         { (yyval.expr) = make_null_constant(); }
-#line 1556 "exprparse.c"
+#line 1547 "exprparse.c"
     break;
 
   case 37: /* expr: BOOLEAN_CONST  */
 #line 146 "exprparse.y"
                                         { (yyval.expr) = make_boolean_constant((yyvsp[0].bval)); }
-#line 1562 "exprparse.c"
+#line 1553 "exprparse.c"
     break;
 
   case 38: /* expr: INTEGER_CONST  */
 #line 147 "exprparse.y"
                                         { (yyval.expr) = make_integer_constant((yyvsp[0].ival)); }
-#line 1568 "exprparse.c"
+#line 1559 "exprparse.c"
     break;
 
   case 39: /* expr: DOUBLE_CONST  */
 #line 148 "exprparse.y"
                                         { (yyval.expr) = make_double_constant((yyvsp[0].dval)); }
-#line 1574 "exprparse.c"
+#line 1565 "exprparse.c"
     break;
 
   case 40: /* expr: VARIABLE  */
 #line 150 "exprparse.y"
                                                 { (yyval.expr) = make_variable((yyvsp[0].str)); }
-#line 1580 "exprparse.c"
+#line 1571 "exprparse.c"
     break;
 
   case 41: /* expr: function '(' elist ')'  */
 #line 151 "exprparse.y"
                                  { (yyval.expr) = make_func(yyscanner, (yyvsp[-3].ival), (yyvsp[-1].elist)); }
-#line 1586 "exprparse.c"
+#line 1577 "exprparse.c"
     break;
 
   case 42: /* expr: case_control  */
 #line 152 "exprparse.y"
                                         { (yyval.expr) = (yyvsp[0].expr); }
-#line 1592 "exprparse.c"
+#line 1583 "exprparse.c"
     break;
 
   case 43: /* when_then_list: when_then_list WHEN_KW expr THEN_KW expr  */
 #line 156 "exprparse.y"
                                                    { (yyval.elist) = make_elist((yyvsp[0].expr), make_elist((yyvsp[-2].expr), (yyvsp[-4].elist))); }
-#line 1598 "exprparse.c"
+#line 1589 "exprparse.c"
     break;
 
   case 44: /* when_then_list: WHEN_KW expr THEN_KW expr  */
 #line 157 "exprparse.y"
                                     { (yyval.elist) = make_elist((yyvsp[0].expr), make_elist((yyvsp[-2].expr), NULL)); }
-#line 1604 "exprparse.c"
+#line 1595 "exprparse.c"
     break;
 
   case 45: /* case_control: CASE_KW when_then_list END_KW  */
 #line 160 "exprparse.y"
                                         { (yyval.expr) = make_case(yyscanner, (yyvsp[-1].elist), make_null_constant()); }
-#line 1610 "exprparse.c"
+#line 1601 "exprparse.c"
     break;
 
   case 46: /* case_control: CASE_KW when_then_list ELSE_KW expr END_KW  */
 #line 161 "exprparse.y"
                                                      { (yyval.expr) = make_case(yyscanner, (yyvsp[-3].elist), (yyvsp[-1].expr)); }
-#line 1616 "exprparse.c"
+#line 1607 "exprparse.c"
     break;
 
   case 47: /* function: FUNCTION  */
 #line 163 "exprparse.y"
                                         { (yyval.ival) = find_func(yyscanner, (yyvsp[0].str)); pg_free((yyvsp[0].str)); }
-#line 1622 "exprparse.c"
+#line 1613 "exprparse.c"
     break;
 
 
-#line 1626 "exprparse.c"
+#line 1617 "exprparse.c"
 
       default: break;
     }
@@ -1704,6 +1695,7 @@ yyerrorlab:
      label yyerrorlab therefore never appears in user code.  */
   if (0)
     YYERROR;
+  ++yynerrs;
 
   /* Do not reclaim the symbols of the rule whose action triggered
      this YYERROR.  */
@@ -1764,7 +1756,7 @@ yyerrlab1:
 `-------------------------------------*/
 yyacceptlab:
   yyresult = 0;
-  goto yyreturn;
+  goto yyreturnlab;
 
 
 /*-----------------------------------.
@@ -1772,24 +1764,22 @@ yyacceptlab:
 `-----------------------------------*/
 yyabortlab:
   yyresult = 1;
-  goto yyreturn;
+  goto yyreturnlab;
 
 
-#if !defined yyoverflow
-/*-------------------------------------------------.
-| yyexhaustedlab -- memory exhaustion comes here.  |
-`-------------------------------------------------*/
+/*-----------------------------------------------------------.
+| yyexhaustedlab -- YYNOMEM (memory exhaustion) comes here.  |
+`-----------------------------------------------------------*/
 yyexhaustedlab:
   yyerror (yyscanner, YY_("memory exhausted"));
   yyresult = 2;
-  goto yyreturn;
-#endif
+  goto yyreturnlab;
 
 
-/*-------------------------------------------------------.
-| yyreturn -- parsing is finished, clean up and return.  |
-`-------------------------------------------------------*/
-yyreturn:
+/*----------------------------------------------------------.
+| yyreturnlab -- parsing is finished, clean up and return.  |
+`----------------------------------------------------------*/
+yyreturnlab:
   if (yychar != YYEMPTY)
     {
       /* Make sure we have latest lookahead translation.  See comments at

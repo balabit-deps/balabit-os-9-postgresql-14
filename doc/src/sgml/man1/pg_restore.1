@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2025
-.\"    Manual: PostgreSQL 14.18 Documentation
-.\"    Source: PostgreSQL 14.18
+.\"    Manual: PostgreSQL 14.19 Documentation
+.\"    Source: PostgreSQL 14.19
 .\"  Language: English
 .\"
-.TH "PG_RESTORE" "1" "2025" "PostgreSQL 14.18" "PostgreSQL 14.18 Documentation"
+.TH "PG_RESTORE" "1" "2025" "PostgreSQL 14.19" "PostgreSQL 14.19 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -60,6 +60,25 @@ pg_restore
 will not be able to load the data using
 \fBCOPY\fR
 statements\&.
+.if n \{\
+.sp
+.\}
+.RS 4
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBWarning\fR
+.ps -1
+.br
+.PP
+Restoring a dump causes the destination to execute arbitrary code of the source superusers\*(Aq choice\&. Partial dumps and partial restores do not limit that\&. If the source superusers are not trusted, the dumped SQL statements must be inspected before restoring\&. Non\-plain\-text dumps can be inspected by using
+pg_restore\*(Aqs
+\fB\-\-file\fR
+option\&. Note that the client running the dump and restore need not trust the source or destination superusers\&.
+.sp .5v
+.RE
 .SH "OPTIONS"
 .PP
 pg_restore
@@ -528,6 +547,22 @@ Do not output commands to restore subscriptions, even if the archive contains th
 \fB\-\-no\-tablespaces\fR
 .RS 4
 Do not output commands to select tablespaces\&. With this option, all objects will be created in whichever tablespace is the default during restore\&.
+.RE
+.PP
+\fB\-\-restrict\-key=\fR\fB\fIrestrict_key\fR\fR
+.RS 4
+Use the provided string as the
+psql
+\fB\erestrict\fR
+key in the dump output\&. This can only be specified for SQL script output, i\&.e\&., when the
+\fB\-\-file\fR
+option is used\&. If no restrict key is specified,
+pg_restore
+will generate a random one as needed\&. Keys may contain only alphanumeric characters\&.
+.sp
+This option is primarily intended for testing purposes and other scenarios that require repeatable output (e\&.g\&., comparing dump files)\&. It is not recommended for general use, as a malicious server with advance knowledge of the key may be able to inject arbitrary code that will be executed on the machine that runs
+psql
+with the dump output\&.
 .RE
 .PP
 \fB\-\-section=\fR\fB\fIsectionname\fR\fR

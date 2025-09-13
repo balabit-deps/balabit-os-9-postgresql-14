@@ -3,11 +3,11 @@
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
 .\"      Date: 2025
-.\"    Manual: PostgreSQL 14.18 Documentation
-.\"    Source: PostgreSQL 14.18
+.\"    Manual: PostgreSQL 14.19 Documentation
+.\"    Source: PostgreSQL 14.19
 .\"  Language: English
 .\"
-.TH "PG_UPGRADE" "1" "2025" "PostgreSQL 14.18" "PostgreSQL 14.18 Documentation"
+.TH "PG_UPGRADE" "1" "2025" "PostgreSQL 14.19" "PostgreSQL 14.19 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -54,6 +54,22 @@ pg_upgrade\&.
 .PP
 pg_upgrade supports upgrades from 9\&.0\&.X and later to the current major release of
 PostgreSQL, including snapshot and beta releases\&.
+.if n \{\
+.sp
+.\}
+.RS 4
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBWarning\fR
+.ps -1
+.br
+.PP
+Upgrading a cluster causes the destination to execute arbitrary code of the source superusers\*(Aq choice\&. Ensure that the source superusers are trusted before upgrading\&.
+.sp .5v
+.RE
 .SH "OPTIONS"
 .PP
 pg_upgrade
