@@ -1,3 +1,29 @@
+postgresql-14 (14.20-0ubuntu0.22.04.1) jammy; urgency=medium
+
+  A dump/restore is not required for those running 14.X.
+
+  However, if you are upgrading from a version earlier than 14.19, see
+  those release notes as well please.
+
+  Check for CREATE privileges on the schema in CREATE STATISTICS (Jelte
+  Fennema-Nio)
+
+  This omission allowed table owners to create statistics in any schema,
+  potentially leading to unexpected naming conflicts. (CVE-2025-12817)
+
+  Avoid integer overflow in allocation-size calculations within libpq
+  (Jacob Champion)
+
+  Several places in libpq were not sufficiently careful about computing
+  the required size of a memory allocation. Sufficiently large inputs
+  could cause integer overflow, resulting in an undersized buffer, which
+  would then lead to writing past the end of the buffer. (CVE-2025-12818)
+
+  Details about these and many further changes can be found at:
+  https://www.postgresql.org/docs/14/release-14-20.html.
+
+ -- Athos Ribeiro <athos@ubuntu.com>  Mon, 24 Nov 2025 10:36:29 -0300
+
 postgresql-14 (14.19-0ubuntu0.22.04.1) jammy; urgency=medium
 
   A dump/restore is not required for those running 14.X.
