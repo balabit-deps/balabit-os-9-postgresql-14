@@ -2,12 +2,12 @@
 .\"     Title: CREATE PUBLICATION
 .\"    Author: The PostgreSQL Global Development Group
 .\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
-.\"      Date: 2025
-.\"    Manual: PostgreSQL 14.20 Documentation
-.\"    Source: PostgreSQL 14.20
+.\"      Date: 2026
+.\"    Manual: PostgreSQL 14.22 Documentation
+.\"    Source: PostgreSQL 14.22
 .\"  Language: English
 .\"
-.TH "CREATE PUBLICATION" "7" "2025" "PostgreSQL 14.20" "PostgreSQL 14.20 Documentation"
+.TH "CREATE PUBLICATION" "7" "2026" "PostgreSQL 14.22" "PostgreSQL 14.22 Documentation"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -88,7 +88,10 @@ truncate\&. The default is to publish all actions, and so the default value for 
 .PP
 publish_via_partition_root (boolean)
 .RS 4
-This parameter determines whether changes in a partitioned table (or on its partitions) contained in the publication will be published using the identity and schema of the partitioned table rather than that of the individual partitions that are actually changed; the latter is the default\&. Enabling this allows the changes to be replicated into a non\-partitioned table or a partitioned table consisting of a different set of partitions\&.
+This parameter controls how changes to a partitioned table (or any of its partitions) are published\&. When set to
+true, changes are published using the identity and schema of the root partitioned table\&. When set to
+false
+(the default), changes are published using the identity and schema of the individual partitions where the changes actually occurred\&. Enabling this option allows the changes to be replicated into a non\-partitioned table or into a partitioned table whose partition structure differs from that of the publisher\&.
 .sp
 If this is enabled,
 TRUNCATE

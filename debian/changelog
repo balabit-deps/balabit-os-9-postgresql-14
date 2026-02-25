@@ -1,3 +1,59 @@
+postgresql-14 (14.22-0ubuntu0.22.04.1) jammy-security; urgency=medium
+
+  * New upstream version (LP: #2127668).
+
+    + This release encompasses changes from upstream's 14.21 and 14.22
+      releases. The former contains fixes for 4 CVEs (among other things), and
+      the latter was a hotfix for regressions introcuced in 14.21.
+
+    + A dump/restore is not required for those running 14.X.
+
+    + However, if you are upgrading from a version earlier than 14.19, see
+      those release notes as well please.
+
+    + Guard against unexpected dimensions of oidvector/int2vector (Tom Lane)
+
+      These data types are expected to be 1-dimensional arrays containing no
+      nulls, but there are cast pathways that permit violating those
+      expectations. Add checks to some functions that were depending on those
+      expectations without verifying them, and could misbehave in consequence.
+      (CVE-2026-2003)
+
+    + Harden selectivity estimators against being attached to operators that
+      accept unexpected data types (Tom Lane)
+
+      contrib/intarray contained a selectivity estimation function that could
+      be abused for arbitrary code execution, because it did not check that
+      its input was of the expected data type. Third-party extensions should
+      check for similar hazards and add defenses using the technique intarray
+      now uses. Since such extension fixes will take time, we now require
+      superuser privilege to attach a non-built-in selectivity estimator to an
+      operator. (CVE-2026-2004)
+
+    + Fix buffer overrun in contrib/pgcrypto's PGP decryption functions
+      (Michael Paquier)
+
+      Decrypting a crafted message with an overlength session key caused a
+      buffer overrun, with consequences as bad as arbitrary code execution.
+      (CVE-2026-2005)
+
+    + Fix inadequate validation of multibyte character lengths (Thomas Munro,
+      Noah Misch)
+
+      Assorted bugs allowed an attacker able to issue crafted SQL to overrun
+      string buffers, with consequences as bad as arbitrary code execution.
+      After these fixes, applications may observe “invalid byte sequence for
+      encoding” errors when string functions process invalid text that has
+      been stored in the database. (CVE-2026-2006)
+
+    + Details about these and many further changes can be found at:
+      https://www.postgresql.org/docs/14/release-14-21.html and
+      https://www.postgresql.org/docs/14/release-14-22.html.
+
+  * d/postgresql-14.NEWS: Update.
+
+ -- Athos Ribeiro <athos@ubuntu.com>  Wed, 25 Feb 2026 11:13:13 -0300
+
 postgresql-14 (14.20-0ubuntu0.22.04.1) jammy-security; urgency=medium
 
   * New upstream version (LP: #2127667).
